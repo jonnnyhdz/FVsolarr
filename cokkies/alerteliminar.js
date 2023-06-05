@@ -1,0 +1,1 @@
+swal("Hello world!");
