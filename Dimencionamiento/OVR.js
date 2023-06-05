@@ -7,6 +7,8 @@ function guardar() {
     var proyect = document.getElementById("proyecto").value;  
     var ubi = document.getElementById("ubi").value; 
     var idproyecto = idProyecto;
+    var receivedNunServicio = NunServicio;
+
 
     var parametros2 = { 
         "id": id_seleccionado,
@@ -14,6 +16,7 @@ function guardar() {
         "pro": proyect,
         "id_proyecto":idproyecto,
         "ubi" : ubi,
+        'NunServicio': receivedNunServicio
     };
 
 

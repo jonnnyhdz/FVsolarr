@@ -5,6 +5,8 @@ include("../BD/conec.php");
 
 $id_proyecto = $_POST["id_proyecto"];
 
+$NunServicio = $_POST["NunServicio"];
+
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;
 
 $HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 0;
@@ -13,18 +15,26 @@ $nombreP = isset($_POST["pro"]) ? $_POST["pro"] : 0;
 
 $ubi = isset($_POST["ubi"]) ? $_POST["ubi"] : 0;
 
-
+var_dump($NunServicio);
 
 $factorPerdida = 0.77;
 
 $EnergiaTotal = 0;
 
-$resultados = mysqli_query($conexion, "SELECT * FROM facturas WHERE Id_proyecto = '$id_proyecto'");
+$query = "SELECT * FROM facturas WHERE Id_proyecto = ? AND no_servicio = ?";
+$stmt = mysqli_prepare($conexion, $query);
+mysqli_stmt_bind_param($stmt, "ii", $id_proyecto, $NunServicio);
+mysqli_stmt_execute($stmt);
+$resultados = mysqli_stmt_get_result($stmt);
+
+$EnergiaTotal = 0;
+
 while ($consulta = mysqli_fetch_array($resultados)) {
-
-    $EnergiaTotal = $consulta['kwh'] + $EnergiaTotal;
-
+    $EnergiaTotal += $consulta['kwh'];
 }
+
+mysqli_stmt_close($stmt);
+
 
 //CONSULTAR
 $resultados = mysqli_query($conexion, "SELECT * FROM ModulosFV WHERE ID_MFV = '$id_seleccionado'");

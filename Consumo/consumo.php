@@ -22,6 +22,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $usuario = mysqli_fetch_assoc($resultado);
 
     // Acceder a los campos específicos del usuario
+    
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
 
@@ -311,10 +312,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                 while ($row = mysqli_fetch_assoc($resultado1)) {
                     $servicio = $row['no_servicio'];
+                    
                 ?>
 
                     <div class="col-sm-10 col-xl-10">
-                        <form action="#" method="post">
+                        <form action="validar_consumo.php" method="post">
                             <input type="hidden" name="id_consumo" value="<?php echo $servicio; ?>">
                             <button class="btn btn-outline-primary w-100 m-2" type="submit"><?php echo $row['no_servicio']; ?></button>
                         </form>

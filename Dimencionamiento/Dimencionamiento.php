@@ -7,6 +7,7 @@ session_start();
 
 $id_usuario = $_SESSION['id_usuario'];
 
+$NunServicio =  $_SESSION['id_consumo'];
 
 
 // Verificar si la sesión está activa
@@ -221,6 +222,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             include("../BD/conec.php"); //Conexión a la Base de Datos//
 
                             echo "<script> var idProyecto = $idproyecto;</script>";
+                            echo "<script> var NunServicio = " . json_encode($NunServicio) . ";</script>";
                             $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
                             $resultado = mysqli_query($conexion, $consulta);
                             $fila = mysqli_fetch_array($resultado);
