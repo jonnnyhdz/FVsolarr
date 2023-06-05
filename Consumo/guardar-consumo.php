@@ -1,15 +1,10 @@
 <?php
 include "../BD/conec.php";
 
-
 session_start();
-
 
 $idproyecto = $_SESSION['ID_PROYECTO'];
 $_SESSION['ID_PROYECTO'] = $idproyecto;
-
-
-var_dump($idproyecto);
 
 // Obtener los datos del formulario
 $numeroServicio = $_POST['numeroServicio'];
@@ -22,9 +17,7 @@ $sql = "INSERT INTO facturas (no_servicio, fecha_facturacion, mes, mes2, kwh, kw
 
 if ($tipoTarifa === "mensual") {
     for ($i = 0; $i < 12; $i++) {
-        $mesActual = getMonthName($fechaFacturacion->format('n') - 1) . ' ' . $fechaFacturacion->format('Y');
-        $fechaTexto = $mesActual;
-        $fechaFacturacion->modify('-1 month');
+        $mesActual = $fechaFacturacion->format('Y-m-d');
 
         $kwh = $_POST['kwh'][$i];
         $kw = '';
@@ -42,23 +35,38 @@ if ($tipoTarifa === "mensual") {
             $fp = $_POST['fp'][$i];
         }
 
-        $sql .= "('$numeroServicio', '".$fechaFacturacion->format('Y-m-d')."', '$mesActual', '', '$kwh', '$kw', '$fp','$idproyecto'),";
-       
+        $sql .= "('$numeroServicio', '".$fechaFacturacion->format('Y-m-d')."','$mesActual', '', '$kwh', '$kw', '$fp','$idproyecto'),";
+
+        // Restar 1 mes a la fecha de facturación para la siguiente iteración
+        $fechaFacturacion = date_sub($fechaFacturacion, date_interval_create_from_date_string('1 month'));
     }
-} else if ($tipoTarifa === "bimensual") {
+}else  if ($tipoTarifa === "bimensual") {
+    $mesActual = intval($fechaFacturacion->format('n')); // Obtener el número del mes actual
+    $diaFacturacion = intval($fechaFacturacion->format('d')); // Obtener el día de la fecha de facturación
+    
     for ($i = 0; $i < 6; $i++) {
-        $mesActual = getMonthName($fechaFacturacion->format('n') - 1) . ' ' . $fechaFacturacion->format('Y');
-        $fechaFacturacion->modify('-2 month');
-        $mesAnterior = getMonthName($fechaFacturacion->format('n') - 1) . ' ' . $fechaFacturacion->format('Y');
-
-        $fechaTexto = $mesAnterior . ' - ' . $mesActual;
-
+        // Restar 2 meses al mes actual para obtener el mes anterior
+        $mesAnterior = ($mesActual - 2) <= 0 ? ($mesActual - 2 + 12) : ($mesActual - 2);
+        
         $kwh = $_POST['kwh'][$i];
         $kw = $_POST['kw'][$i];
         $fp = $_POST['fp'][$i];
 
-        $sql .= "('$numeroServicio', '".$fechaFacturacion->format('Y-m-d')."', '$mesAnterior', '$mesActual', '$kwh', '$kw', '$fp','$idproyecto'),";
-        
+        // Obtener el año correspondiente al mes anterior y al mes actual
+        $anioMesAnterior = $mesAnterior > $mesActual ? $fechaFacturacion->format('Y') - 1 : $fechaFacturacion->format('Y');
+        $anioMesActual = $fechaFacturacion->format('Y');
+
+        // Formatear el mes anterior y el mes actual en el formato "0000-00-00"
+        $mesAnteriorFormatted = $anioMesAnterior . '-' . str_pad($mesAnterior, 2, '0', STR_PAD_LEFT) . '-' . $diaFacturacion;
+        $mesActualFormatted = $anioMesActual . '-' . str_pad($mesActual, 2, '0', STR_PAD_LEFT) . '-' . $diaFacturacion;
+
+        $sql .= "('$numeroServicio', '".$fechaFacturacion->format('Y-m-d')."', '$mesAnteriorFormatted', '$mesActualFormatted', '$kwh', '$kw', '$fp','$idproyecto'),";
+
+        // Actualizar los valores de mes anterior y mes actual para la próxima iteración
+        $mesActual = $mesAnterior;
+
+        // Restar 2 meses a la fecha de facturación para la siguiente iteración
+        $fechaFacturacion = date_sub($fechaFacturacion, date_interval_create_from_date_string('2 months'));
     }
 }
 
@@ -81,13 +89,4 @@ header("Location: ../Dimencionamiento/Dimencionamiento.php");
 
 exit();
 
-// Obtener nombre del mes en español
-function getMonthName($monthIndex) {
-  $meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-  ];
-
-  return $meses[$monthIndex];
-}
 ?>

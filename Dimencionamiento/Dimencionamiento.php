@@ -323,7 +323,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="row g-4">
                                             <div class="col-sm-12 col-xl-6">
                                                 <div class="bg-secondary text-center rounded p-4">
-                                                    <label for="cantidad">Cantidad de inversores diferentes:</label>
+                                                    <label for="cantidad">Cantidad de módulos:</label>
                                                     <select class="form-control border-0 rounded-pill  my-2" id="cantidad" name="cantidad_inversores" onclick="OInversor()">
                                                         <?php for ($i = 0; $i <= 10; $i++) { ?>
                                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -334,10 +334,10 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <div class="col-sm-12 col-xl-6">
                                                 <div class="bg-secondary text-center rounded p-4">
                                                     <label for="inversores">Inversores:</label>
-                                                    <select class="form-control border-0 rounded-pill  my-2" id="inversores" name="inversores" onclick="OInversor()">
+                                                    <select  class="form-control border-0 rounded-pill  my-2" id="inversores" name="inversores" onclick="OInversor()">
                                                         <option value="diferentes">Diferentes</option>
                                                         <option value="mismo">Los mismos</option>
-
+                                                        <button value="guardar">Guardar</button>
                                                     </select>
                                                 </div>
                                             </div>
@@ -356,7 +356,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                     <div class="bg-secondary text-center rounded p-4">
                                                                         <div class="d-flex align-items-center justify-content-between mb-4">
                                                                             <label for="marca_<?php echo $i; ?>">Marca/Modelo de Inversor <?php echo $i; ?>:</label>
-                                                                            <select class="form-control border-0 rounded-pill  my-2" name="marca_<?php echo $i; ?>" id="marca_<?php echo $i; ?>_modelo">
+                                                                            <select  class="form-control border-0 rounded-pill  my-2" name="marca_<?php echo $i; ?>" id="marca_<?php echo $i; ?>_modelo" class="">
                                                                                 <?php
                                                                                 include('../BD/conec.php');
                                                                                 $consulta2 = "SELECT * FROM inversores";
@@ -366,7 +366,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                                     <option value="<?php echo $fila2["id_inversor"] ?>">
                                                                                         <?php echo $fila2["Marca"] ?>
                                                                                         <?php echo $fila2["Modelo"] ?>
-                                                                                        <?php echo $fila2["Max_potencia_FV_recomendada"] ?>
                                                                                     </option>
                                                                                 <?php } ?>
                                                                             </select>
@@ -377,7 +376,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                     <div class="bg-secondary text-center rounded p-4">
                                                                         <div class="d-flex align-items-center justify-content-between mb-4">
                                                                             <label class="mt-3" for="marca_<?php echo $i; ?>">Cantidad de Inversor <?php echo $i; ?>:</label>
-                                                                            <input class="form-control border-0 rounded-pill  my-2" type="number" name="cantidad_<?php echo $i; ?>"  required >
+                                                                            <input   class="form-control border-0 rounded-pill  my-2" class="form-control " type="number" name="cantidad_<?php echo $i; ?>">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -392,12 +391,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     <!-- fin contenedor  -->
                                 </div>
                                 <!-- Agrega un botón para enviar los valores seleccionados mediante una petición AJAX -->
-                                <button class="btn btn-info rounded-pill mt-4 m-2" value="guardar" onclick="guardarDatos()">Guardar</button>
+                                <button class="btn btn-info rounded-pill mt-4 m-2" value="guardar">Guardar</button>
                             </form>
-                            <script>
-                                
-                                
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -472,7 +467,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     'Your file has been deleted.',
                                                     'success'
                                                 );
-
                                                 // Retrasar la redirección después de 2 segundos
                                                 setTimeout(function() {
                                                     window.location.href = 'GuardarD/Eliminar.php?ID_ESCOGIDO=' + id;
