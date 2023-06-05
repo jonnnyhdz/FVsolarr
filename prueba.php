@@ -27,7 +27,7 @@
                     <h3 class="card-title">Detalles del proyecto</h3>
                     <div class="card-body">
                         <div class="form-group centered-input">
-                            <label for="nombreProyecto">Nombre del proyecto</label>
+                            <label for="nombreProyecto">Nombre del gg</label>
                             <input type="text" class="form-control" id="proyecto" name="nameproyecto" oninput="guardar()" value="<?php echo $fila["NOMBRE_PROYECTO"] ?>">
                         </div>
                         <div class="form-group centered-input">
