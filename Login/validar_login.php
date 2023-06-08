@@ -21,8 +21,7 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
 
-            // Redirigir a la página de inicio después del inicio de sesión exitoso /* echo '<script> window.location.href="../Proyecto/Proyecto.php";</script>'; muy mal de utilzar   */
-            header('Location: ../Proyecto/Proyecto.php');
+            header('Location: http://localhost/UL-SOLAR/Proyecto/Proyecto.php', true, 301);
             exit();
         } else {
             // Contraseña incorrecta

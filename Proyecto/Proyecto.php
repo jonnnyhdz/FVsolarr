@@ -199,13 +199,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 </nav>
                 <!-- Navbar End -->
                 <!-- crear proyect start -->
-                <form method="POST" action="guardarProyecto.php"> <!-- action="guardarProyecto.php" -->
+                <!-- crear proyect start -->
+                <!-- crear proyect start -->
+                <form method="POST" action="" id="formCrearProyecto">
+                    <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
                     <div class="mt-2 m-3">
-                        <button value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2">
+                        <button value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2" onclick="guardarnombre(event)">
                             Crear Proyecto
                         </button>
                     </div>
                 </form>
+
                 <!-- crear proyect End-->
                 <!-- Muestra proyecto star -->
 
@@ -279,7 +283,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                 // Retrasar la redirección después de 2 segundos
                                 setTimeout(function() {
-                                    window.location.href = '#' + id;
+                                    window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
                                 }, 2000);
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 swalWithBootstrapButtons.fire(
@@ -287,6 +291,43 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     'Tu archivo está seguro :)',
                                     'error'
                                 );
+                            }
+                        });
+                    }
+
+                    function guardarnombre(event) {
+                        event.preventDefault(); // Detener el envío del formulario
+                        event.stopPropagation(); // Detener la propagación del evento
+
+                        Swal.fire({
+                            title: 'Inserta el nombre de tu proyecto',
+                            input: 'text',
+                            inputAttributes: {
+                                autocapitalize: 'off'
+                            },
+                            showCancelButton: true,
+                            confirmButtonText: 'Guardar',
+                            cancelButtonText: 'Cancelar',
+                            showLoaderOnConfirm: true,
+                            preConfirm: (nombre) => {
+                                if (nombre.trim() === '') {
+                                    Swal.showValidationMessage('Por favor, ingresa un nombre válido');
+                                } else {
+                                    return nombre;
+                                }
+                            },
+                            allowOutsideClick: () => !Swal.isLoading()
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                const nombreProyecto = result.value;
+                                const form = document.getElementById('formCrearProyecto');
+                                form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
+                                const inputNombre = document.createElement('input');
+                                inputNombre.type = 'hidden';
+                                inputNombre.name = 'nombreProyecto';
+                                inputNombre.value = nombreProyecto;
+                                form.appendChild(inputNombre);
+                                form.submit();
                             }
                         });
                     }

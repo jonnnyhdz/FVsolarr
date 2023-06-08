@@ -12,7 +12,9 @@ if (isset($_SESSION['ID_PROYECTO'])) {
     
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
+    //header("Location: ../DimencionamientoT/Principal.php");
     header("Location: ../Consumo/Consumo.php");
+
 
     // Realizar las acciones necesarias con el ID del proyecto
     // ...
@@ -20,6 +22,7 @@ if (isset($_SESSION['ID_PROYECTO'])) {
 } else {
 
     header("Location: ../Proyecto/Proyecto.php");
+    
 
     // La variable de sesión 'ID_PROYECTO' no está definida
     // Manejar el caso en consecuencia

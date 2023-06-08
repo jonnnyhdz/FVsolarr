@@ -325,7 +325,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="row g-4">
                                             <div class="col-sm-12 col-xl-6">
                                                 <div class="bg-secondary text-center rounded p-4">
-                                                    <label for="cantidad">Cantidad de módulos:</label>
+                                                    <label for="cantidad"> Cantidad de Inversores Totales: </label>
                                                     <select class="form-control border-0 rounded-pill  my-2" id="cantidad" name="cantidad_inversores" onclick="OInversor()">
                                                         <?php for ($i = 0; $i <= 10; $i++) { ?>
                                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>

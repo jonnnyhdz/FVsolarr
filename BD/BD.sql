@@ -170,7 +170,7 @@ CREATE TABLE facturas (
 ALTER TABLE facturas
 ADD FOREIGN KEY (Id_proyecto) REFERENCES proyectos (ID_PROYECTO);
 
-CREATE TABLE cables (
+CREATE TABLE Tabla1 (
     id_cables INT NOT NULL AUTO_INCREMENT,
     tepmin VARCHAR(10),
     AWG VARCHAR(10),
@@ -180,7 +180,7 @@ CREATE TABLE cables (
 );
 
 
-INSERT INTO cables (id_cables, tepmin, AWG, medida, tepmax)
+INSERT INTO Tabla1 (id_cables, tepmin, AWG, medida, tepmax)
 VALUES
     (1, '-', '18', '0.82', '14.00'),
     (2, '-', '16', '1.31', '18.00'),

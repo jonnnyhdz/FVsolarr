@@ -85,7 +85,7 @@ if ($conexion->query($sql) === TRUE) {
 $conexion->close();
 
 // Redirigir al usuario a una página de éxito o a donde desees
-header("Location: ../Dimencionamiento/Dimencionamiento.php");
+header("Location: ..Consumo.php");
 
 exit();
 
