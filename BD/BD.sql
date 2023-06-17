@@ -1,4 +1,4 @@
-Hola
+
 use  ulsolar;
 
 CREATE TABLE usuarios (
