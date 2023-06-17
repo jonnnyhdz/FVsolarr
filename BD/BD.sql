@@ -170,17 +170,20 @@ CREATE TABLE facturas (
 ALTER TABLE facturas
 ADD FOREIGN KEY (Id_proyecto) REFERENCES proyectos (ID_PROYECTO);
 
-CREATE TABLE Tabla1 (
+
+/* tablas nom son nuevas */
+
+CREATE TABLE TablaAmpacidad (
     id_cables INT NOT NULL AUTO_INCREMENT,
-    tepmin VARCHAR(10),
-    AWG VARCHAR(10),
-    medida DECIMAL(5, 2),
-    tepmax DECIMAL(5, 2),
+    Tem_maxima1 VARCHAR(10),
+    calibre VARCHAR(10),
+    Area DECIMAL(5, 2),
+    Tem_maxima2 DECIMAL(5, 2),
     PRIMARY KEY (id_cables)
 );
 
 
-INSERT INTO Tabla1 (id_cables, tepmin, AWG, medida, tepmax)
+INSERT INTO TablaAmpacidad (id_cables, Tem_maxima1, Tem_maxima1, Area, Tem_maxima2)
 VALUES
     (1, '-', '18', '0.82', '14.00'),
     (2, '-', '16', '1.31', '18.00'),
@@ -203,4 +206,145 @@ VALUES
     (19, '311 y 335', '400', '203.00', '380.00'),
     (20, '336 y 380', '500', '253.00', '430.00'),
     (21, '381 y 420', '600', '304.00', '475.00');
+
+CREATE TABLE tablafactores_tem (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  temperatura_ambiente DECIMAL(5, 2),
+  rango_60 DECIMAL(4, 2),
+  rango_75 DECIMAL(4, 2),
+  rango_90 DECIMAL(4, 2)
+);
+
+INSERT INTO tablafactores_tem (temperatura_ambiente, rango_60, rango_75, rango_90)
+VALUES
+  (0, 1.29, 1.20, 1.15),
+  (11, 1.22, 1.15, 1.12),
+  (16, 1.15, 1.11, 1.08),
+  (21, 1.08, 1.05, 1.04),
+  (26, 1.00, 1.00, 1.00),
+  (31, 0.91, 0.94, 0.96),
+  (36, 0.82, 0.88, 0.91),
+  (41, 0.71, 0.82, 0.87),
+  (46, 0.58, 0.75, 0.82),
+  (51, 0.41, 0.67, 0.76),
+  (56, NULL, 0.58, 0.71),
+  (61, NULL, 0.47, 0.65),
+  (66, NULL, 0.33, 0.58),
+  (71, NULL, NULL, 0.50),
+  (76, NULL, NULL, 0.41),
+  (81, NULL, NULL, 0.29);
+
+
+CREATE TABLE tabla_conductores (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  conductores VARCHAR(10),
+  porcentaje DECIMAL(3, 2)
+);
+
+INSERT INTO tabla_conductores (conductores, porcentaje)
+VALUES
+  ('1 y 3', 1.00),
+  ('4 y 6', 0.80),
+  ('7 y 9', 0.70),
+  ('10 y 20', 0.50),
+  ('21 y 30', 0.45),
+  ('31 y 40', 0.40),
+  ('41 y mas', 0.35);
+
+CREATE TABLE tabla_articulos242 (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  designacion_metrica VARCHAR(10),
+  tamano_comercial VARCHAR(10),
+  diametro_interno DECIMAL(6, 2),
+  area_total_100 DECIMAL(8, 2),
+  area_total_60 DECIMAL(8, 2),
+  conductor_fr_53 DECIMAL(8, 2),
+  conductores_fr_31 DECIMAL(8, 2),
+  conductores_fr_40 DECIMAL(8, 2)
+);
+
+INSERT INTO tabla_articulos242 (designacion_metrica, tamano_comercial, diametro_interno, area_total_100, area_total_60, conductor_fr_53, conductores_fr_31, conductores_fr_40)
+VALUES
+  ('12', '⅜', NULL, NULL, NULL, NULL, NULL, NULL),
+  ('16', '½', 16.80, 222, 133, 117, 69, 0),
+  ('21', '¾', 21.90, 377, 226, 200, 117, 90),
+  ('27', '1', 28.10, 620, 372, 329, 192, 152),
+  ('35', '1 ¼', 36.80, 1064, 638, 564, 330, 249),
+  ('41', '1 ½', 42.70, 1432, 859, 759, 444, 426),
+  ('53', '2', 54.60, 2341, 1405, 1241, 726, 574),
+  ('63', '2 ½', 64.90, 3308, 1985, 1753, 1026, 938),
+  ('78', '3', 80.70, 5115, 3069, 2711, 1586, 1324),
+  ('91', '3 ½', 93.20, 6822, 4093, 3616, 2115, 2047),
+  ('103', '4', 105.40, 8725, 5235, 4624, 2705, 2730);
+
+
+CREATE TABLE tabla_cable_desnudo (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  calibre VARCHAR(10),
+  diametro DECIMAL(6, 2),
+  area DECIMAL(6, 2),
+  construccion INT
+);
+
+INSERT INTO tabla_cable_desnudo (calibre, diametro, area, construccion)
+VALUES
+  ('14', 1.87, 2.08, 19),
+  ('12', 2.36, 3.31, 19),
+  ('10', 2.97, 5.26, 19),
+  ('8', 3.75, 8.37, 19),
+  ('6', 4.72, 13.3, 19),
+  ('4', 5.96, 21.2, 19),
+  ('2', 7.51, 33.6, 19),
+  ('1/0', 9.47, 53.5, 19),
+  ('2/0', 10.63, 67.4, 19),
+  ('3/0', 11.94, 85, 19),
+  ('4/0', 13.4, 107, 19),
+  ('250', 14.62, 127, 37),
+  ('300', 16.01, 152, 37),
+  ('350', 17.29, 177, 37),
+  ('400', 18.49, 203, 37),
+  ('500', 20.67, 253, 37);
+
+
+  CREATE TABLE tabla_tamano_conductores (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  amperaje VARCHAR(10),
+  tamano_awg VARCHAR(10),
+  tamano_mm2 DECIMAL(6, 2)
+);
+
+INSERT INTO tabla_tamano_conductores (amperaje, tamano_awg, tamano_mm2)
+VALUES
+  ('15 y 19', '14.00', 2.08),
+  ('20 y 59', '12.00', 3.31),
+  ('60 y 99', '10.00', 5.26),
+  ('100 y 199', '8.00', 8.37),
+  ('200 y 299', '6.00', 13.30),
+  ('300 y 399', '4.00', 21.20),
+  ('400 y 499', '3.00', 26.70),
+  ('500 y 599', '2.00', 33.60),
+  ('600 y 799', '1.00', 42.40),
+  ('800 y 999', '1/0', 53.50),
+  ('1000 y 1199', '2/0', 67.40),
+  ('1200 y 1599', '3/0', 85.00),
+  ('1600 y 1999', '4/0', 107.00),
+  ('2000 y 2450', '250.00', 127.00),
+  ('2500 y 10000', '350.00', 177.00);
+
+CREATE TABLE tabla_cable_fotovoltaico (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  calibre_awg INT,
+  diametro_exterior DECIMAL(6, 2),
+  resistencia_conductor DECIMAL(6, 3),
+  ampacidad INT
+);
+
+INSERT INTO tabla_cable_fotovoltaico (calibre_awg, diametro_exterior, resistencia_conductor, ampacidad)
+VALUES
+  (4, 11.95, 0.882, 145),
+  (6, 9.82, 1.403, 110),
+  (8, 8.05, 2.23, 80),
+  (10, 6.82, 3.546, 60),
+  (12, 6.2, 5.64, 45),
+  (14, 5.69, 8.96, 35);
 

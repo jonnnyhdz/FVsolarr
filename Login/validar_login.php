@@ -20,8 +20,11 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
             $_SESSION['id_usuario'] = $usuario['id'];
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
+            echo ('exitoso');
 
-            header('Location: http://localhost/UL-SOLAR/Proyecto/Proyecto.php', true, 301);
+            header ('Location: ../Proyecto/Proyecto.php', true, 301);
+            /* http://localhost/UL-SOLAR/ */
+            
             exit();
         } else {
             // Contraseña incorrecta

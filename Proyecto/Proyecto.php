@@ -4,7 +4,6 @@ include("../BD/conec.php");
 
 session_start();
 
-
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
     // Redirigir a la página de inicio de sesión si no se ha iniciado sesión
@@ -30,6 +29,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
     $id_usuario = $_SESSION['id_usuario'];
 
+    $imagen = $usuario['imagen'];
+
     // Mostrar los datos del usuario dentro del contenido HTML
 ?>
 
@@ -41,314 +42,707 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <meta charset="utf-8">
         <title> FVSolar</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
 
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link href="../Estilos_admi//theme.css" rel="stylesheet" media="all">
+        <link href="../Estilos_admi/font-face.css" rel="stylesheet" media="all">
+        <link href="../vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+        <!-- Bootstrap CSS-->
+        <link href="../vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-        <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Vendor CSS-->
+        <link href="../vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/wow/animate.css" rel="stylesheet" media="all">
+        <link href="../vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/slick/slick.css" rel="stylesheet" media="all">
+        <link href="../vendor/select2/select2.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <link rel="stylesheet" href="../css/toggle.css">
-        <link id="theme" rel="stylesheet" href="../css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link id="style" rel="stylesheet" href="../css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tu-codigo-de-integridad..." crossorigin="anonymous" />
-        <script src="../js/day.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
-        <div class="container-fluid position-relative d-flex p-0">
-            <!-- Spinner Start -->
-            <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="sr-only">Loading...</span>
+
+        <div class="page-wrapper">
+
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop3 d-none d-lg-block">
+                <div class="section__content section__content--p35">
+                    <div class="header3-wrap">
+                        <div class="header__logo">
+                            <a href="#">
+                                <!-- LOGO -->
+                                <img src="../img/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="header__navbar">
+                            <ul class="list-unstyled">
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                                        <span class="bot-line"></span>
+                                    </a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="#">Dashboard</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span class="bot-line"></span>eCommerce</a>
+                                </li>
+                                <li>
+                                    <a href="table.html">
+                                        <i class="fas fa-trophy"></i>
+                                        <span class="bot-line"></span>Features</a>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-copy"></i>
+                                        <span class="bot-line"></span> Administrador</a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="login.html">Login</a>
+                                        </li>
+                                        <li>
+                                            <a href="register.html">Register</a>
+                                        </li>
+                                        <li>
+                                            <a href="forget-pass.html">Forget Password</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-desktop"></i>
+                                        <span class="bot-line"></span>UI Elements</a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="button.html">Button</a>
+                                        </li>
+                                        <li>
+                                            <a href="badge.html">Badges</a>
+                                        </li>
+                                        <li>
+                                            <a href="tab.html">Tabs</a>
+                                        </li>
+                                        <li>
+                                            <a href="card.html">Cards</a>
+                                        </li>
+                                        <li>
+                                            <a href="alert.html">Alerts</a>
+                                        </li>
+                                        <li>
+                                            <a href="progress-bar.html">Progress Bars</a>
+                                        </li>
+                                        <li>
+                                            <a href="modal.html">Modals</a>
+                                        </li>
+                                        <li>
+                                            <a href="switch.html">Switchs</a>
+                                        </li>
+                                        <li>
+                                            <a href="grid.html">Grids</a>
+                                        </li>
+                                        <li>
+                                            <a href="fontawesome.html">FontAwesome</a>
+                                        </li>
+                                        <li>
+                                            <a href="typo.html">Typography</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="header__tool">       
+                          <div class="account-wrap">
+                                <div class="account-item account-item--style2 clearfix js-item-menu">
+                                    <div class="image">
+                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($imagen) . '" alt="Foto de perfil">'; ?>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($imagen) . '" alt="Foto de perfil">'; ?>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                                </h5>
+                                                <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="../setting/setting.php">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-globe"></i>Language</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- END HEADER DESKTOP-->
+
+            <!-- HEADER MOBILE-->
+            <header class="header-mobile header-mobile-2 d-block d-lg-none">
+                <div class="header-mobile__bar">
+                    <div class="container-fluid">
+                        <div class="header-mobile-inner">
+                            <a class="logo" href="index.html">
+                                <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                            </a>
+                            <button class="hamburger hamburger--slider" type="button">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar-mobile">
+                    <div class="container-fluid">
+                        <ul class="navbar-mobile__list list-unstyled">
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="index.html">Dashboard 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="index2.html">Dashboard 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="index3.html">Dashboard 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="index4.html">Dashboard 4</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="chart.html">
+                                    <i class="fas fa-chart-bar"></i>Charts</a>
+                            </li>
+                            <li>
+                                <a href="table.html">
+                                    <i class="fas fa-table"></i>Tables</a>
+                            </li>
+                            <li>
+                                <a href="form.html">
+                                    <i class="far fa-check-square"></i>Forms</a>
+                            </li>
+                            <li>
+                                <a href="calendar.html">
+                                    <i class="fas fa-calendar-alt"></i>Calendar</a>
+                            </li>
+                            <li>
+                                <a href="map.html">
+                                    <i class="fas fa-map-marker-alt"></i>Maps</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-copy"></i>Pages</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="login.html">Login</a>
+                                    </li>
+                                    <li>
+                                        <a href="register.html">Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="forget-pass.html">Forget Password</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-desktop"></i>UI Elements</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="button.html">Button</a>
+                                    </li>
+                                    <li>
+                                        <a href="badge.html">Badges</a>
+                                    </li>
+                                    <li>
+                                        <a href="tab.html">Tabs</a>
+                                    </li>
+                                    <li>
+                                        <a href="card.html">Cards</a>
+                                    </li>
+                                    <li>
+                                        <a href="alert.html">Alerts</a>
+                                    </li>
+                                    <li>
+                                        <a href="progress-bar.html">Progress Bars</a>
+                                    </li>
+                                    <li>
+                                        <a href="modal.html">Modals</a>
+                                    </li>
+                                    <li>
+                                        <a href="switch.html">Switchs</a>
+                                    </li>
+                                    <li>
+                                        <a href="grid.html">Grids</a>
+                                    </li>
+                                    <li>
+                                        <a href="fontawesome.html">Fontawesome Icon</a>
+                                    </li>
+                                    <li>
+                                        <a href="typo.html">Typography</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <div class="sub-header-mobile-2 d-block d-lg-none">
+                <div class="header__tool">
+                    <div class="header-button-item has-noti js-item-menu">
+                        <i class="zmdi zmdi-notifications"></i>
+                        <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
+                            <div class="notifi__title">
+                                <p>You have 3 Notifications</p>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c1 img-cir img-40">
+                                    <i class="zmdi zmdi-email-open"></i>
+                                </div>
+                                <div class="content">
+                                    <p>You got a email notification</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c2 img-cir img-40">
+                                    <i class="zmdi zmdi-account-box"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Your account has been blocked</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c3 img-cir img-40">
+                                    <i class="zmdi zmdi-file-text"></i>
+                                </div>
+                                <div class="content">
+                                    <p>You got a new file</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__footer">
+                                <a href="#">All notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-button-item js-item-menu">
+                        <i class="zmdi zmdi-settings"></i>
+                        <div class="setting-dropdown js-dropdown">
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-globe"></i>Language</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-pin"></i>Location</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-email"></i>Email</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-notifications"></i>Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="account-wrap">
+                        <div class="account-item account-item--style2 clearfix js-item-menu">
+                            <div class="image">
+                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                            </div>
+                            <div class="content">
+                                <a class="js-acc-btn" href="#">john doe</a>
+                            </div>
+                            <div class="account-dropdown js-dropdown">
+                                <div class="info clearfix">
+                                    <div class="image">
+                                        <a href="#">
+                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="name">
+                                            <a href="#">john doe</a>
+                                        </h5>
+                                        <span class="email">johndoe@example.com</span>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-settings"></i>Setting</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__footer">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-power"></i>Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Spinner End -->
+            <!-- END HEADER MOBILE -->
 
-            <!-- Sidebar Start -->
-            <div class="sidebar pe-4 pb-3">
-                <nav class="navbar bg-secondary navbar-dark">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"> <i class="bi bi-sun-fill"></i> FVSolar </h3>
-                    </a>
-                    <div class="d-flex align-items-center ms-4 mb-4">
-                        <div class="position-relative">
-                            <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0"><?php echo $_SESSION['correo'] ?></h6>
-                            <span>Admin</span>
-                        </div>
-                    </div>
-                    <div class="navbar-nav w-100 ">
-                        <a href="#" class="nav-item nav-link active"><i class="bi bi-house-door me-2"></i> Dashboard </a>
-                    </div>
-                </nav>
-            </div>
-
-            <!-- Sidebar End -->
-
-            <!-- Sidebar End -->
-            <div class="content">
-                <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4">
-                        <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                    </form>
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="navbar-nav align-items-center ms-auto">
-                            <label class="toggle">
-                                <input type="checkbox" id="toggleSwitch" onchange="changeTheme()" />
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
+            <!-- PAGE CONTENT-->
+            <div class="page-content--bgf7">
+                <!-- BREADCRUMB-->
+                <section class="au-breadcrumb2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="au-breadcrumb-content">
+                                    <div class="au-breadcrumb-left">
+                                        <span class="au-breadcrumb-span">You are here:</span>
+                                        <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                            <li class="list-inline-item active">
+                                                <a href="#">Home</a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/</span>
+                                            </li>
+                                            <li class="list-inline-item">Dashboard</li>
+                                        </ul>
                                     </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="../img/user.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Profile updated</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">New user added</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Password changed</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['correo'] ?></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
-                                <a href="../sesion/desconec.php" class="dropdown-item">Log Out</a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                <!-- Navbar End -->
-                <!-- crear proyect start -->
-                <!-- crear proyect start -->
-                <!-- crear proyect start -->
-                <form method="POST" action="" id="formCrearProyecto">
-                    <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
-                    <div class="mt-2 m-3">
-                        <button value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2" onclick="guardarnombre(event)">
-                            Crear Proyecto
-                        </button>
-                    </div>
-                </form>
-
-                <!-- crear proyect End-->
-                <!-- Muestra proyecto star -->
-
-                <?php
-                include("../BD/conec.php");
-
-                $consulta = "SELECT * FROM proyectos WHERE id_usuario = $id_usuario";
-                $resultado = mysqli_query($conexion, $consulta);
-
-
-                while ($fila = mysqli_fetch_array($resultado)) {
-
-
-                    $id_proyecto = $fila['ID_PROYECTO']; // Obtener el ID_PROYECTO de la fila actual
-                    // Guardar el ID_PROYECTO en la variable de sesión
-                    /*    $_SESSION['ID_PROYECTO'] = $id_proyecto;  */
-                    // Resto del código HTML
-                ?>
-
-                    <div class="container-fluid pt-4 px-4">
-                        <div class=" text-center rounded">
-                            <div class="row g-4">
-                                <div class="col-sm-10 col-xl-10">
-                                    <form action="validar_idproyecto.php" method="post">
-                                        <input type="hidden" name="id_proyecto" value="<?php echo $id_proyecto; ?>">
-                                        <button class="btn btn-outline-warning rounded-pill btn-lg btn-block w-100 m-1" type="submit"><?php echo $fila["NOMBRE_PROYECTO"]; ?></button>
+                                    <form class="au-form-icon--sm" action="" method="post">
+                                        <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
+                                        <button class="au-btn--submit2" type="submit">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
                                     </form>
                                 </div>
-                                <div class="col-sm-2 col-xl-2">
-                                    <button class="btn btn-danger rounded-pill m-2" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- END BREADCRUMB-->
+
+                <!-- WELCOME-->
+                <section class="welcome p-t-10">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="title-4">Welcome back
+                                    <span> <?php echo $_SESSION['nombre'] ?>!</span>
+                                </h1>
+                                <hr class="line-seprate">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- END WELCOME-->
+
+                <!-- DATA TABLE-->
+                <section class="p-t-20">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="title-5 m-b-35">data table</h3>
+                                <div class="table-data__tool">
+                                    <div class="table-data__tool-left">
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select class="js-select2" name="property">
+                                                <option selected="selected">All Properties</option>
+                                                <option value="">Option 1</option>
+                                                <option value="">Option 2</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <div class="rs-select2--light rs-select2--sm">
+                                            <select class="js-select2" name="time">
+                                                <option selected="selected">Today</option>
+                                                <option value="">3 Days</option>
+                                                <option value="">1 Week</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <button class="au-btn-filter">
+                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                    </div>
+                                    <div class="table-data__tool-right">
+                                        <form method="POST" action="" id="formCrearProyecto">
+                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small" value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2" onclick="guardarnombre(event)">
+                                                <i class="zmdi zmdi-plus"></i>add item</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="table-responsive table-responsive-data2">
+                                    <table class="table table-data2">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                                                </th>
+                                                <th>name</th>
+                                                <th>email</th>
+                                                <th>description</th>
+                                                <th>date</th>
+                                                <th>status</th>
+                                                <th>price</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <?php
+                                        include("../BD/conec.php");
+
+                                        $consulta = "SELECT * FROM proyectos WHERE id_usuario = $id_usuario";
+                                        $resultado = mysqli_query($conexion, $consulta);
+
+
+                                        while ($fila = mysqli_fetch_array($resultado)) {
+
+
+                                            $id_proyecto = $fila['ID_PROYECTO']; // Obtener el ID_PROYECTO de la fila actual
+                                            // Guardar el ID_PROYECTO en la variable de sesión
+                                            /*    $_SESSION['ID_PROYECTO'] = $id_proyecto;  */
+                                            // Resto del código HTML
+                                        ?>
+                                            <tbody>
+                                                <tr class="tr-shadow">
+                                                    <td>
+                                                        <label class="au-checkbox">
+                                                            <input type="checkbox">
+                                                            <span class="au-checkmark"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <form action="validar_idproyecto.php" method="post">
+                                                            <input type="hidden" name="id_proyecto" value="<?php echo $id_proyecto; ?>">
+                                                            <button type="submit"><?php echo $fila["NOMBRE_PROYECTO"]; ?></button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <span class="block-email">  <?php echo $_SESSION['correo'] ?>  </span>
+                                                    </td>
+                                                    <td class="desc">Samsung S8 Black</td>
+                                                    <td>2018-09-27 02:12</td>
+                                                    <td>
+                                                        <span class="status--process">Processed</span>
+                                                    </td>
+                                                    <td>$679.00</td>
+                                                    <td>
+                                                        <div class="table-data-feature">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
+                                                                <i class="zmdi zmdi-mail-send"></i>
+                                                            </button>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </button>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </button>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                                <i class="zmdi zmdi-more"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        <?php
+                                        }
+                                        ?>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
+                <!-- END DATA TABLE-->
 
-
-                <?php
-                }
-                ?>
-
-
-                <!-- muestra end -->
-
-                <script>
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-success m-2',
-                            cancelButton: 'btn btn-danger'
-                        },
-                        buttonsStyling: false
-                    });
-
-                    function eliminar(id) {
-                        swalWithBootstrapButtons.fire({
-                            title: '¿Estás seguro?',
-                            text: "¡No podrás revertir esto!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Sí, eliminarlo',
-                            cancelButtonText: 'No, cancelar',
-                            reverseButtons: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                swalWithBootstrapButtons.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                );
-
-                                // Retrasar la redirección después de 2 segundos
-                                setTimeout(function() {
-                                    window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
-                                }, 2000);
-                            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                swalWithBootstrapButtons.fire(
-                                    'Cancelado',
-                                    'Tu archivo está seguro :)',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-
-                    function guardarnombre(event) {
-                        event.preventDefault(); // Detener el envío del formulario
-                        event.stopPropagation(); // Detener la propagación del evento
-
-                        Swal.fire({
-                            title: 'Inserta el nombre de tu proyecto',
-                            input: 'text',
-                            inputAttributes: {
-                                autocapitalize: 'off'
-                            },
-                            showCancelButton: true,
-                            confirmButtonText: 'Guardar',
-                            cancelButtonText: 'Cancelar',
-                            showLoaderOnConfirm: true,
-                            preConfirm: (nombre) => {
-                                if (nombre.trim() === '') {
-                                    Swal.showValidationMessage('Por favor, ingresa un nombre válido');
-                                } else {
-                                    return nombre;
-                                }
-                            },
-                            allowOutsideClick: () => !Swal.isLoading()
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                const nombreProyecto = result.value;
-                                const form = document.getElementById('formCrearProyecto');
-                                form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
-                                const inputNombre = document.createElement('input');
-                                inputNombre.type = 'hidden';
-                                inputNombre.name = 'nombreProyecto';
-                                inputNombre.value = nombreProyecto;
-                                form.appendChild(inputNombre);
-                                form.submit();
-                            }
-                        });
-                    }
-                </script>
-
-
+                <!-- COPYRIGHT-->
+                <section class="p-t-60 p-b-20">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- END COPYRIGHT-->
             </div>
-        </div>
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/chart/chart.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="../js/main.js"></script>
+        </div>
+
+        <!-- muestra end -->
+
+        <script>
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success m-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+
+            function eliminar(id) {
+                swalWithBootstrapButtons.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminarlo',
+                    cancelButtonText: 'No, cancelar',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        );
+
+                        // Retrasar la redirección después de 2 segundos
+                        setTimeout(function() {
+                            window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
+                        }, 2000);
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelado',
+                            'Tu archivo está seguro :)',
+                            'error'
+                        );
+                    }
+                });
+            }
+
+            function guardarnombre(event) {
+                event.preventDefault(); // Detener el envío del formulario
+                event.stopPropagation(); // Detener la propagación del evento
+
+                Swal.fire({
+                    title: 'Nombre de tu proyecto',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+                    cancelButtonText: 'Cancelar',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (nombre) => {
+                        if (nombre.trim() === '') {
+                            Swal.showValidationMessage('Por favor, ingresa un nombre válido');
+                        } else {
+                            return nombre;
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const nombreProyecto = result.value;
+                        const form = document.getElementById('formCrearProyecto');
+                        form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
+                        const inputNombre = document.createElement('input');
+                        inputNombre.type = 'hidden';
+                        inputNombre.name = 'nombreProyecto';
+                        inputNombre.value = nombreProyecto;
+                        form.appendChild(inputNombre);
+                        form.submit();
+                    }
+                });
+            }
+        </script>
+
+        <!-- JavaScript Libraries -->
+        <script src="../vendor/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap JS-->
+        <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <!-- Vendor JS       -->
+        <script src="../vendor/slick/slick.min.js">
+        </script>
+        <script src="../vendor/wow/wow.min.js"></script>
+        <script src="../vendor/animsition/animsition.min.js"></script>
+        <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+        </script>
+        <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="../vendor/counter-up/jquery.counterup.min.js">
+        </script>
+        <script src="../vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
+        <script src="../vendor/select2/select2.min.js"></script>
+
+        <!-- Main JS-->
+        <script src="../js/main2.js"></script>
+
 
     </body>
 

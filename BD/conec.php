@@ -2,7 +2,7 @@
 // Conexión a la base de datos
 $host = "localhost";
 $usuario = "root";
-$contraseña = "root";
+$contraseña = "";
 $base_de_datos = "ULSOLAR2";
 
 $conexion = mysqli_connect($host, $usuario, $contraseña, $base_de_datos);
