@@ -13,7 +13,7 @@ if (isset($_SESSION['ID_PROYECTO'])) {
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
     //header("Location: ../DimencionamientoT/Principal.php");
-    header("Location: ../Consumo/Consumo.php");
+    header("Location: ../Consumo/VistaC.php");
 
 
     // Realizar las acciones necesarias con el ID del proyecto

@@ -1,8 +1,9 @@
 <?php
-
 include("../BD/conec.php");
-
 session_start();
+
+$id_usuario = $_SESSION['id_usuario'];
+$id_proyecto = $_SESSION['ID_PROYECTO'];
 
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
@@ -11,15 +12,10 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
     exit();
 }
 
-$id_usuario = $_SESSION['id_usuario'];
 
 
-// Realizar una consulta en la base de datos utilizando el ID de usuario
-
-$query = "SELECT * FROM usuarios WHERE id = '$id_usuario'";
+$query = "SELECT * FROM usuarios WHERE id = $id_usuario";
 $resultado = mysqli_query($conexion, $query);
-
-mysqli_error($conexion);
 
 if ($resultado && mysqli_num_rows($resultado) > 0) {
     // Obtener los datos del usuario
@@ -27,13 +23,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
     // Acceder a los campos específicos del usuario
 
-    $id_usuario = $_SESSION['id_usuario'];
+    $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
-    // Mostrar los datos del usuario dentro del contenido HTML
+
 ?>
 
     <!DOCTYPE html>
-    <html lang="en">
+    <html>
 
     <head>
 
@@ -60,15 +56,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
         <!-- Libraries Stylesheet -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="../css/estiloP.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    </head>
 
 
     <body>
-
-        <div class="page-wrapper">
+        <div class="page-wrapper page-content--bgf6">
 
             <!-- HEADER DESKTOP-->
             <header class="header-desktop3 d-none d-lg-block">
@@ -77,19 +75,30 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         <div class="header__logo">
                             <a href="#">
                                 <!-- LOGO -->
-                                <img src="#" alt="LOGO" />
+                                <img src="../img/logo.png" alt="" />
                             </a>
                         </div>
                         <div class="header__navbar">
                             <ul class="list-unstyled">
                                 <li class="has-sub">
                                     <a href="#">
-                                        <i class="bi bi-house-add-fill"></i> Dashboard
+                                        <i class="fas fa-tachometer-alt"></i>Dashboard
                                         <span class="bot-line"></span>
                                     </a>
                                     <ul class="header3-sub-list list-unstyled">
                                         <li>
-                                            <a href="#">Dashboard</a>
+                                            <a href="../Proyecto/Proyecto.php">Dashboard</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-tachometer-alt"></i> Proyecto
+                                        <span class="bot-line"></span>
+                                    </a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="VistaC.php">Consumo</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -124,7 +133,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="account-wrap">
                                 <div class="account-item account-item--style2 clearfix js-item-menu">
                                     <div class="image">
-                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen'] ) . '" alt="Foto de perfil">'; ?>
+                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
                                         <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
                                     </div>
                                     <div class="content">
@@ -146,7 +155,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         </div>
                                         <div class="account-dropdown__body">
                                             <div class="account-dropdown__item">
-                                                <a href="../account/account.php">
+                                                <a href="../account/">
                                                     <i class="zmdi zmdi-account"></i>Account</a>
                                             </div>
                                             <div class="account-dropdown__item">
@@ -181,7 +190,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="container-fluid">
                         <div class="header-mobile-inner">
                             <a class="logo" href="index.html">
-                                <img src="#" alt="CoolAdmin" />
+                                <img src="images/icon/logo-white.png" alt="CoolAdmin" />
                             </a>
                             <button class="hamburger hamburger--slider" type="button">
                                 <span class="hamburger-box">
@@ -361,12 +370,18 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <span class="au-breadcrumb-span">You are here:</span>
                                         <ul class="list-unstyled list-inline au-breadcrumb__list">
                                             <li class="list-inline-item active">
-                                                <a href="#">Home</a>
+                                                <a href="#">Dashboard</a>
                                             </li>
                                             <li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
-                                            <li class="list-inline-item">Dashboard</li>
+                                            <li class="list-inline-item active">
+                                                <a href="../Consumo/VistaC.php"> Consumo</a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/</span>
+                                            </li>
+                                            <li class="list-inline-item"> Insertar Recibo </li>
                                         </ul>
                                     </div>
                                     <form class="au-form-icon--sm" action="" method="post">
@@ -380,97 +395,59 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         </div>
                     </div>
                 </section>
-                <!-- END BREADCRUMB-->
 
-                <!-- DATA TABLE-->
-                <section class="p-t-20">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-data__tool">
-                                    <div class="table-data__tool-right">
-                                        <form method="POST" action="" id="formCrearProyecto">
-                                            <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
-                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small" value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2" onclick="guardarnombre(event)">
-                                                <i class="zmdi zmdi-plus"></i>add proyect</button>
-                                        </form>
+                <!-- Inicio del cuadro  -->
+
+                <div class="row col-md-12">
+                    <!-- parte 1 -->
+                    <div class="col-lg-12">
+                        <div class="au-card recent-report">
+                            <div class="au-card-inner">
+                                <div class="">
+                                    <div class="">
+                                        <h2>Inversores en el proyecto</h2>
+                                        <div class="section-content">
+                                            <form action="">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Marca</th>
+                                                            <th scope="col">Cantidad</th>
+                                                            <th scope="col">Eliminar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $contador = 1;
+                                                        include('../BD/conec.php');
+                                                        $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES,escogido_mfv.cantidad, inversores.Marca,inversores.Modelo
+                                                        FROM escogido_mfv
+                                                        JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
+                                                        WHERE ID_PROYECTO = '$id_proyecto'";
+
+                                                        $resultado = mysqli_query($conexion, $consulta);
+                                                        while ($fila = mysqli_fetch_array($resultado)) {
+                                                        ?>
+                                                            <tr>
+                                                                <th scope="row"><?php echo $contador ?> </th>
+                                                                <td><?php echo $fila['Marca'] ?><?php echo $fila['Modelo'] ?></td>
+                                                                <td><?php echo $fila["cantidad"] ?></td>
+                                                                <td><button type="button" class="btn btn-danger " onclick="eliminar('<?php echo $fila['ID_ESCOGIDO'] ?>')"> <i class="bi bi-trash"></i> ELIMINAR </button></td>
+                                                            </tr>
+                                                        <?php $contador++;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
-                                            <tr>
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>description</th>
-                                                <th>date</th>
-                                                <th>status</th>
-                                                <th>price</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-
-                                        <?php
-                                        include("../BD/conec.php");
-
-                                        $consulta = "SELECT * FROM proyectos WHERE id_usuario = $id_usuario";
-                                        $resultado = mysqli_query($conexion, $consulta);
-
-
-                                        while ($fila = mysqli_fetch_array($resultado)) {
-
-
-                                            $id_proyecto = $fila['ID_PROYECTO']; // Obtener el ID_PROYECTO de la fila actual
-                                            // Guardar el ID_PROYECTO en la variable de sesión
-                                            /*    $_SESSION['ID_PROYECTO'] = $id_proyecto;  */
-                                            // Resto del código HTML
-                                        ?>
-                                            <tbody>
-                                                <tr class="tr-shadow">
-                                                    <td>
-                                                        <form action="validar_idproyecto.php" method="post">
-                                                            <input type="hidden" name="id_proyecto" value="<?php echo $id_proyecto; ?>">
-                                                            <button type="submit"><?php echo $fila["NOMBRE_PROYECTO"]; ?></button>
-                                                        </form>
-                                                    </td>
-                                                    <td>
-                                                        <span class="block-email"> <?php echo $_SESSION['correo'] ?> </span>
-                                                    </td>
-                                                    <td class="desc"> CALLE / DIRECCION </td>
-                                                    <td>2018-09-27 02:12</td>
-                                                    <td>
-                                                        <span class="status--process">Processed</span>
-                                                    </td>
-                                                    <td>$679.00</td>
-                                                    <td>
-                                                        <div class="table-data-feature">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                                <i class="zmdi zmdi-mail-send"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                <i class="zmdi zmdi-edit"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                                <i class="zmdi zmdi-more"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        <?php
-                                        }
-                                        ?>
-                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- END DATA TABLE-->
-
+                </div>
+        
                 <!-- COPYRIGHT-->
                 <section class="p-t-60 p-b-20">
                     <div class="container">
@@ -486,95 +463,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <!-- END COPYRIGHT-->
             </div>
 
+
+
+
         </div>
 
-        <!-- muestra end -->
-
-        <script>
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success m-2',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            });
-
-            function eliminar(id) {
-                swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, eliminarlo',
-                    cancelButtonText: 'No, cancelar',
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        swalWithBootstrapButtons.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        );
-
-                        // Retrasar la redirección después de 2 segundos
-                        setTimeout(function() {
-                            window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
-                        }, 2000);
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        swalWithBootstrapButtons.fire(
-                            'Cancelado',
-                            'Tu archivo está seguro :)',
-                            'error'
-                        );
-                    }
-                });
-            }
-
-            function guardarnombre(event) {
-                event.preventDefault(); // Detener el envío del formulario
-                event.stopPropagation(); // Detener la propagación del evento
-
-                Swal.fire({
-                    title: 'Nombre de proyecto nuevo',
-                    input: 'text',
-                    inputAttributes: {
-                        autocapitalize: 'off'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Guardar',
-                    cancelButtonText: 'Cancelar',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (nombre) => {
-                        if (nombre.trim() === '') {
-                            Swal.showValidationMessage('Por favor, ingresa un nombre válido');
-                        } else {
-                            return nombre;
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const nombreProyecto = result.value;
-                        const form = document.getElementById('formCrearProyecto');
-                        const idUsuario = form.querySelector('input[name="id_usuario"]').value;
-                        form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
-                        const inputNombre = document.createElement('input');
-                        inputNombre.type = 'hidden';
-                        inputNombre.name = 'nombreProyecto';
-                        inputNombre.value = nombreProyecto;
-                        form.appendChild(inputNombre);
-                        /* usuario */
-                        const inputUsuario = document.createElement('input');
-                        inputUsuario.type = 'hidden';
-                        inputUsuario.name = 'id_usuario';
-                        inputUsuario.value = idUsuario;
-                        form.appendChild(inputUsuario);
-
-                        form.submit();
-                    }
-                });
-            }
-        </script>
 
         <!-- JavaScript Libraries -->
         <script src="../vendor/jquery-3.2.1.min.js"></script>
@@ -596,14 +489,15 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
         <script src="../vendor/select2/select2.min.js"></script>
 
-        <!-- Main Fvsolar-->
+        <!-- Main JS-->
         <script src="../js/main2.js"></script>
-        
+        <script src="generador-fechas.js"></script>
 
 
     </body>
 
     </html>
+
 
 <?php
 } else {

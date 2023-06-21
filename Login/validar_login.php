@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include("../BD/conec.php");
@@ -20,9 +19,11 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
             $_SESSION['id_usuario'] = $usuario['id'];
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
-            echo ('exitoso');
+            $_SESSION['imagen'] = $usuario['imagen'];
+
 
             header ('Location: ../Proyecto/Proyecto.php', true, 301);
+
             /* http://localhost/UL-SOLAR/ */
             
             exit();
@@ -39,4 +40,5 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
 }
 
 mysqli_close($conexion);
+
 ?>

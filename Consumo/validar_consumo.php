@@ -16,7 +16,7 @@ if (isset($_SESSION['ID_PROYECTO'])) {
 
     $_SESSION['id_consumo'] = $id_consumo;
 
-    header("Location:../Dimencionamiento/Dimencionamiento.php");
+    header("Location:../DimencionamientoE/Dimencionamiento.php");
 
     // Realizar las acciones necesarias con el ID del proyecto
     // ...

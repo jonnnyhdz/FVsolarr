@@ -3,17 +3,9 @@ include("../BD/conec.php");
 
 if(isset($_POST['id_consumo'])) {
     $id_consumo = $_POST['id_consumo'];
-    
-
-
-
-
-
-    
+        
 }
 ?>
-
-
 
 <?php
 include("../BD/conec.php");

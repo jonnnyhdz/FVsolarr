@@ -2,18 +2,11 @@
 
 include("../../BD/conec.php");
 
-
-$consulta = "SELECT * FROM cables ";
-$resultado = mysqli_query($conexion, $consulta);
 $idproyecto = 1;
-$contador_modulos = 2;
 
 /* modulos - se recolecta de voltamaxymin = $vmp * $nummodulosfv;*/
-
-
-/* 
+/*
 session_start();
-
 
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
@@ -165,7 +158,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $ampasidad13_1 = $imax * 1.25; /* imax(17.45)* 1.25  Viene de la hoja Corrientemax.php*/
     $ampasidad13_2 = number_format($imax / (0.94 * 1), 2);
     $ampasidad15_1 =  number_format(($imaxinversor * 1.25), 2); /* fila['Max_corriente_salida] */
-    $ampasidad15_2 = number_format($imaxinversor / (0.94 * 1), 2);
+    $ampasidad15_2 = number_format($imaxinversor / (0.94 * 1), 2); 
 
 
 

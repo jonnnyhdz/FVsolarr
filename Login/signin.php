@@ -1,103 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
-    <title>DarkPan</title>
+    <title> FVSolar</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="../img/favicon.ico" rel="icon">
+    <link href="../Estilos_admi//theme.css" rel="stylesheet" media="all">
+    <link href="../Estilos_admi/font-face.css" rel="stylesheet" media="all">
+    <link href="../vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link href="../vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="../vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="../vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="../vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
     <!-- Libraries Stylesheet -->
-    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="../css/toggle.css">
-    <link id="theme" rel="stylesheet" href="../css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link id="style" rel="stylesheet" href="../css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tu-codigo-de-integridad..." crossorigin="anonymous" />
-    <script src="../js/day.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <div class="container-fluid position-relative d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-
-        <!-- Sign In Start -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                        <div class="navbar-nav align-items-center ms-auto">
-                            <label class="toggle">
-                                <input type="checkbox" id="toggleSwitch" onchange="changeTheme()" />
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="../index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>FVsolar</h3>
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="#">
+                                <img src="#" alt="LOGO">
                             </a>
-                            <h4>Iniciar sesión</h4>
                         </div>
-                        <form method="POST" action="validar_login.php">
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" name="correo" id="correo" placeholder="name@example.com" required>
-                                <label for="floatingInput">correo electrónico</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Password" required>
-                                <label for="floatingPassword">contraseña</label>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="recuerdame" id="recuerdame">
-                                    <label class="form-check-label" for="recuerdame">Recuérdame</label>
+                        <div class="login-form">
+                            <form method="POST" action="validar_login.php">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input class="au-input au-input--full" type="email" name="correo" id="correo" placeholder="name@example.com">
                                 </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="au-input au-input--full" type="password" name="contrasena" id="contrasena" placeholder="Password" >
+                                </div>
+                                <div class="login-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember">Remember Me
+                                    </label>
+                                    <label>
+                                        <a href="#">Forgotten Password?</a>
+                                    </label>
+                                </div>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                                <div class="social-login-content">
+                                    <div class="social-button">
+                                        <button class="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
+                                        <button class="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="register-link">
+                                <p>
+                                    Don't you have account?
+                                    <a href="signup.php">Sign Up Here</a>
+                                </p>
                             </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Iniciar sesión</button>
-                        </form>
-                        <p class="text-center mb-0">¿Olvidaste tu contraseña?<a href="">Recuperar</a></p>
-                        <p class="text-center mb-0">¿No tienes una cuenta?<a href="signup.php">Crear cuenta</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Sign In End -->
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/chart/chart.min.js"></script>
-    <script src="../lib/easing/easing.min.js"></script>
-    <script src="../lib/waypoints/waypoints.min.js"></script>
-    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="../vendor/slick/slick.min.js">
+    </script>
+    <script src="../vendor/wow/wow.min.js"></script>
+    <script src="../vendor/animsition/animsition.min.js"></script>
+    <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="../vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="../vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="../vendor/select2/select2.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
+    <!-- Main JS-->
+    <script src="../js/main2.js"></script>
 </body>
 
 </html>

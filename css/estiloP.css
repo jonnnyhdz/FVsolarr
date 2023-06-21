@@ -1,8 +1,29 @@
-.small-input {
-    width: 150px; /* Ajusta el ancho según tus necesidades */
-    font-size: 14
-}  
+#resultado {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+}
 
+#resultado table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+#resultado th,
+#resultado td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ee0b0b;
+}
 
-  
+#resultado th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+#resultado tr:nth-child(even) {
+    background-color: #fff;
+}
