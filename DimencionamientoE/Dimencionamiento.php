@@ -2,7 +2,6 @@
 include("../BD/conec.php");
 session_start();
 $id_usuario = $_SESSION['id_usuario'];
-$NunServicio =  $_SESSION['id_consumo'];
 
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
     header("Location: ../index.php");
@@ -54,7 +53,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <?php
         include("../BD/conec.php");
         echo "<script> var idProyecto = $idproyecto;</script>";
-        echo "<script> var NunServicio = " . json_encode($NunServicio) . ";</script>";
         $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
         $resultado = mysqli_query($conexion, $consulta);
         $fila = mysqli_fetch_array($resultado);

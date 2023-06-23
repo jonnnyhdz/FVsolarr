@@ -392,7 +392,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <!-- END BREADCRUMB-->
                     <div class="row col-md-12">
                         <!-- Parte 1 -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class=""> <!-- aqui iba algo -->
                                 <div class="au-card-title" style="background-image:url('../img/cfe.png');">
                                     <div class="bg-overlay"></div>
@@ -405,21 +405,29 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="au-task__item au-task__item--danger bg-white">
                                             <div class="au-task__item-inner">
                                                 <h5 class="task">
-                                                    <a href="#"> IMPORTANTE: Los datos proporcionados deben ser correctos , ya que estos datos nos permitiran realizar los calculos correspondientes </a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--warning bg-white">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#"> IMPORTANTE: Puedes tener varios facturas en el mismo proyecto </a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--success bg-white">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="https://app.cfe.mx/aplicaciones/CCFE/SolicitudesCFE/Solicitudes/ConsultaTuReciboLuzGmx.aspx">OBSERVACION: "Si no tiene eso datos. Te recomendaría hacer clic en este enlace para obtener consulta." </a>
+                                                    <div class="top-campaign">
+                                                        <h3 class="title-3 m-b-30">top campaigns</h3>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-top-campaign">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Fecha</td>
+                                                                        <td>kwh</td>
+                                                                        <td>kw</td>
+                                                                        <td>fp</td>
+                                                                        <td>hola</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2. United Kingdom</td>
+                                                                        <td>$46,399.22</td>
+                                                                        <td>$46,399.22</td>
+                                                                        <td>$46,399.22</td>
+                                                                        <td> <input type="text" class="col-lg-8  is-valid form-control"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </h5>
                                             </div>
                                         </div>
@@ -429,67 +437,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         </div>
 
                         <!-- Parte 2 -->
-                        <div class="col-lg-6">
-                            <!-- DATA TABLE-->
-                            <section class="">
-                                <div class="container">
-                                    <div class="">
-                                        <div class="">
-                                            <div class="table-responsive table-responsive-data2">
-                                                <table class="table table-data2 table-earning">
-
-                                                    <?php
-                                                    include("../BD/conec.php");
-
-                                                    // Obtener los IDs de proyecto de la sesión
-                                                    $id_proyecto = $_SESSION['ID_PROYECTO'];
-
-                                                    // Consulta SQL con agrupación y filtros
-                                                    $query1 = "SELECT no_servicio FROM facturas WHERE id_proyecto IN ($id_proyecto) GROUP BY no_servicio";
-                                                    $resultado1 = mysqli_query($conexion, $query1);
-
-                                                    while ($row = mysqli_fetch_assoc($resultado1)) {
-                                                        $servicio = $row['no_servicio'];
-                                                        $nombre = "ID: ";
-
-                                                    ?>
-                                                        <tbody>
-                                                            <tr class="tr-shadow">
-                                                                <td>
-                                                                    <form action="validar_consumo.php" method="post">
-                                                                        <input type="hidden" name="id_consumo" value="<?php echo $servicio; ?>">
-                                                                        <button type="submit"><?php echo $nombre, $row["no_servicio"]; ?></button>
-                                                                    </form>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="block-email"> 2018-09-29 05:57 </span>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="table-data-feature">
-                                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                            <i class="zmdi zmdi-edit"></i>
-                                                                        </button>
-                                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $row['no_servicio']; ?>')">
-                                                                            <i class="zmdi zmdi-delete"></i>
-                                                                        </button>
-                                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                                            <i class="zmdi zmdi-more"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- END DATA TABLE-->
-                        </div>
                     </div>
 
                     <!-- COPYRIGHT-->

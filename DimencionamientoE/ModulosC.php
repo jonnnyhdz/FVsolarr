@@ -1,25 +1,12 @@
 <?php
 include("../BD/conec.php");
 $id_proyecto = $_POST["id_proyecto"];
-$NunServicio = $_POST["NunServicio"];
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;
 $HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 0;
 $nombreP = isset($_POST["pro"]) ? $_POST["pro"] : 0;
 $ubi = isset($_POST["ubi"]) ? $_POST["ubi"] : 0;
 
 $factorPerdida = 0.77;
-$EnergiaTotal = 0;
-
-$query = "SELECT * FROM facturas WHERE Id_proyecto = ? AND no_servicio = ?";
-$stmt = mysqli_prepare($conexion, $query);
-mysqli_stmt_bind_param($stmt, "ii", $id_proyecto, $NunServicio);
-mysqli_stmt_execute($stmt);
-$resultados = mysqli_stmt_get_result($stmt);
-
-while ($consulta = mysqli_fetch_array($resultados)) {
-    $EnergiaTotal += $consulta['kwh'];
-}
-
 
 //CONSULTAR
 $resultados = mysqli_query($conexion, "SELECT * FROM ModulosFV WHERE ID_MFV = '$id_seleccionado'");
@@ -31,6 +18,15 @@ while ($consulta = mysqli_fetch_array($resultados)) {
     $TepVoc =  $consulta['Temperature_Coefficient_Voc'];
     $OpenC =  $consulta['Circuit_Voltage_Voc'];
     $WATT =  $consulta['Watts'];
+
+    $EnergiaTotal = 0;
+
+    $resultados = mysqli_query($conexion, "SELECT * FROM facturas WHERE Id_proyecto = '$id_proyecto'");
+    while ($consulta = mysqli_fetch_array($resultados)) {
+        
+
+        $EnergiaTotal = $consulta['kwh'] + $EnergiaTotal;
+    }
 
     /* calculos */
     $energiarequerida = $EnergiaTotal / 365;

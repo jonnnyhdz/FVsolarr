@@ -84,7 +84,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <ul class="list-unstyled">
                                 <li class="has-sub">
                                     <a href="#">
-                                        <i class="bi bi-house-add-fill"></i> Dashboard
+                                        <i class="fa fa-folder"></i> Dashboard
                                         <span class="bot-line"></span>
                                     </a>
                                     <ul class="header3-sub-list list-unstyled">
@@ -96,7 +96,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <?php if ($_SESSION['rol'] == 1) : ?>
                                     <li class="has-sub">
                                         <a href="#">
-                                            <i class="fas fa-copy"></i>
+                                            <i class="fa fa-user"></i>
                                             <span class="bot-line"></span> administrator
                                         </a>
                                         <ul class="header3-sub-list list-unstyled">
@@ -403,9 +403,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <th>name</th>
                                                 <th>email</th>
                                                 <th>description</th>
-                                                <th>date</th>
-                                                <th>status</th>
-                                                <th>price</th>
+                                                <th>date</th> 
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -439,15 +437,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     <td class="desc"> CALLE / DIRECCION </td>
                                                     <td>2018-09-27 02:12</td>
                                                     <td>
-                                                        <span class="status--process">Processed</span>
-                                                    </td>
-                                                    <td>$679.00</td>
-                                                    <td>
                                                         <div class="table-data-feature">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                                <i class="zmdi zmdi-mail-send"></i>
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Consumo" onclick="editarC('<?php echo $fila['ID_PROYECTO'] ?>')">
+                                                                <i class="fa fa-barcode"></i>
                                                             </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"  onclick="editarN('<?php echo $fila['ID_PROYECTO'] ?>')">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
@@ -490,91 +484,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- muestra end -->
 
-        <script>
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success m-2',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            });
-
-            function eliminar(id) {
-                swalWithBootstrapButtons.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, eliminarlo',
-                    cancelButtonText: 'No, cancelar',
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        swalWithBootstrapButtons.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        );
-
-                        // Retrasar la redirección después de 2 segundos
-                        setTimeout(function() {
-                            window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
-                        }, 2000);
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        swalWithBootstrapButtons.fire(
-                            'Cancelado',
-                            'Tu archivo está seguro :)',
-                            'error'
-                        );
-                    }
-                });
-            }
-
-            function guardarnombre(event) {
-                event.preventDefault(); // Detener el envío del formulario
-                event.stopPropagation(); // Detener la propagación del evento
-
-                Swal.fire({
-                    title: 'Nombre de proyecto nuevo',
-                    input: 'text',
-                    inputAttributes: {
-                        autocapitalize: 'off'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Guardar',
-                    cancelButtonText: 'Cancelar',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (nombre) => {
-                        if (nombre.trim() === '') {
-                            Swal.showValidationMessage('Por favor, ingresa un nombre válido');
-                        } else {
-                            return nombre;
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const nombreProyecto = result.value;
-                        const form = document.getElementById('formCrearProyecto');
-                        const idUsuario = form.querySelector('input[name="id_usuario"]').value;
-                        form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
-                        const inputNombre = document.createElement('input');
-                        inputNombre.type = 'hidden';
-                        inputNombre.name = 'nombreProyecto';
-                        inputNombre.value = nombreProyecto;
-                        form.appendChild(inputNombre);
-                        /* usuario */
-                        const inputUsuario = document.createElement('input');
-                        inputUsuario.type = 'hidden';
-                        inputUsuario.name = 'id_usuario';
-                        inputUsuario.value = idUsuario;
-                        form.appendChild(inputUsuario);
-
-                        form.submit();
-                    }
-                });
-            }
-        </script>
 
         <!-- JavaScript Libraries -->
         <script src="../vendor/jquery-3.2.1.min.js"></script>
@@ -598,6 +507,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Main Fvsolar-->
         <script src="../js/main2.js"></script>
+        <script src="main.js"></script>
         
 
 

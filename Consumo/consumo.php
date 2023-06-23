@@ -5,6 +5,7 @@ session_start();
 $id_usuario = $_SESSION['id_usuario'];
 $id_proyecto = $_SESSION['ID_PROYECTO'];
 
+
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
     // Redirigir a la página de inicio de sesión si no se ha iniciado sesión
@@ -375,7 +376,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <span>/</span>
                                             </li>
                                             <li class="list-inline-item active">
-                                                <a href="../Consumo/VistaC.php"> Consumo</a> </li>
+                                                <a href="../Consumo/VistaC.php"> Consumo</a>
+                                            </li>
                                             <li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
@@ -394,10 +396,20 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </section>
 
+                <?php if ($_SESSION['_alert'] == 1) : ?>
+                    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3">
+                        <span class="badge badge-pill badge-danger"> Alert </span>
+                        Por favor inserte su factura de la CFE , ya que estos datos no permitiran realizar los calculos devidos.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
+
                 <!-- END BREADCRUMB-->
                 <form action="guardar-consumo.php" method="POST" class="form-horizontal">
                     <div class="row col-md-12">
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="card">
                                 <div class="card-header">
                                     <strong> Recibo de luz:</strong> Form
@@ -471,17 +483,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
                             <div class="table-responsive table--no-card m-b-40">
-                                <div class="">
-                                    <div class="table table-borderless table-striped table-earning">
-                                        <div class="resultado" id="resultado"></div>
+                                <div class="resultado">
+                                    <div class="table table-borderless table-striped table-earning table-top-campaign">
+                                        <div class="">
+                                            <div class="" id="resultado"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </form>
 

@@ -5,7 +5,7 @@ function generarFechas() {
   var fechasGeneradas = [];
 
 
-  var titulos = "<tr><th>Fecha</th>";
+  var titulos = "<t><th>Fecha</th>";
   if (
     tipoServicio === "1" ||
     tipoServicio === "1A" ||
@@ -49,9 +49,9 @@ function generarFechas() {
         tipoServicio === "RAMT"
       ) {
         fila +=
-          "<td><input type='number' name='kwh[]' required></td><td><input type='number' name='kw[]' required></td><td><input type='number' name='fp[]' required></td>";
+          "<td><input class='is-valid form-control' type='number' name='kwh[]' required></td><td><input class='form-control' type='number' name='kw[]' required></td><td><input class='form-control'  type='number' name='fp[]' required></td>";
       } else {
-        fila += "<td><input type='number' name='kwh[]' required></td>";
+        fila += "<td><input class='form-control' type='number' name='kwh[]' required></td>";
       }
       fila += "</tr>";
       fechasGeneradas.push(fila);
@@ -74,9 +74,9 @@ function generarFechas() {
         tipoServicio === "RAMT"
       ) {
         fila +=
-          "<td><input type='number' name='kwh[]' required></td><td><input type='number' name='kw[]' required></td><td><input type='number' name='fp[]' required></td>";
+          "<td><input class='form-control' type='number' name='kwh[]' required></td><td><input class='form-control'  type='number' name='kw[]' required></td><td><input class='form-control'  type='number' name='fp[]' required></td>";
       } else {
-        fila += "<td><input type='number' name='kwh[]' required></td>";
+        fila += "<td><input class='form-control' type='number' name='kwh[]' required></td>";
       }
 
       fila += "</tr>";
