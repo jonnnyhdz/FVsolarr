@@ -13,6 +13,8 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['correo'])) {
 
 $id_usuario = $_SESSION['id_usuario'];
 
+$id_proyecto = $_SESSION['ID_PROYECTO'];
+
 
 // Realizar una consulta en la base de datos utilizando el ID de usuario
 
@@ -28,6 +30,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     // Acceder a los campos específicos del usuario
 
     $id_usuario = $_SESSION['id_usuario'];
+
+    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$id_proyecto";
+    $resultado = mysqli_query($conexion, $consulta);
+    $fila = mysqli_fetch_array($resultado);
+
 
     // Mostrar los datos del usuario dentro del contenido HTML
 ?>
@@ -63,117 +70,138 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
+    </head>
 
 
     <body>
 
         <div class="page-wrapper">
 
-            <!-- HEADER DESKTOP-->
-            <header class="header-desktop3 d-none d-lg-block">
-                <div class="section__content section__content--p35">
-                    <div class="header3-wrap">
-                        <div class="header__logo">
-                            <a href="#">
-                                <!-- LOGO -->
-                                <img src="#" alt="LOGO" />
-                            </a>
-                        </div>
-                        <div class="header__navbar">
-                            <ul class="list-unstyled">
-                                <li class="has-sub">
-                                    <a href="#">
-                                        <i class="fa fa-folder"></i> Dashboard
-                                        <span class="bot-line"></span>
-                                    </a>
-                                    <ul class="header3-sub-list list-unstyled">
-                                        <li>
-                                            <a href="#">Dashboard</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <?php if ($_SESSION['rol'] == 1) : ?>
+             <!-- HEADER DESKTOP-->
+             <header class="header-desktop3 d-none d-lg-block">
+                    <div class="section__content section__content--p35">
+                        <div class="header3-wrap">
+                            <div class="header__logo">
+                                <a href="#">
+                                    <!-- LOGO -->
+                                    <img src="../img/logo.png" alt="" />
+                                </a>
+                            </div>
+                            <div class="header__navbar">
+                                <ul class="list-unstyled">
+                                    <li class="has-sub">
+                                        <a href="../Proyecto/Proyecto.php">
+                                            <i class="fas fa-tachometer-alt"></i>Dashboard
+                                            <span class="bot-line"></span>
+                                        </a>
+                                    </li>
                                     <li class="has-sub">
                                         <a href="#">
-                                            <i class="fa fa-user"></i>
-                                            <span class="bot-line"></span> administrator
+                                            <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
+                                            <span class="bot-line"></span>
                                         </a>
                                         <ul class="header3-sub-list list-unstyled">
                                             <li>
-                                                <a href="../Login/signup.php">Register</a>
+                                                <a href="../DimencionamientoE/Dimencionamiento.php">Dimencionamiento</a>
                                             </li>
                                             <li>
-                                                <a href="#">Password recovery</a>
+                                                <a href="../DimencionamientoE/Inversores.php">Inversores</a>
                                             </li>
                                             <li>
-                                                <a href="#">User</a>
+                                                <a href="../Volmaxymin/Corrientemax.php">Dato tecnico</a>
                                             </li>
                                             <li>
-                                                <a href="#">Inversores</a>
+                                                <a href="#">Financiero</a>
                                             </li>
                                             <li>
-                                                <a href="#">Modulos</a>
+                                                <a href="../DimencionamientoE/validation/V_consumoE.php">Consumo.php</a>
                                             </li>
                                         </ul>
                                     </li>
-                                <?php endif; ?>
-                            </ul>
-                        </div>
-                        <div class="header__tool">
-                            <div class="account-wrap">
-                                <div class="account-item account-item--style2 clearfix js-item-menu">
-                                    <div class="image">
-                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen'] ) . '" alt="Foto de perfil">'; ?>
-                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
-                                    </div>
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
-                                                </h5>
-                                                <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
-                                            </div>
+                                    <?php if ($_SESSION['rol'] == 1) : ?>
+                                        <li class="has-sub">
+                                            <a href="#">
+                                                <i class="fas fa-copy"></i>
+                                                <span class="bot-line"></span> administrator
+                                            </a>
+                                            <ul class="header3-sub-list list-unstyled">
+                                                <li>
+                                                    <a href="../Login/signup.php">Register</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Password recovery</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tabla Usuarios</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tabla Inversores</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tabla Modulos</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tablas tarifas</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                            <div class="header__tool">
+                                <div class="account-wrap">
+                                    <div class="account-item account-item--style2 clearfix js-item-menu">
+                                        <div class="image">
+                                            <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                            <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
                                         </div>
-                                        <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="../account/account.php">
-                                                    <i class="zmdi zmdi-account"></i>Account</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-globe"></i>Language</a>
-                                            </div>
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
                                         </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="../sesion/desconec.php">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                                    </h5>
+                                                    <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="../account/account.php">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                </div>
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                </div>
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-globe"></i>Language</a>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="../sesion/desconec.php">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </header>
-            <!-- END HEADER DESKTOP-->
+                </header>
+                <!-- END HEADER DESKTOP-->
 
             <!-- HEADER MOBILE-->
             <header class="header-mobile header-mobile-2 d-block d-lg-none">
@@ -349,6 +377,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
             </div>
             <!-- END HEADER MOBILE -->
 
+
             <!-- PAGE CONTENT-->
             <div class="page-content">
                 <!-- BREADCRUMB-->
@@ -360,6 +389,12 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     <div class="au-breadcrumb-left">
                                         <span class="au-breadcrumb-span">You are here:</span>
                                         <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                            <li class="list-inline-item active">
+                                                <a href="#">Home</a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/</span>
+                                            </li>
                                             <li class="list-inline-item">Dashboard</li>
                                         </ul>
                                     </div>
@@ -376,33 +411,73 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 </section>
                 <!-- END BREADCRUMB-->
 
-                <!-- DATA TABLE-->
-                <section class="p-t-20">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-data__tool">
-                                    <div class="table-data__tool-right">
-                                        <form method="POST" action="" id="formCrearProyecto">
-                                            <input type="hidden" name="id_usuario" value="<?php echo $id_usuario; ?>">
-                                            <button class="au-btn au-btn-icon au-btn--green au-btn--small" value="enviar" name="enviar" class="btn btn-secondary rounded-pill m-2" onclick="guardarnombre(event)">
-                                                <i class="zmdi zmdi-plus"></i>add proyect</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
-                                            <tr>
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>description</th>
-                                                <th>date</th> 
-                                                <th></th>
-                                            </tr>
-                                        </thead>
+                <!-- 1 parte -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive table--no-card m-b-30">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                            <th>Mes</th>
+                                            <th>Suministro</th>
+                                            <th>Distribución</th>
+                                            <th class="text-right">Transmisión</th>
+                                            <th class="text-right">CENACE</th>
+                                            <th class="text-right">Energía</th>
+                                            <th class="text-right">Capacidad</th>
+                                            <th class="text-right">SeCoMEM</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2018-09-29 05:57</td>
+                                            <td>100398</td>
+                                            <td>iPhone X 64Gb Grey</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">1</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$999.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2018-09-28 01:22</td>
+                                            <td>100397</td>
+                                            <td>Samsung S8 Black</td>
+                                            <td class="text-right">$756.00</td>
+                                            <td class="text-right">1</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$756.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive table--no-card m-b-30">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                            <th>Mes</th>
+                                            <th>Suministro</th>
+                                            <th>Distribución</th>
+                                            <th class="text-right">Transmisión</th>
+                                            <th class="text-right">CENACE</th>
+                                            <th class="text-right">Energía</th>
+                                            <th class="text-right">Capacidad</th>
+                                            <th class="text-right">SeCoMEM</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
                                         <?php
+                                        
                                         include("../BD/conec.php");
 
                                         $consulta = "SELECT * FROM proyectos WHERE id_usuario = $id_usuario";
@@ -411,53 +486,23 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                         while ($fila = mysqli_fetch_array($resultado)) {
 
-
-                                            $id_proyecto = $fila['ID_PROYECTO']; // Obtener el ID_PROYECTO de la fila actual
-                                            // Guardar el ID_PROYECTO en la variable de sesión
-                                            /*    $_SESSION['ID_PROYECTO'] = $id_proyecto;  */
-                                            // Resto del código HTML
                                         ?>
-                                            <tbody>
-                                                <tr class="tr-shadow">
-                                                    <td>
-                                                        <form action="validar_idproyecto.php" method="post">
-                                                            <input type="hidden" name="id_proyecto" value="<?php echo $id_proyecto; ?>">
-                                                            <button type="submit"><?php echo $fila["NOMBRE_PROYECTO"]; ?></button>
-                                                        </form>
-                                                    </td>
-                                                    <td>
-                                                        <span class="block-email"> <?php echo $_SESSION['correo'] ?> </span>
-                                                    </td>
-                                                    <td class="desc"> CALLE / DIRECCION </td>
-                                                    <td>2018-09-27 02:12</td>
-                                                    <td>
-                                                        <div class="table-data-feature">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Consumo" onclick="editarC('<?php echo $fila['ID_PROYECTO'] ?>')">
-                                                                <i class="fa fa-barcode"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"  onclick="editarN('<?php echo $fila['ID_PROYECTO'] ?>')">
-                                                                <i class="zmdi zmdi-edit"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                                <i class="zmdi zmdi-more"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </div>
+                                            <td>2018-09-29 05:57</td>
+                                            <td>100398</td>
+                                            <td>iPhone X 64Gb Grey</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">1</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$999.00</td>
+                                            <td class="text-right">$999.00</td>
+                                        <?php } ?>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- END DATA TABLE-->
+                </div>
 
                 <!-- COPYRIGHT-->
                 <section class="p-t-60 p-b-20">
@@ -502,7 +547,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <!-- Main Fvsolar-->
         <script src="../js/main2.js"></script>
         <script src="main.js"></script>
-        
+
 
 
     </body>

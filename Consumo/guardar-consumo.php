@@ -11,6 +11,7 @@ $numeroServicio = $_POST['numeroServicio'];
 $fechaFacturacion = new DateTime($_POST['fechaFacturacion']); // Convertir a objeto DateTime
 $tipoTarifa = $_POST['tipoTarifa'];
 $tipoServicio = $_POST['tipoServicio'];
+$activo_consumo = 1;
 
 // Insertar los datos en la base de datos
 $sql = "INSERT INTO facturas (no_servicio, fecha_facturacion, mes, mes2, kwh, kw, fp,Id_proyecto) VALUES ";
@@ -75,17 +76,28 @@ $sql = rtrim($sql, ",");
 
 // Ejecutar la consulta SQL
 if ($conexion->query($sql) === TRUE) {
+
+    /* seguridad implementada */
+    
+    $proceso = "UPDATE proyectos SET activo_consumo = ?, tipo_tarifa = ?, tipo_servicio = ? WHERE ID_PROYECTO = ?";
+    $stmt = mysqli_prepare($conexion, $proceso);
+    mysqli_stmt_bind_param($stmt, "sssi", $activo_consumo, $tipoTarifa, $tipoServicio, $idproyecto);
+    $resultado = mysqli_stmt_execute($stmt);
+    unset($_SESSION['_alert']);
+
     echo "Los datos se han guardado correctamente.";
+
+    // Redirigir al usuario a una página de éxito o a donde desees
+    header("Location: ../DimencionamientoE/Dimencionamiento.php");
  
 } else {
     echo "Error al guardar los datos: " . $conexion->error;
+    header("Location: consumo.php");
 }
 
 // Cerrar la conexión a la base de datos
 $conexion->close();
 
-// Redirigir al usuario a una página de éxito o a donde desees
-header("Location: ../DimencionamientoE/Dimencionamiento.php");
 
 exit();
 

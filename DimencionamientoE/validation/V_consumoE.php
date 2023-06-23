@@ -1,11 +1,10 @@
 <?php
 
-include("../BD/conec.php");
+include("../../BD/conec.php");
+
 session_start();
 
-$id_proyecto = $_POST['id_proyecto'];
-
-$_SESSION['ID_PROYECTO'] = $id_proyecto;
+$id_proyecto = $_SESSION['ID_PROYECTO'];
 
 $consulta = "SELECT activo_consumo FROM proyectos WHERE ID_PROYECTO = '$id_proyecto'";
 $resultado = mysqli_query($conexion, $consulta);
@@ -15,21 +14,18 @@ $activo_consumo = $fila['activo_consumo'];
 if (isset($_SESSION['ID_PROYECTO'])) {
     
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
+    $_alert=1;
+    $_SESSION['_alert'] = $_alert;
 
     if ($activo_consumo == 1) {
         
         $_SESSION['_alert'] = null;
-        header("Location: ../DimencionamientoE/Dimencionamiento.php");
+        header("Location: ../../Consumo/VistaC.php");
         exit(); // Se recomienda usar exit() después de redireccionar
     } else {
-
-        $_alert=1;
-        $_SESSION['_alert'] = $_alert;
-
-        header("Location: ../Consumo/consumo.php");
+        header("Location: ../../Consumo/consumo.php");
     }
 } else {
-    header("Location: ../Proyecto/Proyecto.php");
-    unset($_SESSION['ID_PROYECTO']);
+    header("Location: ../Proyecto.php");
 }
 ?>

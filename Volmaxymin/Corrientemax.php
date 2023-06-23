@@ -7,6 +7,7 @@ session_start();
 
 $id_usuario = $_SESSION['id_usuario'];
 
+$id_proyecto = $_SESSION['ID_PROYECTO'];
 
 
 // Verificar si la sesión está activa
@@ -28,8 +29,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
  */
     // Acceder a los campos específicos del usuario
 
-    $idproyecto = $_SESSION['ID_PROYECTO'];
-    $_SESSION['ID_PROYECTO'] = $idproyecto;
+    $_SESSION['ID_PROYECTO'] = $id_proyecto;
+
 
     // Mostrar los datos del usuario dentro del contenido HTML
 ?>
@@ -43,42 +44,30 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <meta charset="utf-8">
         <title> FVSolar</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
 
+        <link href="../Estilos_admi//theme.css" rel="stylesheet" media="all">
+        <link href="../Estilos_admi/font-face.css" rel="stylesheet" media="all">
+        <link href="../vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <!-- Bootstrap CSS-->
+        <link href="../vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
-
-        <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Vendor CSS-->
+        <link href="../vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/wow/animate.css" rel="stylesheet" media="all">
+        <link href="../vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/slick/slick.css" rel="stylesheet" media="all">
+        <link href="../vendor/select2/select2.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
-        <link href="../css/style.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="../css/estiloP.css">
-
-        <link rel="stylesheet" href="../css/toggle.css">
-        <link id="theme" rel="stylesheet" href="../css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link id="style" rel="stylesheet" href="../css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tu-codigo-de-integridad..." crossorigin="anonymous" />
-        <script src="../js/day.js"></script>
-
-        <!-- cokkies  -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
-
 
     </head>
 
@@ -91,7 +80,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $id_modulosescojidos = 3;
 
 
-    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
+    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$id_proyecto";
     $resultado = mysqli_query($conexion, $consulta);
     $fila = mysqli_fetch_array($resultado);
 
@@ -141,149 +130,356 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $Nmodulosi =  $AREADISPONIBLES / $Area_módulo;
     $areatotalSI = $Nmodulosi * $Area_módulo;
     $PpicoFv = $Nmodulosi * $Potenciapanel;
-    echo "<script> var idProyecto = $idproyecto;</script>";
-
-    $opcionSeleccionada = $fila['opcionSeleccionada'];
-
+    echo "<script> var idProyecto = $id_proyecto;</script>";
 
     ?>
 
     <body onload="cambiarColor()">
 
-        <div class="container-fluid position-relative d-flex p-0">
-            <!-- spinner star -->
+        <div class="page-wrapper page-content--bgf6">
 
-
-            <!-- Sidebar Start -->
-            <div class="sidebar pe-4 pb-3">
-                <nav class="navbar bg-secondary navbar-dark">
-                    <a href="#" class="navbar-brand mx-4 mb-3">
-                        <h3 class="text-primary"> <i class="bi bi-sun-fill"></i> FVSolar </h3>
-                    </a>
-                    <div class="d-flex align-items-center ms-4 mb-4">
-                        <div class="position-relative">
-                            <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop3 d-none d-lg-block">
+                <div class="section__content section__content--p35">
+                    <div class="header3-wrap">
+                        <div class="header__logo">
+                            <a href="#">
+                                <!-- LOGO -->
+                                <img src="../img/logo.png" alt="" />
+                            </a>
                         </div>
-                        <div class="ms-3">
-                            <h6 class="mb-0"><?php echo $_SESSION['correo'] ?></h6>
-                            <span>Admin</span>
+                        <div class="header__navbar">
+                            <ul class="list-unstyled">
+                                <li class="has-sub">
+                                    <a href="../Proyecto/Proyecto.php">
+                                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                                        <span class="bot-line"></span>
+                                    </a>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
+                                        <span class="bot-line"></span>
+                                    </a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="../DimencionamientoE/Dimencionamiento.php">Dimencionamiento</a>
+                                        </li>
+                                        <li>
+                                            <a href="../DimencionamientoE/Inversores.php">Inversores</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dato tecnico</a>
+                                        </li>
+                                        <li>
+                                            <a href="../FVfinanciero/Financiero.php">Financiero</a>
+                                        </li>
+                                        <li>
+                                            <a href="../DimencionamientoE/validation/V_consumoE.php">Consumo.php</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php if ($_SESSION['rol'] == 1) : ?>
+                                    <li class="has-sub">
+                                        <a href="#">
+                                            <i class="fas fa-copy"></i>
+                                            <span class="bot-line"></span> administrator
+                                        </a>
+                                        <ul class="header3-sub-list list-unstyled">
+                                            <li>
+                                                <a href="../Login/signup.php">Register</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Password recovery</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tabla Usuarios</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tabla Inversores</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tabla Modulos</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tablas tarifas</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="navbar-nav w-100 ">
-                        <a href="../Proyecto/Proyecto.php" class="nav-item nav-link"><i class="bi bi-house-door me-2"></i> Dashboard </a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <i class="bi bi-folder-plus me-1"></i> Proyecto </a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                                <a href="../Consumo/Consumo.php" class="dropdown-item"> Consumo </a>
-                                <a href="../Dimencionamiento/Dimencionamiento.php" class="dropdown-item"> Dimencionamiento </a>
+                        <div class="header__tool">
+                            <div class="account-wrap">
+                                <div class="account-item account-item--style2 clearfix js-item-menu">
+                                    <div class="image">
+                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                                </h5>
+                                                <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="../account/account.php">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-globe"></i>Language</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="../sesion/desconec.php">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a href="#" class="nav-item nav-link active"> <i class="bi bi-clipboard me-1"></i> Dato Tecnico </a>
+                    </div>
+                </div>
+            </header>
+            <!-- END HEADER DESKTOP-->
+
+
+            <!-- HEADER MOBILE-->
+            <header class="header-mobile header-mobile-2 d-block d-lg-none">
+                <div class="header-mobile__bar">
+                    <div class="container-fluid">
+                        <div class="header-mobile-inner">
+                            <a class="logo" href="index.html">
+                                <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                            </a>
+                            <button class="hamburger hamburger--slider" type="button">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar-mobile">
+                    <div class="container-fluid">
+                        <ul class="navbar-mobile__list list-unstyled">
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="index.html">Dashboard 1</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fas fa-trophy"></i>
+                                    <span class="bot-line"></span>Features</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-copy"></i> administrator </a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="../Login/signup.php">Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> Password recovery </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
+            </header>
+
+            <div class="sub-header-mobile-2 d-block d-lg-none">
+                <div class="header__tool">
+                    <div class="header-button-item has-noti js-item-menu">
+                        <i class="zmdi zmdi-notifications"></i>
+                        <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
+                            <div class="notifi__title">
+                                <p>You have 3 Notifications</p>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c1 img-cir img-40">
+                                    <i class="zmdi zmdi-email-open"></i>
+                                </div>
+                                <div class="content">
+                                    <p>You got a email notification</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c2 img-cir img-40">
+                                    <i class="zmdi zmdi-account-box"></i>
+                                </div>
+                                <div class="content">
+                                    <p>Your account has been blocked</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__item">
+                                <div class="bg-c3 img-cir img-40">
+                                    <i class="zmdi zmdi-file-text"></i>
+                                </div>
+                                <div class="content">
+                                    <p>You got a new file</p>
+                                    <span class="date">April 12, 2018 06:50</span>
+                                </div>
+                            </div>
+                            <div class="notifi__footer">
+                                <a href="#">All notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-button-item js-item-menu">
+                        <i class="zmdi zmdi-settings"></i>
+                        <div class="setting-dropdown js-dropdown">
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-globe"></i>Language</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-pin"></i>Location</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-email"></i>Email</a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-notifications"></i>Notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="account-wrap">
+                        <div class="account-item account-item--style2 clearfix js-item-menu">
+                            <div class="image">
+                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                            </div>
+                            <div class="content">
+                                <a class="js-acc-btn" href="#">john doe</a>
+                            </div>
+                            <div class="account-dropdown js-dropdown">
+                                <div class="info clearfix">
+                                    <div class="image">
+                                        <a href="#">
+                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="name">
+                                            <a href="#">john doe</a>
+                                        </h5>
+                                        <span class="email">johndoe@example.com</span>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-settings"></i>Setting</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="#">
+                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__footer">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-power"></i>Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- END HEADER MOBILE -->
 
-            <!-- Sidebar End -->
 
-            <div class="content">
+            <div class="page-content">
 
-                <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                        <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                    </a>
-                    <a href="#" class="sidebar-toggler flex-shrink-0">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                    <form class="d-none d-md-flex ms-4">
-                        <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                    </form>
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="navbar-nav align-items-center ms-auto">
-                            <label class="toggle">
-                                <input type="checkbox" id="toggleSwitch" onchange="changeTheme()" />
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
+
+                <!-- BREADCRUMB-->
+                <section class="au-breadcrumb2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="au-breadcrumb-content">
+                                    <div class="au-breadcrumb-left">
+                                        <span class="au-breadcrumb-span">You are here:</span>
+                                        <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                            <li class="list-inline-item active">
+                                                <a href="../Proyecto/Proyecto.php">Dashboard</a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/</span>
+                                            </li>
+                                            <li class="list-inline-item active">
+                                                <a href="../DimencionamientoE/Dimencionamiento.php"> Dimencionamiento </a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/</span>
+                                            </li>
+                                            <li class="list-inline-item"> Datos tecnicos  </li>
+                                        </ul>
                                     </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="../img/user.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">
-                                            <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                            <small>15 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all message</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Profile updated</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">New user added</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Password changed</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['correo'] ?></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
-                                <a href="../sesion/desconec.php" class="dropdown-item">Log Out</a>
+                                    <form class="au-form-icon--sm" action="" method="post">
+                                        <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
+                                        <button class="au-btn--submit2" type="submit">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </nav>
-                <!-- Navbar End -->
+                </section>
 
-                <!-- Termina contenido -->
+
                 <!-- contenedor 2  -->
                 <div class="container-fluid mt-4 pt-4 px-4">
                     <div id="hola" value="<?php echo $Nmodulosi; ?>"></div>
@@ -380,7 +576,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                         $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.Max_potencia_FV_recomendada, inversores.Max_corriente_cortocircuito_rastreador_MPPT,inversores.Max_corriente_entrada_rastreador_MPPT, inversores.Voltaje_max_MPPT, inversores.Voltaje_min_MPPT FROM escogido_mfv
                                         JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                                        WHERE escogido_mfv.ID_PROYECTO = '$idproyecto'";
+                                        WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                         $resultado = mysqli_query($conexion, $consulta);
                                         $num_inversores = mysqli_num_rows($resultado);
                                         while ($fila = mysqli_fetch_array($resultado)) {
@@ -453,7 +649,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                     $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
                                     JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                                     WHERE escogido_mfv.ID_PROYECTO = '$idproyecto'";
+                                     WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                     $resultado = mysqli_query($conexion, $consulta);
 
                                     while ($fila = mysqli_fetch_array($resultado)) {
@@ -534,7 +730,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <div class="row g-4">
                                     <?php
                                     include("../BD/conec.php");
-                                    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
+                                    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$id_proyecto";
                                     $resultado = mysqli_query($conexion, $consulta);
                                     $fila = mysqli_fetch_array($resultado); { ?>
                                         <div class="col-sm-12 col-xl-6">
@@ -574,7 +770,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                     $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
                     JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                    WHERE escogido_mfv.ID_PROYECTO = '$idproyecto'";
+                    WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                     $resultado = mysqli_query($conexion, $consulta);
 
                                     while ($fila = mysqli_fetch_array($resultado)) {
@@ -636,11 +832,10 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                     ?>
 
-                                    <div id="voc" value="<?php echo $voc; ?>"></div> 
-                                    <div id="Potenciapanel" value="<?php echo $Potenciapanel; ?>"></div> 
+                                    <div id="voc" value="<?php echo $voc; ?>"></div>
+                                    <div id="Potenciapanel" value="<?php echo $Potenciapanel; ?>"></div>
                                     <div id="Circuit" value="<?php echo $Short_Circuit; ?>"></div>
                                     <script>
-                                
                                         var voc = parseFloat(document.getElementById("voc").getAttribute("value"));
                                         var Potenciapanel = parseFloat(document.getElementById("Potenciapanel").getAttribute("value"));
                                         var Circuit = parseFloat(document.getElementById("Circuit").getAttribute("value"));
@@ -662,43 +857,36 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </div>
 
-                <!-- fun -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="bg-secondary rounded-top p-4">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 text-center text-sm-start">
-                                &copy; <a href="#">Robles Ingeniero </a>, All Right Reserved.
-                            </div>
-                            <div class="col-12 col-sm-6 text-center text-sm-end">
 
-                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </div>
         </div>
 
 
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- JavaScript Libraries -->
+        <script src="../vendor/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap JS-->
+        <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <!-- Vendor JS       -->
+        <script src="../vendor/slick/slick.min.js">
+        </script>
+        <script src="../vendor/wow/wow.min.js"></script>
+        <script src="../vendor/animsition/animsition.min.js"></script>
+        <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+        </script>
+        <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="../vendor/counter-up/jquery.counterup.min.js">
+        </script>
+        <script src="../vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
+        <script src="../vendor/select2/select2.min.js"></script>
 
 
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../lib/chart/chart.min.js"></script>
-        <script src="../lib/easing/easing.min.js"></script>
-        <script src="../lib/waypoints/waypoints.min.js"></script>
-        <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="../lib/tempusdominus/js/moment.min.js"></script>
-        <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
         <!-- Javascript  hojas-->
+        <script src="../js/main2.js"></script>
         <script src="../js/main.js"></script>
         <script src="Resultados.js"></script>
         <script src="ajaxcalculo.js"> </script>

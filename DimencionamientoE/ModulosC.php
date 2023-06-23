@@ -1,5 +1,7 @@
 <?php
+
 include("../BD/conec.php");
+
 $id_proyecto = $_POST["id_proyecto"];
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;
 $HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 0;
@@ -23,45 +25,64 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 
     $resultados = mysqli_query($conexion, "SELECT * FROM facturas WHERE Id_proyecto = '$id_proyecto'");
     while ($consulta = mysqli_fetch_array($resultados)) {
-        
+
 
         $EnergiaTotal = $consulta['kwh'] + $EnergiaTotal;
     }
 
-    /* calculos */
-    $energiarequerida = $EnergiaTotal / 365;
-    $potenciapico = $HSP * $factorPerdida;
-    $potenciapicoFV = $energiarequerida / $potenciapico;
-    $Potenciapanel = $WATT / 1000;
-    $NMAXMFV = $potenciapicoFV  / $Potenciapanel;
-    $RedondeoNMAXMFV = intval($NMAXMFV);
-    $areatotal = $Area_módulo * $RedondeoNMAXMFV;
+    if ($HSP == 0) {
 
-    /* redondeos */
+
+    } else {
+        /* calculos */
+        $energiarequerida = $EnergiaTotal / 365;
+        $potenciapico = $HSP * $factorPerdida;
+        $potenciapicoFV = $energiarequerida / $potenciapico;
+        $Potenciapanel = $WATT / 1000;
+        $NMAXMFV = $potenciapicoFV  / $Potenciapanel;
+        $RedondeoNMAXMFV = intval($NMAXMFV);
+        $areatotal = $Area_módulo * $RedondeoNMAXMFV;
+
+        $Renergiarequerida = round($energiarequerida, 2);
+        $RpotenciapicoFV = round($potenciapicoFV, 2);
+        $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',PotenciopicoFV='$RpotenciapicoFV',Areatotal='$areatotal',NumerosdeModulos='$RedondeoNMAXMFV', Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
+        $resultado = mysqli_query($conexion, $updateProyecto2);
+    }
 }
 
-$Renergiarequerida = round($energiarequerida, 2);
-$RpotenciapicoFV = round($potenciapicoFV, 2);
-$updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',PotenciopicoFV='$RpotenciapicoFV',Areatotal='$areatotal',NumerosdeModulos='$RedondeoNMAXMFV', Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
-$resultado = mysqli_query($conexion, $updateProyecto2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <div class="">
-        <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;"> <?php echo $Area_módulo; ?> m&sup2</span></p>
-    </div>
-    <div class="">
-        <p class="espacios" for="descripcion"> <strong> Energia requerida:</strong><span style="color: red;"> <?php echo $Renergiarequerida; ?> Kwh dia</span></p>
-        <p class="espacios" for="descripcion"> <strong> Potencia pico FV:</strong><span style="color: red;"> <?php echo $RpotenciapicoFV; ?> Kwh</span></p>
-        <p class="espacios" for="descripcion"> <strong> Numeros de Modulos del proyecto:</strong> <span style="color: red;"> <?php echo $RedondeoNMAXMFV; ?> Modulos</span></p>
-        <p class="espacios" for="descripcion"> <strong> Area Total:</strong> <span style="color: red;"> <?php echo $areatotal; ?> m&sup2</span></p>
-    </div>
+    <?php if ($HSP == 0 || $HSP == NULL ) { ?>
+        <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+            <span class="badge badge-pill badge-warning">Alert</span>
+            Inserta datos que sean correctos!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php } else { ?>
+
+        <div class="">
+            <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;"> <?php echo $Area_módulo; ?> m&sup2</span></p>
+        </div>
+        <div class="">
+            <p class="espacios" for="descripcion"> <strong> Energia requerida:</strong><span style="color: red;"> <?php echo $Renergiarequerida; ?> Kwh dia</span></p>
+            <p class="espacios" for="descripcion"> <strong> Potencia pico FV:</strong><span style="color: red;"> <?php echo $RpotenciapicoFV; ?> Kwh</span></p>
+            <p class="espacios" for="descripcion"> <strong> Numeros de Modulos del proyecto:</strong> <span style="color: red;"> <?php echo $RedondeoNMAXMFV; ?> Modulos</span></p>
+            <p class="espacios" for="descripcion"> <strong> Area Total:</strong> <span style="color: red;"> <?php echo $areatotal; ?> m&sup2</span></p>
+        </div>
+
+    <?php } ?>
 </body>
+
 </html>

@@ -73,27 +73,31 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="header__navbar">
                                 <ul class="list-unstyled">
                                     <li class="has-sub">
-                                        <a href="#">
+                                        <a href="../Proyecto/Proyecto.php">
                                             <i class="fas fa-tachometer-alt"></i>Dashboard
                                             <span class="bot-line"></span>
                                         </a>
-                                        <ul class="header3-sub-list list-unstyled">
-                                            <li>
-                                                <a href="../Proyecto/Proyecto.php">Dashboard</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li class="has-sub">
                                         <a href="#">
-                                            <i class="fas fa-tachometer-alt"></i> Proyecto
+                                            <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
                                             <span class="bot-line"></span>
                                         </a>
                                         <ul class="header3-sub-list list-unstyled">
                                             <li>
-                                                <a href="VistaC.php">Consumo</a>
+                                                <a href="#">Dimencionamiento</a>
                                             </li>
                                             <li>
                                                 <a href="Inversores.php">Inversores</a>
+                                            </li>
+                                            <li>
+                                                <a href="../Volmaxymin/Corrientemax.php">Dato tecnico</a>
+                                            </li>
+                                            <li>
+                                                <a href="../FVfinanciero/Financiero.php">Financiero</a>
+                                            </li>
+                                            <li>
+                                                <a href="validation/V_consumoE.php">Consumo.php</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -111,13 +115,16 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     <a href="#">Password recovery</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">User</a>
+                                                    <a href="#">Tabla Usuarios</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Inversores</a>
+                                                    <a href="#">Tabla Inversores</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Modulos</a>
+                                                    <a href="#">Tabla Modulos</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tablas tarifas</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -370,7 +377,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <li class="list-inline-item seprate">
                                                     <span>/</span>
                                                 </li>
-                                                <li class="list-inline-item"> Consumo </li>
+                                                <li class="list-inline-item"> Dimencionamiento </li>
                                             </ul>
                                         </div>
                                         <form class="au-form-icon--sm" action="" method="post">
@@ -399,7 +406,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             </div>
                                             <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1"> Peak Solar Hour (HSP) </label>
-                                                <input type="number" class="form-control cc-name valid" id="ior" name="hsp" placeholder="Min" oninput="guardar()" value="<?php echo $fila["HSP"] ?>">
+                                                <input type="number" step="0.01" class="form-control cc-name valid" id="ior" name="hsp" placeholder="Min" oninput="guardar()" value="<?php echo $fila["HSP"] ?>">
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">

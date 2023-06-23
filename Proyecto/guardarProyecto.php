@@ -22,10 +22,13 @@ $NumerosdeModulos = 0;
 $Areatotal = 0;
 $VOCMAX = 0;
 $area = 0;
+$activo_consumo = 0;
+$tipo_tarifa = 0;
+$tipo_servicio = 0;
 
 
-$Proyecto = "INSERT INTO proyectos(NOMBRE_PROYECTO,ID_USUARIO,TEMP_MIN,TEMP_MAX,HSP,Ubicacion,ID_MFV,VMPMIN,Energiarequerida,PotenciopicoFV,NumerosdeModulos,Areatotal,VOCMAX,areadisponible)
-    VALUE('$nomproyecto','$id_usuario','$Temp_min','$Temp_max','$HSP','$Ubicacion','$ID_MFV','$VMPMIN','$Energiarequerida','$PotenciopicoFV','$NumerosdeModulos','$Areatotal','$VOCMAX','$area')";
+$Proyecto = "INSERT INTO proyectos(NOMBRE_PROYECTO,ID_USUARIO,TEMP_MIN,TEMP_MAX,HSP,Ubicacion,ID_MFV,VMPMIN,Energiarequerida,PotenciopicoFV,NumerosdeModulos,Areatotal,VOCMAX,areadisponible,activo_consumo,tipo_tarifa,tipo_servicio)
+VALUE('$nomproyecto','$id_usuario','$Temp_min','$Temp_max','$HSP','$Ubicacion','$ID_MFV','$VMPMIN','$Energiarequerida','$PotenciopicoFV','$NumerosdeModulos','$Areatotal','$VOCMAX','$area','$activo_consumo','$tipo_tarifa','$tipo_servicio')";
 $resultado = mysqli_query($conexion, $Proyecto);
 
 if (!$resultado) {

@@ -145,6 +145,8 @@ function guardar() {
     var ubi = document.getElementById("ubi").value; 
     var idproyecto = idProyecto;
 
+    console.log(HSP1);
+
     var parametros2 = { 
         "id": id_seleccionado,
         "HSP": HSP1,

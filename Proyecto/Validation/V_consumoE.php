@@ -20,6 +20,8 @@ if (isset($_SESSION['ID_PROYECTO'])) {
     $_SESSION['_alert'] = $_alert;
 
     if ($activo_consumo == 1) {
+        
+        $_SESSION['_alert'] = null;
         header("Location: ../../Consumo/VistaC.php");
         exit(); // Se recomienda usar exit() después de redireccionar
     } else {

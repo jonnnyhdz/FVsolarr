@@ -1,6 +1,5 @@
-
-
 <?php
+
 session_start();
 
 
@@ -15,6 +14,8 @@ if (isset($_SESSION['ID_PROYECTO'])) {
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
     $_SESSION['id_consumo'] = $id_consumo;
+
+    unset($_SESSION['_alert']);
 
     header("Location:../DimencionamientoE/Dimencionamiento.php");
 

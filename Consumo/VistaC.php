@@ -25,6 +25,9 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
     $_SESSION['ID_PROYECTO'] = $id_proyecto;
 
+    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$id_proyecto";
+    $resultado = mysqli_query($conexion, $consulta);
+    $fila = mysqli_fetch_array($resultado);
 
 ?>
 
@@ -80,24 +83,31 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="header__navbar">
                                 <ul class="list-unstyled">
                                     <li class="has-sub">
-                                        <a href="#">
+                                        <a href="../Proyecto/Proyecto.php">
                                             <i class="fas fa-tachometer-alt"></i>Dashboard
                                             <span class="bot-line"></span>
                                         </a>
-                                        <ul class="header3-sub-list list-unstyled">
-                                            <li>
-                                                <a href="../Proyecto/Proyecto.php">Dashboard</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li class="has-sub">
                                         <a href="#">
-                                            <i class="fas fa-tachometer-alt"></i> Proyecto
+                                            <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
                                             <span class="bot-line"></span>
                                         </a>
                                         <ul class="header3-sub-list list-unstyled">
                                             <li>
-                                                <a href="VistaC.php">Consumo</a>
+                                                <a href="../DimencionamientoE/Dimencionamiento.php">Dimencionamiento</a>
+                                            </li>
+                                            <li>
+                                                <a href="../DimencionamientoE/Inversores.php">Inversores</a>
+                                            </li>
+                                            <li>
+                                                <a href="../Volmaxymin/Corrientemax.php">Dato tecnico</a>
+                                            </li>
+                                            <li>
+                                                <a href="../FVfinanciero/Financiero.php">Financiero</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Consumo.php</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -115,13 +125,16 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     <a href="#">Password recovery</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">User</a>
+                                                    <a href="#">Tabla Usuarios</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Inversores</a>
+                                                    <a href="#">Tabla Inversores</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Modulos</a>
+                                                    <a href="#">Tabla Modulos</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tablas tarifas</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -182,6 +195,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </header>
                 <!-- END HEADER DESKTOP-->
+
 
                 <!-- HEADER MOBILE-->
                 <header class="header-mobile header-mobile-2 d-block d-lg-none">
