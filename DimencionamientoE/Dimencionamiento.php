@@ -504,13 +504,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="section-content">
                                             <form id="formularioEnvio" onsubmit="enviarDatos(event)">
                                                 <label for="inputNumModulos">Número de Módulos:</label>
-                                                <input type="number" id="inputNumModulos" required placeholder="Modulos">
+                                                <input type="number"   step="0.01" id="inputNumModulos" required placeholder="Modulos">
                                                 <br><br>
                                                 <label for="inputAreaTotal">Área Total para instalar módulos FV:</label>
-                                                <input type="number" id="inputAreaTotal" required placeholder="mts^2">
+                                                <input type="number"   step="0.01"  id="inputAreaTotal" required placeholder="mts^2">
                                                 <br><br>
                                                 <label for="inputPotenciaPico">Potencia Pico FV:</label>
-                                                <input type="number" id="inputPotenciaPico" required placeholder="Kw">
+                                                <input type="number"   step="0.01"  id="inputPotenciaPico" required placeholder="Kw">
                                                 <br><br>
                                                 <button type="submit">Enviar</button>
                                             </form>
