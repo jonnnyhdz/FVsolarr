@@ -186,7 +186,7 @@ function guardar() {
 
     $.ajax({
         data: parametros,
-        url: 'Tiempo.php',
+        url: 'ajax/Calculo1.php',
         type: 'POST',
         beforeSend: function() {
             $('#mostrar_mensaje').html("Cargando......");
@@ -200,7 +200,7 @@ function guardar() {
 
     $.ajax({
         data: parametros2,
-        url: 'ModulosC.php',
+        url: 'ajax/Calculo2.php',
         type: 'POST',
         beforeSend: function() {
             $('#mostrar_mensaje2').html("Cargando......");
@@ -239,8 +239,6 @@ function OInversor(){
             }
         }
     });
-
-
 }
 
 window.onload = guardar;

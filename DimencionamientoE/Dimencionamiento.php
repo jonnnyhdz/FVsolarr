@@ -67,7 +67,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="header__logo">
                                 <a href="#">
                                     <!-- LOGO -->
-                                    <img src="../img/logo.png" alt="" />
+                                    <img src="#" alt="logo"/>
                                 </a>
                             </div>
                             <div class="header__navbar">
@@ -192,7 +192,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         <div class="container-fluid">
                             <div class="header-mobile-inner">
                                 <a class="logo" href="index.html">
-                                    <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                                    <img src="#" alt="CoolAdmin" />
                                 </a>
                                 <button class="hamburger hamburger--slider" type="button">
                                     <span class="hamburger-box">
@@ -316,7 +316,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                    <img src="#" alt="John Doe" />
                                 </div>
                                 <div class="content">
                                     <a class="js-acc-btn" href="#">john doe</a>
@@ -325,7 +325,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                <img src="#" alt="John Doe" />
                                             </a>
                                         </div>
                                         <div class="content">
@@ -556,7 +556,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                         <div class="col-lg-8">
                             <div class="au-card mb-6">
-                                <form method="POST" action="GuardarD/guardar.php">
+                                <form method="POST" action="actions/guardar.php">
                                     <input type="hidden" name="idproyecto" value="<?php echo $idproyecto; ?>">
                                     <div>
                                         <div class="container-fluid pt-4 px-4">
@@ -654,7 +654,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         </div>
 
         <!-- JavaScript Libraries -->
-        <script src="../vendor/jquery-3.2.1.min.js"></script>
+        <!-- <script src="../vendor/jquery-3.2.1.min.js"></script> -->
         <!-- Bootstrap JS-->
         <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
         <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -675,8 +675,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
-        <script src="Almacen.js"></script>
-        <script src="Oinversor.js"></script>
+        <script src="main.js"></script>
     </body>
 
     </html>

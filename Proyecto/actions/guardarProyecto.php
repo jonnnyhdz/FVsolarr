@@ -1,6 +1,6 @@
 <?php
 
-include("../BD/conec.php");
+include("../../BD/conec.php");
 
 /* $id = $_GET['ID_USUARIO']; */
 
@@ -33,12 +33,15 @@ $resultado = mysqli_query($conexion, $Proyecto);
 
 if (!$resultado) {
     echo '<script>alert("Los datos no se insertaron")</script>';
-    header("Location: ../Proyecto/Proyecto.php");
+
+    $error = 1;
+    $_SESSION['_error'] = $error;
+
+    header("Location: ../Proyecto.php");
 } else {
     echo '<script>alert("El proyecto se creó correctamente")</script>';
-    header('Location: ../Proyecto/Proyecto.php');
+    header('Location: ../Proyecto.php');
 }
-    
 
 ?>
 

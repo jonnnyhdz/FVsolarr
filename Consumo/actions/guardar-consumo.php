@@ -1,5 +1,5 @@
 <?php
-include "../BD/conec.php";
+include "../../BD/conec.php";
 
 session_start();
 
@@ -88,11 +88,11 @@ if ($conexion->query($sql) === TRUE) {
     echo "Los datos se han guardado correctamente.";
 
     // Redirigir al usuario a una página de éxito o a donde desees
-    header("Location: ../DimencionamientoE/Dimencionamiento.php");
+    header("Location: ../../DimencionamientoE/Dimencionamiento.php");
  
 } else {
     echo "Error al guardar los datos: " . $conexion->error;
-    header("Location: consumo.php");
+    header("Location: ../consumo.php");
 }
 
 // Cerrar la conexión a la base de datos

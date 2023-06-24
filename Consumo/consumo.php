@@ -75,32 +75,22 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         <div class="header__logo">
                             <a href="#">
                                 <!-- LOGO -->
-                                <img src="../img/logo.png" alt="" />
+                                <img src="#" alt="" />
                             </a>
                         </div>
                         <div class="header__navbar">
                             <ul class="list-unstyled">
                                 <li class="has-sub">
-                                    <a href="#">
+                                    <a href="../Proyecto/Proyecto.php">
                                         <i class="fas fa-tachometer-alt"></i>Dashboard
                                         <span class="bot-line"></span>
                                     </a>
-                                    <ul class="header3-sub-list list-unstyled">
-                                        <li>
-                                            <a href="../Proyecto/Proyecto.php">Dashboard</a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <li class="has-sub">
                                     <a href="#">
                                         <i class="fas fa-tachometer-alt"></i> Proyecto
                                         <span class="bot-line"></span>
                                     </a>
-                                    <ul class="header3-sub-list list-unstyled">
-                                        <li>
-                                            <a href="VistaC.php">Consumo</a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <?php if ($_SESSION['rol'] == 1) : ?>
                                     <li class="has-sub">
@@ -190,7 +180,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="container-fluid">
                         <div class="header-mobile-inner">
                             <a class="logo" href="index.html">
-                                <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                                <img src="#" alt="CoolAdmin" />
                             </a>
                             <button class="hamburger hamburger--slider" type="button">
                                 <span class="hamburger-box">
@@ -314,7 +304,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="account-wrap">
                         <div class="account-item account-item--style2 clearfix js-item-menu">
                             <div class="image">
-                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                <img src="#" alt="John Doe" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">john doe</a>
@@ -323,7 +313,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="#" alt="John Doe" />
                                         </a>
                                     </div>
                                     <div class="content">
@@ -407,7 +397,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <?php endif; ?>
 
                 <!-- END BREADCRUMB-->
-                <form action="guardar-consumo.php" method="POST" class="form-horizontal">
+                <form action="actions/guardar-consumo.php" method="POST" class="form-horizontal">
                     <div class="row col-md-12">
                         <div class="col-lg-5">
                             <div class="card">
@@ -512,9 +502,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <!-- END COPYRIGHT-->
             </div>
 
-
-
-
         </div>
 
 
@@ -540,7 +527,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
-        <script src="generador-fechas.js"></script>
+        <script src="main.js"></script>
 
 
     </body>

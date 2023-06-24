@@ -1,6 +1,6 @@
 <?php
 
-include("../BD/conec.php");
+include("../../BD/conec.php");
 session_start();
 
 $id_proyecto = $_POST['id_proyecto'];
@@ -19,17 +19,17 @@ if (isset($_SESSION['ID_PROYECTO'])) {
     if ($activo_consumo == 1) {
         
         $_SESSION['_alert'] = null;
-        header("Location: ../DimencionamientoE/Dimencionamiento.php");
+        header("Location: ../../DimencionamientoE/Dimencionamiento.php");
         exit(); // Se recomienda usar exit() después de redireccionar
     } else {
 
         $_alert=1;
         $_SESSION['_alert'] = $_alert;
-
-        header("Location: ../Consumo/consumo.php");
+        header("Location: ../../Consumo/consumo.php");
     }
 } else {
-    header("Location: ../Proyecto/Proyecto.php");
+    header("Location: ../Proyecto.php");
     unset($_SESSION['ID_PROYECTO']);
 }
 ?>
+

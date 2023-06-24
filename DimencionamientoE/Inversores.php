@@ -40,7 +40,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <title> FVSolar</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <link href="../Estilos_admi//theme.css" rel="stylesheet" media="all">
+        <link href="../Estilos_admi/theme.css" rel="stylesheet" media="all">
         <link href="../Estilos_admi/font-face.css" rel="stylesheet" media="all">
         <link href="../vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
         <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
@@ -61,10 +61,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <!-- Libraries Stylesheet -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="../css/estiloP.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
     </head>
 
 
@@ -78,7 +74,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         <div class="header__logo">
                             <a href="#">
                                 <!-- LOGO -->
-                                <img src="../img/logo.png" alt="" />
+                                <img src="#" alt="logo" />
                             </a>
                         </div>
                         <div class="header__navbar">
@@ -88,11 +84,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <i class="fas fa-tachometer-alt"></i>Dashboard
                                         <span class="bot-line"></span>
                                     </a>
-                                    <ul class="header3-sub-list list-unstyled">
-                                        <li>
-                                            <a href="../Proyecto/Proyecto.php">Dashboard</a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <li class="has-sub">
                                     <a href="#">
@@ -209,7 +200,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="container-fluid">
                         <div class="header-mobile-inner">
                             <a class="logo" href="index.html">
-                                <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                                <img src="#" alt="CoolAdmin" />
                             </a>
                             <button class="hamburger hamburger--slider" type="button">
                                 <span class="hamburger-box">
@@ -333,7 +324,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="account-wrap">
                         <div class="account-item account-item--style2 clearfix js-item-menu">
                             <div class="image">
-                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                <img src="#" alt="John Doe" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">john doe</a>
@@ -342,7 +333,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="#" alt="John Doe" />
                                         </a>
                                     </div>
                                     <div class="content">
@@ -389,18 +380,18 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <span class="au-breadcrumb-span">You are here:</span>
                                         <ul class="list-unstyled list-inline au-breadcrumb__list">
                                             <li class="list-inline-item active">
-                                                <a href="#">Dashboard</a>
+                                                <a href="../Proyecto/Proyecto.php">Dashboard</a>
                                             </li>
                                             <li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
                                             <li class="list-inline-item active">
-                                                <a href="../Consumo/VistaC.php"> Dimencionamiento </a>
+                                                <a href="Dimencionamiento.php"> Dimencionamiento </a>
                                             </li>
                                             <li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
-                                            <li class="list-inline-item"> Tus Inversores  </li>
+                                            <li class="list-inline-item"> Tus Inversores </li>
                                         </ul>
                                     </div>
                                     <form class="au-form-icon--sm" action="" method="post">
@@ -447,12 +438,20 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                                         $resultado = mysqli_query($conexion, $consulta);
                                                         while ($fila = mysqli_fetch_array($resultado)) {
+
+                                                            var_dump( $fila['ID_ESCOGIDO']);
                                                         ?>
-                                                            <tr>
+                                                            <tr class="tr-shadow">
                                                                 <th scope="row"><?php echo $contador ?> </th>
                                                                 <td><?php echo $fila['Marca'] ?><?php echo $fila['Modelo'] ?></td>
                                                                 <td><?php echo $fila["cantidad"] ?></td>
-                                                                <td><button type="button" class="btn btn-danger " onclick="eliminar('<?php echo $fila['ID_ESCOGIDO'] ?>')"> <i class="bi bi-trash"></i> ELIMINAR </button></td>
+                                                                <td>
+                                                                    <div class="table-data-feature">
+                                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminarinversor('<?php echo $fila['ID_ESCOGIDO'] ?>')">
+                                                                            <i class="zmdi zmdi-delete"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         <?php $contador++;
                                                         } ?>
@@ -508,8 +507,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
-        <script src="generador-fechas.js"></script>
-
+        <script src="actions/actions.js"></script>
 
     </body>
 

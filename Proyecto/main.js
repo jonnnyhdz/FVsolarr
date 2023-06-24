@@ -27,7 +27,7 @@ function eliminar(id) {
 
             // Retrasar la redirección después de 2 segundos
             setTimeout(function() {
-                window.location.href = 'acciones/Eliminar.php?ID_PROYECTO=' + id;
+                window.location.href = 'actions/Eliminar.php?ID_PROYECTO=' + id;
             }, 2000);
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
@@ -72,13 +72,13 @@ function editarC(id) {
     });
 }
 
-function editarN(id,event) {
+function editarN(id, event) {
 
     event.preventDefault(); // Detener el envío del formulario
     event.stopPropagation(); // Detener la propagación del evento
 
     Swal.fire({
-        title: 'Nombre de proyecto nuevo',
+        title: 'Nombre nuevo?',
         input: 'text',
         inputAttributes: {
             autocapitalize: 'off'
@@ -100,7 +100,7 @@ function editarN(id,event) {
             const nombreProyecto = result.value;
             const form = document.getElementById('formCrearProyecto');
             const idUsuario = form.querySelector('input[name="id_usuario"]').value;
-            form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
+            form.action = 'actions/Editar.php?ID_PROYECTO=' + id; // Establecer la acción del formulario aquí
             const inputNombre = document.createElement('input');
             inputNombre.type = 'hidden';
             inputNombre.name = 'nombreProyecto';
@@ -112,7 +112,6 @@ function editarN(id,event) {
             inputUsuario.name = 'id_usuario';
             inputUsuario.value = idUsuario;
             form.appendChild(inputUsuario);
-
             form.submit();
         }
     });
@@ -123,7 +122,7 @@ function guardarnombre(event) {
     event.stopPropagation(); // Detener la propagación del evento
 
     Swal.fire({
-        title: 'Nombre de proyecto nuevo',
+        title: 'Nombre del proyecto',
         input: 'text',
         inputAttributes: {
             autocapitalize: 'off'
@@ -145,7 +144,7 @@ function guardarnombre(event) {
             const nombreProyecto = result.value;
             const form = document.getElementById('formCrearProyecto');
             const idUsuario = form.querySelector('input[name="id_usuario"]').value;
-            form.action = 'guardarProyecto.php'; // Establecer la acción del formulario aquí
+            form.action = 'actions/guardarProyecto.php'; // Establecer la acción del formulario aquí
             const inputNombre = document.createElement('input');
             inputNombre.type = 'hidden';
             inputNombre.name = 'nombreProyecto';

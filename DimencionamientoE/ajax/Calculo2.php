@@ -1,6 +1,6 @@
 <?php
 
-include("../BD/conec.php");
+include("../../BD/conec.php");
 
 $id_proyecto = $_POST["id_proyecto"];
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;

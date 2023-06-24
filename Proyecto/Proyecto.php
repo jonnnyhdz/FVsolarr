@@ -87,11 +87,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <i class="fa fa-folder"></i> Dashboard
                                         <span class="bot-line"></span>
                                     </a>
-                                    <ul class="header3-sub-list list-unstyled">
-                                        <li>
-                                            <a href="#">Dashboard</a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <?php if ($_SESSION['rol'] == 1) : ?>
                                     <li class="has-sub">
@@ -305,7 +300,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="account-wrap">
                         <div class="account-item account-item--style2 clearfix js-item-menu">
                             <div class="image">
-                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                <img src="#" alt="John Doe" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">john doe</a>
@@ -314,7 +309,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="#" alt="John Doe" />
                                         </a>
                                     </div>
                                     <div class="content">
@@ -376,6 +371,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 </section>
                 <!-- END BREADCRUMB-->
 
+                <?php $_SESSION['_error'] = $_SESSION['_error'] ?? 0;
+                    if ($_SESSION['_error'] == 1) : ?>
+                    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3">
+                        <span class="badge badge-pill badge-danger"> Alert </span>
+                        No se inserto correctamente el proyecto, vuelva a interlarlo!.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; unset($_SESSION['_error']); ?>
+
                 <!-- DATA TABLE-->
                 <section class="p-t-20">
                     <div class="container">
@@ -420,7 +426,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <tbody>
                                                 <tr class="tr-shadow">
                                                     <td>
-                                                        <form action="validar_idproyecto.php" method="post">
+                                                        <form action="Validation/validar_idproyecto.php" method="post">
                                                             <input type="hidden" name="id_proyecto" value="<?php echo $id_proyecto; ?>">
                                                             <button type="submit"><?php echo $fila["NOMBRE_PROYECTO"]; ?></button>
                                                         </form>
@@ -435,7 +441,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Consumo" onclick="editarC('<?php echo $fila['ID_PROYECTO'] ?>')">
                                                                 <i class="fa fa-barcode"></i>
                                                             </button>
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"  onclick="editarN('<?php echo $fila['ID_PROYECTO'] ?>')">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Edit" onclick="editarN('<?php echo $fila['ID_PROYECTO']; ?>', event)">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminar('<?php echo $fila['ID_PROYECTO'] ?>')">
