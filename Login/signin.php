@@ -1,6 +1,6 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="utf-8">
@@ -27,6 +27,7 @@
 
     <!-- Libraries Stylesheet -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css//estiloP.css">
 </head>
 
 <body>
@@ -39,7 +40,18 @@
                             <a href="#">
                                 <img src="#" alt="LOGO">
                             </a>
+                            <?php
+                            if ($_SESSION['_incorrecto'] = $_SESSION['_incorrecto'] ?? 0 == 1) : ?>
+                                <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3">
+                                    <span class="badge badge-pill badge-danger"> Alert </span>
+                                    Verifica tu correo u constraseña!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
                         </div>
+
                         <div class="login-form">
                             <form method="POST" action="validar_login.php">
                                 <div class="form-group">
@@ -47,13 +59,14 @@
                                     <input class="au-input au-input--full" type="email" name="correo" id="correo" placeholder="name@example.com">
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="contrasena" id="contrasena" placeholder="Password" >
+                                    <div class="password-toggle">
+                                        <input class="au-input au-input--full" type="password" name="contrasena" id="contrasenaInput" placeholder="Password">
+                                        <span class="toggle-icon" onclick="mostrarOcultarContrasena()">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="login-checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember">Remember Me
-                                    </label>
+                                <div class="login-checkbox m-2">
                                     <label>
                                         <a href="#">Forgotten Password?</a>
                                     </label>
@@ -101,6 +114,7 @@
 
     <!-- Main JS-->
     <script src="../js/main2.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

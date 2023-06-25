@@ -20,7 +20,7 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
             $_SESSION['nombre'] = $usuario['nombre'];
             $_SESSION['rol'] = $usuario['rol'];
             $_SESSION['imagen'] = $usuario['imagen'];
-
+            unset($_SESSION['_incorrecto']);
 
             header ('Location: ../Proyecto/Proyecto.php', true, 301);
 
@@ -29,7 +29,11 @@ if(isset($_POST['correo']) && isset($_POST['contrasena'])) {
             exit();
         } else {
             // Contraseña incorrecta
-            echo '<script>alert("Contraseña incorrecta. Inténtelo de nuevo."); window.location.href="signin.php?mensaje=Contraseña incorrecta. Inténtelo de nuevo.";</script>';
+        
+            $_SESSION['_incorrecto'] = 1; 
+            header ('Location: signin.php', true, 301);
+
+            /* echo '<script>alert("Contraseña incorrecta. Inténtelo de nuevo."); window.location.href="signin.php?mensaje=Contraseña incorrecta. Inténtelo de nuevo.";</script>'; */
             exit();
         }
     } else {

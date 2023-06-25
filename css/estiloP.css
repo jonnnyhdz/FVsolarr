@@ -16,10 +16,22 @@
     text-align: left;
 }
 
-#resultado input{
+#resultado input {
     border: #000000;
 }
+
 #resultado th {
     font-weight: bold;
 }
 
+.password-toggle {
+    position: relative;
+}
+
+.password-toggle .toggle-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
