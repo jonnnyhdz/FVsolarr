@@ -7,7 +7,7 @@ function mostrarDatos() {
 
         // Almacenar la selección "Sí" en el almacenamiento local
         localStorage.setItem("seleccion", "si");
-    } else {
+    } else if (seleccion === "no") {
         document.getElementById("numModulos").readOnly = true;
         document.getElementById("areaTotal").readOnly = true;
         document.getElementById("potenciaPico").readOnly = true;
@@ -25,8 +25,10 @@ function mostrarDatos() {
 
         // Almacenar la selección "No" en el almacenamiento local
         localStorage.setItem("seleccion", "no");
+    } else if (seleccion === "sinCambios") {
+        // Mostrar los nuevos datos ingresados sin marcar como modificados
+        mostrarDatosModificados(false);
     }
-    
 }
 
 window.addEventListener("load", function () {
@@ -43,7 +45,7 @@ window.addEventListener("load", function () {
 
 function enviarDatos(event) {
     event.preventDefault();
-    
+
     var numModulos = document.getElementById("inputNumModulos").value;
     var areaTotal = document.getElementById("inputAreaTotal").value;
     var potenciaPico = document.getElementById("inputPotenciaPico").value;
@@ -52,15 +54,14 @@ function enviarDatos(event) {
     localStorage.setItem("numModulos", numModulos);
     localStorage.setItem("areaTotal", areaTotal);
     localStorage.setItem("potenciaPico", potenciaPico);
-    
+
     // Reiniciar los valores iniciales y mostrar los nuevos valores
     numModulosInicial = numModulos;
     numModulosModificado = true;
     localStorage.setItem("numModulosModificado", true);
-    mostrarDatos();
-    datosconcambios();
+    mostrarDatosModificados(true);
     document.getElementById("mensajeModificacion").innerText = "¡Valores Actualizados!";
-    
+
     // Restablecer el formulario de envío
     document.getElementById("formularioEnvio").reset();
 }
@@ -108,9 +109,8 @@ function actualizarDatos() {
     localStorage.setItem("potenciaPico", potenciaPico);
 
     datosconcambios();
+    mostrarDatosModificados(true);
 }
-
-
 
 window.addEventListener("storage", function (event) {
     if (event.key === "numModulosModificado" && event.newValue === "false") {
@@ -129,8 +129,27 @@ function datosconcambios() {
 
     var datosElement = document.getElementById("datos");
     datosElement.innerText = "Número de Módulos: " + numModulos + ", Área Total para instalar módulos FV: " + areaTotal + ", Potencia Pico FV: " + potenciaPico;
-
 }
+
+function mostrarDatosModificados(actualizarFormulario) {
+    var numModulos = localStorage.getItem("numModulos");
+    var areaTotal = localStorage.getItem("areaTotal");
+    var potenciaPico = localStorage.getItem("potenciaPico");
+
+    var datosElement = document.getElementById("datosModificados");
+    datosElement.innerText = "Datos Modificados - Número de Módulos: " + numModulos + ", Área Total para instalar módulos FV: " + areaTotal + ", Potencia Pico FV: " + potenciaPico;
+
+    if (actualizarFormulario) {
+        document.getElementById("numModulos").value = numModulos;
+        document.getElementById("areaTotal").value = areaTotal;
+        document.getElementById("potenciaPico").value = potenciaPico;
+    }
+}
+
+// Comprobar los datos en tiempo real al modificar los campos de entrada
+document.getElementById("numModulos").addEventListener("input", actualizarDatos);
+document.getElementById("areaTotal").addEventListener("input", actualizarDatos);
+document.getElementById("potenciaPico").addEventListener("input", actualizarDatos);
 
 
 

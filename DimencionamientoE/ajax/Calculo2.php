@@ -63,26 +63,58 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 
 <body>
     <?php if ($HSP == 0 || $HSP == NULL ) { ?>
-        <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
-            <span class="badge badge-pill badge-warning">Alert</span>
-            Inserta datos que sean correctos!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+        <span class="badge badge-pill badge-warning">Alert</span>
+        Inserta datos que sean correctos!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <?php } else { ?>
 
-        <div class="">
-            <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;"> <?php echo $Area_módulo; ?> m&sup2</span></p>
-        </div>
-        <div class="">
-            <p class="espacios" for="descripcion"> <strong> Energia requerida:</strong><span style="color: red;"> <?php echo $Renergiarequerida; ?> Kwh dia</span></p>
-            <p class="espacios" for="descripcion"> <strong> Potencia pico FV:</strong><span style="color: red;"> <?php echo $RpotenciapicoFV; ?> Kwh</span></p>
-            <p class="espacios" for="descripcion"> <strong> Numeros de Modulos del proyecto:</strong> <span style="color: red;"> <?php echo $RedondeoNMAXMFV; ?> Modulos</span></p>
-            <p class="espacios" for="descripcion"> <strong> Area Total:</strong> <span style="color: red;"> <?php echo $areatotal; ?> m&sup2</span></p>
-        </div>
+    <div class="">
+        <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;">
+                <?php echo $Area_módulo; ?> m&sup2</span></p>
+    </div>
+    <div class="">
+    <form id="formularioEnvio" onsubmit="enviarDatos(event)">
+    <div class="espacios">
+        <label for="inputEnergiaRequerida"><strong>Energia requerida:</strong></label>
+        <span style="color: red;"><?php echo $Renergiarequerida; ?> Kwh dia</span>
+    </div>
+    <div class="espacios">
+        <label for="inputPotenciaPico"><strong>Potencia pico FV:</strong></label>
+        <span style="color: red;"><?php echo $RpotenciapicoFV; ?> Kwh</span>
+        <input type="hidden" id="inputPotenciaPico" name="inputPotenciaPico" value="<?php echo $RpotenciapicoFV; ?>">
+    </div>
+    <div class="espacios">
+        <label for="inputNumModulos"><strong>Numeros de Modulos del proyecto:</strong></label>
+        <span style="color: red;"><?php echo $RedondeoNMAXMFV; ?> Modulos</span>
+        <input type="hidden" id="inputNumModulos" name="inputNumModulos" value="<?php echo $RedondeoNMAXMFV; ?>">
+    </div>
+    <div class="espacios">
+        <label for="inputAreaTotal"><strong>Area Total:</strong></label>
+        <span style="color: red;"><?php echo $areatotal; ?> m&sup2</span>
+        <input type="hidden" id="inputAreaTotal" name="inputAreaTotal" value="<?php echo $areatotal; ?>">
+    </div>
+    <button id="submitBtn" type="submit" style="display: none;">Limitar</button>
+    <input type="hidden" id="idProyecto" name="idProyecto" value="<?php echo $id_proyecto; ?>">
+</form>
+<!-- ... -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var hasDisplayedData = <?php echo ($Renergiarequerida || $RpotenciapicoFV || $RedondeoNMAXMFV || $areatotal) ? 'true' : 'false'; ?>;
+    if (hasDisplayedData) {
+      $('#formularioEnvio').submit();
+    }
+  });
+</script>
 
-    <?php } ?>
+
+    </div>
+        <?php } ?>
+        <script src="../main.js"></script>
 </body>
 
 </html>

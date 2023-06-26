@@ -502,7 +502,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <div class="au-card-inner">
                                     <div class="section">
                                         <div class="section-content">
-                                            <form id="formularioEnvio" onsubmit="enviarDatos(event)">
+                                            <!-- <form id="formularioEnvio" onsubmit="enviarDatos(event)">
                                                 <label for="inputNumModulos">Número de Módulos:</label>
                                                 <input type="number"   step="0.01" id="inputNumModulos" required placeholder="Modulos">
                                                 <br><br>
@@ -513,7 +513,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <input type="number"   step="0.01"  id="inputPotenciaPico" required placeholder="Kw">
                                                 <br><br>
                                                 <button type="submit">Enviar</button>
-                                            </form>
+                                            </form> -->
                                         </div>
                                     </div>
                                 </div>
@@ -532,7 +532,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                         <select id="seleccion" onchange="mostrarDatos()">
                                                             <option value="no">No</option>
                                                             <option value="si">Sí</option>
-                                                            <option value="sinCambios">Sin cambios</option>
                                                         </select>
                                                         <p id="mensajeModificacion"></p>
                                                         <br><br>
