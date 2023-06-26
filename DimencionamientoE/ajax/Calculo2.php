@@ -31,8 +31,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
     }
 
     if ($HSP == 0) {
-
-
     } else {
         /* calculos */
         $energiarequerida = $EnergiaTotal / 365;
@@ -49,7 +47,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
         $resultado = mysqli_query($conexion, $updateProyecto2);
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +59,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 </head>
 
 <body>
-    <?php if ($HSP == 0 || $HSP == NULL ) { ?>
+    <?php if ($HSP == 0 || $HSP == NULL) { ?>
         <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
             <span class="badge badge-pill badge-warning">Alert</span>
             Inserta datos que sean correctos!
@@ -71,7 +68,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
             </button>
         </div>
     <?php } else { ?>
-
         <div class="">
             <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;"> <?php echo $Area_módulo; ?> m&sup2</span></p>
         </div>
@@ -81,8 +77,8 @@ while ($consulta = mysqli_fetch_array($resultados)) {
             <p class="espacios" for="descripcion"> <strong> Numeros de Modulos del proyecto:</strong> <span style="color: red;"> <?php echo $RedondeoNMAXMFV; ?> Modulos</span></p>
             <p class="espacios" for="descripcion"> <strong> Area Total:</strong> <span style="color: red;"> <?php echo $areatotal; ?> m&sup2</span></p>
         </div>
-
     <?php } ?>
+    <script src="sugerencia.js"></script>
 </body>
 
 </html>

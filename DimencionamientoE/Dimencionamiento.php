@@ -67,7 +67,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="header__logo">
                                 <a href="#">
                                     <!-- LOGO -->
-                                    <img src="#" alt="logo"/>
+                                    <img src="#" alt="logo" />
                                 </a>
                             </div>
                             <div class="header__navbar">
@@ -393,10 +393,10 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </section>
 
                     <!-- END BREADCRUMB-->
-                    <div class="row col-md-12">
+                    <div class="row col-12">
                         <!-- parte 1 -->
                         <div class="col-lg-4">
-                            <div class="au-card recent-report">
+                            <div class="au-card">
                                 <div class="au-card-inner">
                                     <div class="">
                                         <div class="">
@@ -449,7 +449,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="au-card recent-report">
+                            <div class="au-card">
                                 <div class="au-card-inner ">
                                     <div class="">
                                         <div class="">
@@ -482,7 +482,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         </div>
 
                         <div class="col-lg-4">
-                            <div class="au-card recent-report">
+                            <div class="au-card ">
                                 <div class="au-card-inner">
                                     <div class="mb-2">
                                         <div class="mt-3" id="mostrar_mensaje"></div>
@@ -493,8 +493,20 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="row col-md-12">
+                    <?php 
+                    $_SESSION['_incorrecto'] = 1;
+                    if ($_SESSION['_incorrecto'] = $_SESSION['_incorrecto'] ?? 0 == 1) : ?>
+                        <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3 mr-2">
+                            <span class="badge badge-pill badge-danger"> Sugerencia </span>
+                            <span id="resultado"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+                    <div class="row col-md-12 mt-4">
                         <!-- parte 1 -->
 
                         <div class="col-lg-4">
@@ -504,13 +516,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="section-content">
                                             <form id="formularioEnvio" onsubmit="enviarDatos(event)">
                                                 <label for="inputNumModulos">Número de Módulos:</label>
-                                                <input type="number"   step="0.01" id="inputNumModulos" required placeholder="Modulos">
+                                                <input type="number" step="0.01" id="inputNumModulos" required placeholder="Modulos">
                                                 <br><br>
                                                 <label for="inputAreaTotal">Área Total para instalar módulos FV:</label>
-                                                <input type="number"   step="0.01"  id="inputAreaTotal" required placeholder="mts^2">
+                                                <input type="number" step="0.01" id="inputAreaTotal" required placeholder="mts^2">
                                                 <br><br>
                                                 <label for="inputPotenciaPico">Potencia Pico FV:</label>
-                                                <input type="number"   step="0.01"  id="inputPotenciaPico" required placeholder="Kw">
+                                                <input type="number" step="0.01" id="inputPotenciaPico" required placeholder="Kw">
                                                 <br><br>
                                                 <button type="submit">Enviar</button>
                                             </form>
@@ -676,6 +688,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
         <script src="main.js"></script>
+        <script src="ajax/sugerencia.js"></script>
     </body>
 
     </html>
