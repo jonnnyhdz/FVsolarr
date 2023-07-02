@@ -1,155 +1,35 @@
-function mostrarDatos() {
-    var seleccion = document.getElementById("seleccion").value;
-    if (seleccion === "si") {
-        document.getElementById("numModulos").readOnly = false;
-        document.getElementById("areaTotal").readOnly = false;
-        document.getElementById("potenciaPico").readOnly = false;
 
-        // Almacenar la selección "Sí" en el almacenamiento local
-        localStorage.setItem("seleccion", "si");
-    } else if (seleccion === "no") {
-        document.getElementById("numModulos").readOnly = true;
-        document.getElementById("areaTotal").readOnly = true;
-        document.getElementById("potenciaPico").readOnly = true;
+  function datosCalculo3(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
-        if (numModulosModificado) {
-            // Restaurar valores iniciales
-            numModulosInicial = localStorage.getItem("numModulos");
-            document.getElementById("numModulos").value = numModulosInicial;
-            document.getElementById("areaTotal").value = localStorage.getItem("areaTotal");
-            document.getElementById("potenciaPico").value = localStorage.getItem("potenciaPico");
+    // Obtener los valores de los campos ocultos
+    var potenciaPico = document.getElementById('inputPotenciaPico').value;
+    var numModulos = document.getElementById('inputNumModulos').value;
+    var areaTotal = document.getElementById('inputAreaTotal').value;
+    var idProyecto = document.getElementById('idProyecto').value;
 
-            numModulosModificado = false;
-            localStorage.setItem("numModulosModificado", false);
-        }
+    // Construir el objeto de parámetros
+    var parametros3 = {
+      potenciaPico: potenciaPico,
+      numModulos: numModulos,
+      areaTotal: areaTotal,
+      idProyecto: idProyecto
+    };
 
-        // Almacenar la selección "No" en el almacenamiento local
-        localStorage.setItem("seleccion", "no");
-    } else if (seleccion === "sinCambios") {
-        // Mostrar los nuevos datos ingresados sin marcar como modificados
-        mostrarDatosModificados(false);
-    }
-}
+    // Realizar la solicitud AJAX a Calculo3.php
+    $.ajax({
+      data: parametros3,
+      url: 'ajax/Calculo3.php',
+      type: 'POST',
+      beforeSend: function() {
+        $('#mostrar_mensaje3').html("Cargando...");
+      },
+      success: function(mensaje3) {
+        $('#mostrar_mensaje3').html(mensaje3);
+      }
+    });
+  }
 
-window.addEventListener("load", function () {
-    numModulosModificado = localStorage.getItem("numModulosModificado") === "true";
-    inicializarValores();
-    mostrarDatos();
-    datosconcambios();
-    // Restaurar la selección guardada en el almacenamiento local
-    var seleccionGuardada = localStorage.getItem("seleccion");
-    if (seleccionGuardada) {
-        document.getElementById("seleccion").value = seleccionGuardada;
-    }
-});
-
-function enviarDatos(event) {
-    event.preventDefault();
-
-    var numModulos = document.getElementById("inputNumModulos").value;
-    var areaTotal = document.getElementById("inputAreaTotal").value;
-    var potenciaPico = document.getElementById("inputPotenciaPico").value;
-
-    // Actualizar los valores en el almacenamiento local
-    localStorage.setItem("numModulos", numModulos);
-    localStorage.setItem("areaTotal", areaTotal);
-    localStorage.setItem("potenciaPico", potenciaPico);
-
-    // Reiniciar los valores iniciales y mostrar los nuevos valores
-    numModulosInicial = numModulos;
-    numModulosModificado = true;
-    localStorage.setItem("numModulosModificado", true);
-    mostrarDatosModificados(true);
-    document.getElementById("mensajeModificacion").innerText = "¡Valores Actualizados!";
-
-    // Restablecer el formulario de envío
-    document.getElementById("formularioEnvio").reset();
-}
-
-var numModulosInicial;
-var numModulosModificado = false;
-
-function inicializarValores() {
-    if (localStorage.getItem("numModulos") !== null) {
-        numModulosInicial = localStorage.getItem("numModulos");
-        document.getElementById("numModulos").value = numModulosInicial;
-    } else {
-        numModulosInicial = null;
-    }
-
-    if (localStorage.getItem("areaTotal") !== null) {
-        document.getElementById("areaTotal").value = localStorage.getItem("areaTotal");
-    } else {
-        document.getElementById("areaTotal").value = 0;
-    }
-
-    if (localStorage.getItem("potenciaPico") !== null) {
-        document.getElementById("potenciaPico").value = localStorage.getItem("potenciaPico");
-    } else {
-        document.getElementById("potenciaPico").value = 0;
-    }
-    datosconcambios();
-}
-
-function actualizarDatos() {
-    var numModulos = document.getElementById("numModulos").value;
-    var areaTotal = document.getElementById("areaTotal").value;
-    var potenciaPico = document.getElementById("potenciaPico").value;
-
-    if (numModulosInicial !== null) {
-        if (numModulos !== numModulosInicial || areaTotal !== localStorage.getItem("areaTotal") || potenciaPico !== localStorage.getItem("potenciaPico")) {
-            numModulosInicial = numModulos;
-            numModulosModificado = true;
-            localStorage.setItem("numModulosModificado", true);
-        }
-    }
-
-    localStorage.setItem("numModulos", numModulos);
-    localStorage.setItem("areaTotal", areaTotal);
-    localStorage.setItem("potenciaPico", potenciaPico);
-
-    datosconcambios();
-    mostrarDatosModificados(true);
-}
-
-window.addEventListener("storage", function (event) {
-    if (event.key === "numModulosModificado" && event.newValue === "false") {
-        numModulosInicial = null;
-        numModulosModificado = false;
-        inicializarValores();
-        mostrarDatos();
-        document.getElementById("mensajeModificacion").innerText = "";
-    }
-});
-
-function datosconcambios() {
-    var numModulos = document.getElementById("numModulos").value;
-    var areaTotal = document.getElementById("areaTotal").value;
-    var potenciaPico = document.getElementById("potenciaPico").value;
-
-    var datosElement = document.getElementById("datos");
-    datosElement.innerText = "Número de Módulos: " + numModulos + ", Área Total para instalar módulos FV: " + areaTotal + ", Potencia Pico FV: " + potenciaPico;
-}
-
-function mostrarDatosModificados(actualizarFormulario) {
-    var numModulos = localStorage.getItem("numModulos");
-    var areaTotal = localStorage.getItem("areaTotal");
-    var potenciaPico = localStorage.getItem("potenciaPico");
-
-    var datosElement = document.getElementById("datosModificados");
-    datosElement.innerText = "Datos Modificados - Número de Módulos: " + numModulos + ", Área Total para instalar módulos FV: " + areaTotal + ", Potencia Pico FV: " + potenciaPico;
-
-    if (actualizarFormulario) {
-        document.getElementById("numModulos").value = numModulos;
-        document.getElementById("areaTotal").value = areaTotal;
-        document.getElementById("potenciaPico").value = potenciaPico;
-    }
-}
-
-// Comprobar los datos en tiempo real al modificar los campos de entrada
-document.getElementById("numModulos").addEventListener("input", actualizarDatos);
-document.getElementById("areaTotal").addEventListener("input", actualizarDatos);
-document.getElementById("potenciaPico").addEventListener("input", actualizarDatos);
 
 
 

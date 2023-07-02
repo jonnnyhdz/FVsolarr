@@ -45,7 +45,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 
         $Renergiarequerida = round($energiarequerida, 2);
         $RpotenciapicoFV = round($potenciapicoFV, 2);
-        $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',PotenciopicoFV='$RpotenciapicoFV',Areatotal='$areatotal',NumerosdeModulos='$RedondeoNMAXMFV', Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
+        $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida', Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
         $resultado = mysqli_query($conexion, $updateProyecto2);
     }
 }
@@ -77,7 +77,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
                 <?php echo $Area_módulo; ?> m&sup2</span></p>
     </div>
     <div class="">
-    <form id="formularioEnvio" onsubmit="enviarDatos(event)">
+    <form id="formularioEnvio" onsubmit="datosCalculo3(event)">
     <div class="espacios">
         <label for="inputEnergiaRequerida"><strong>Energia requerida:</strong></label>
         <span style="color: red;"><?php echo $Renergiarequerida; ?> Kwh dia</span>
@@ -104,7 +104,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function() {
-    var hasDisplayedData = <?php echo ($Renergiarequerida || $RpotenciapicoFV || $RedondeoNMAXMFV || $areatotal) ? 'true' : 'false'; ?>;
+    var hasDisplayedData = <?php echo ($Renergiarequerida || $RpotenciapicoFV || $RedondeoNMAXMFV || $areatotal || $id_proyecto) ? 'true' : 'false'; ?>;
     if (hasDisplayedData) {
       $('#formularioEnvio').submit();
     }

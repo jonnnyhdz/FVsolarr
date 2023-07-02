@@ -526,25 +526,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <div class="section">
                                                 <h2>Limitar</h2>
                                                 <div class="section-content">
-
-                                                    <form>
-                                                        <label for="seleccion">Limitar:</label>
-                                                        <select id="seleccion" onchange="mostrarDatos()">
-                                                            <option value="no">No</option>
-                                                            <option value="si">Sí</option>
-                                                        </select>
-                                                        <p id="mensajeModificacion"></p>
-                                                        <br><br>
-                                                        <label for="numModulos">Número de Módulos:</label>
-                                                        <input type="number" id="numModulos" readonly oninput="actualizarDatos()">
-                                                        <br><br>
-                                                        <label for="areaTotal">Área Total para instalar módulos FV:</label>
-                                                        <input type="number" id="areaTotal" readonly oninput="actualizarDatos()">
-                                                        <br><br>
-                                                        <label for="potenciaPico">Potencia Pico FV:</label>
-                                                        <input type="number" id="potenciaPico" readonly oninput="actualizarDatos()">
-                                                    </form>
-                                                    <p id="datos"></p>
+                                                <div id="mostrar_mensaje3"></div>
                                                 </div>
                                             </div>
                                         </div>
