@@ -19,8 +19,6 @@ $id_usuario = $_SESSION['id_usuario'];
 $query = "SELECT * FROM usuarios WHERE id = '$id_usuario'";
 $resultado = mysqli_query($conexion, $query);
 
-mysqli_error($conexion);
-
 if ($resultado && mysqli_num_rows($resultado) > 0) {
     // Obtener los datos del usuario
     $usuario = mysqli_fetch_assoc($resultado);

@@ -77,131 +77,131 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <div class="page-wrapper">
 
-             <!-- HEADER DESKTOP-->
-             <header class="header-desktop3 d-none d-lg-block">
-                    <div class="section__content section__content--p35">
-                        <div class="header3-wrap">
-                            <div class="header__logo">
-                                <a href="#">
-                                    <!-- LOGO -->
-                                    <img src="../img/logo.png" alt="" />
-                                </a>
-                            </div>
-                            <div class="header__navbar">
-                                <ul class="list-unstyled">
-                                    <li class="has-sub">
-                                        <a href="../Proyecto/Proyecto.php">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard
-                                            <span class="bot-line"></span>
-                                        </a>
-                                    </li>
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop3 d-none d-lg-block">
+                <div class="section__content section__content--p35">
+                    <div class="header3-wrap">
+                        <div class="header__logo">
+                            <a href="#">
+                                <!-- LOGO -->
+                                <img src="../img/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="header__navbar">
+                            <ul class="list-unstyled">
+                                <li class="has-sub">
+                                    <a href="../Proyecto/Proyecto.php">
+                                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                                        <span class="bot-line"></span>
+                                    </a>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">
+                                        <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
+                                        <span class="bot-line"></span>
+                                    </a>
+                                    <ul class="header3-sub-list list-unstyled">
+                                        <li>
+                                            <a href="../DimencionamientoE/Dimencionamiento.php">Dimencionamiento</a>
+                                        </li>
+                                        <li>
+                                            <a href="../DimencionamientoE/Inversores.php">Inversores</a>
+                                        </li>
+                                        <li>
+                                            <a href="../Volmaxymin/Corrientemax.php">Dato tecnico</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Financiero</a>
+                                        </li>
+                                        <li>
+                                            <a href="../DimencionamientoE/validation/V_consumoE.php">Consumo.php</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php if ($_SESSION['rol'] == 1) : ?>
                                     <li class="has-sub">
                                         <a href="#">
-                                            <i class="fas fa-tachometer-alt"></i> Proyecto: <?php echo $fila["NOMBRE_PROYECTO"] ?>
-                                            <span class="bot-line"></span>
+                                            <i class="fas fa-copy"></i>
+                                            <span class="bot-line"></span> administrator
                                         </a>
                                         <ul class="header3-sub-list list-unstyled">
                                             <li>
-                                                <a href="../DimencionamientoE/Dimencionamiento.php">Dimencionamiento</a>
+                                                <a href="../Login/signup.php">Register</a>
                                             </li>
                                             <li>
-                                                <a href="../DimencionamientoE/Inversores.php">Inversores</a>
+                                                <a href="#">Password recovery</a>
                                             </li>
                                             <li>
-                                                <a href="../Volmaxymin/Corrientemax.php">Dato tecnico</a>
+                                                <a href="#">Tabla Usuarios</a>
                                             </li>
                                             <li>
-                                                <a href="#">Financiero</a>
+                                                <a href="#">Tabla Inversores</a>
                                             </li>
                                             <li>
-                                                <a href="../DimencionamientoE/validation/V_consumoE.php">Consumo.php</a>
+                                                <a href="#">Tabla Modulos</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tablas tarifas</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <?php if ($_SESSION['rol'] == 1) : ?>
-                                        <li class="has-sub">
-                                            <a href="#">
-                                                <i class="fas fa-copy"></i>
-                                                <span class="bot-line"></span> administrator
-                                            </a>
-                                            <ul class="header3-sub-list list-unstyled">
-                                                <li>
-                                                    <a href="../Login/signup.php">Register</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Password recovery</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Tabla Usuarios</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Tabla Inversores</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Tabla Modulos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Tablas tarifas</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </div>
-                            <div class="header__tool">
-                                <div class="account-wrap">
-                                    <div class="account-item account-item--style2 clearfix js-item-menu">
-                                        <div class="image">
-                                            <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
-                                            <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                        <div class="header__tool">
+                            <div class="account-wrap">
+                                <div class="account-item account-item--style2 clearfix js-item-menu">
+                                    <div class="image">
+                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                                </h5>
+                                                <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#"> <?php echo $_SESSION['nombre'] ?> </a>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="../account/account.php">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-globe"></i>Language</a>
+                                            </div>
                                         </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <?php echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['imagen']) . '" alt="Foto de perfil">'; ?>
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#"> <?php echo $_SESSION['nombre'] ?> </a>
-                                                    </h5>
-                                                    <span class="email"> <?php echo $_SESSION['correo'] ?> </span>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="../account/account.php">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-globe"></i>Language</a>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__footer">
-                                                <a href="../sesion/desconec.php">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
-                                            </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="../sesion/desconec.php">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </header>
-                <!-- END HEADER DESKTOP-->
+                </div>
+            </header>
+            <!-- END HEADER DESKTOP-->
 
             <!-- HEADER MOBILE-->
             <header class="header-mobile header-mobile-2 d-block d-lg-none">
@@ -410,7 +410,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </section>
                 <!-- END BREADCRUMB-->
-
                 <!-- 1 parte -->
                 <div class="container-fluid">
                     <div class="row">
@@ -418,6 +417,9 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="table-responsive table--no-card m-b-30">
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
+                                        <tr>
+                                            <th colspan="8" class="text-center"> GMDTO </th>
+                                        </tr>
                                         <tr>
                                             <th>Mes</th>
                                             <th>Suministro</th>
@@ -430,26 +432,54 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>2018-09-29 05:57</td>
-                                            <td>100398</td>
-                                            <td>iPhone X 64Gb Grey</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">1</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$999.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2018-09-28 01:22</td>
-                                            <td>100397</td>
-                                            <td>Samsung S8 Black</td>
-                                            <td class="text-right">$756.00</td>
-                                            <td class="text-right">1</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$756.00</td>
-                                        </tr>
+                                        <?php
+                                        include("../BD/conec.php");
+                                        $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
+                                        $resultado = mysqli_query($conexion, $facturas);
+                                        while ($fila = mysqli_fetch_array($resultado)) {
+
+                                            /*  fechas */
+
+                                            $meses = array(
+                                                1 => 'enero',
+                                                2 => 'febrero',
+                                                3 => 'marzo',
+                                                4 => 'abril',
+                                                5 => 'mayo',
+                                                6 => 'junio',
+                                                7 => 'julio',
+                                                8 => 'agosto',
+                                                9 => 'septiembre',
+                                                10 => 'octubre',
+                                                11 => 'noviembre',
+                                                12 => 'diciembre'
+                                            );
+                                            $fecha = $fila['fecha_facturacion'];
+                                            $numero_mes = date('n', strtotime($fecha));
+                                            $nombre_mes = $meses[$numero_mes];
+                                            $anio = date('Y', strtotime($fecha));
+
+                                            /* Datos CFE diviciones */
+                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio'";
+                                            $resultado_division = mysqli_query($conexion, $query);
+                                            $fila_division = mysqli_fetch_assoc($resultado_division);
+
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $nombre_mes . ' ' . $anio; ?> </td>
+                                                <?php if (empty($fila_division)) { ?>
+                                                    <td colspan="50">No hay acceso a esos datos</td>
+                                                <?php } else { ?>
+                                                    <td><?php echo $fila_division['Suministro']; ?></td>
+                                                    <td><?php echo $fila_division['Distribución']; ?> </td>
+                                                    <td><?php echo $fila_division['Transmisión']; ?> </td>
+                                                    <td class="text-right"><?php echo $fila_division['CENACE']; ?> </td>
+                                                    <td class="text-right"><?php echo $fila_division['Energía']; ?> </td>
+                                                    <td class="text-right"><?php echo $fila_division['Capacidad']; ?> </td>
+                                                    <td class="text-right"><?php echo $fila_division['SeCoMEM']; ?> </td>
+                                                <?php } ?>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -464,39 +494,69 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
                                         <tr>
-                                            <th>Mes</th>
-                                            <th>Suministro</th>
-                                            <th>Distribución</th>
-                                            <th class="text-right">Transmisión</th>
-                                            <th class="text-right">CENACE</th>
-                                            <th class="text-right">Energía</th>
-                                            <th class="text-right">Capacidad</th>
-                                            <th class="text-right">SeCoMEM</th>
+                                            <th style="position: sticky; left: 0; top: 0; z-index: 1;">Mes</th>
+                                            <th>KWh</th>
+                                            <th>KW</th>
+                                            <th>FP</th>
+                                            <th>Bonificacion</th>
+                                            <th>Cargo</th>
+                                            <th>Suministro $</th>
+                                            <th>Distribucion $/KW</th>
+                                            <th>Transmision S/KWh</th>
+                                            <th>CENACE S/KWh</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
                                         <?php
-                                        
                                         include("../BD/conec.php");
-
-                                        $consulta = "SELECT * FROM proyectos WHERE id_usuario = $id_usuario";
-                                        $resultado = mysqli_query($conexion, $consulta);
-
-
+                                        $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
+                                        $resultado = mysqli_query($conexion, $facturas);
                                         while ($fila = mysqli_fetch_array($resultado)) {
 
+                                            /*  fechas */
+
+                                            $meses = array(
+                                                1 => 'enero',
+                                                2 => 'febrero',
+                                                3 => 'marzo',
+                                                4 => 'abril',
+                                                5 => 'mayo',
+                                                6 => 'junio',
+                                                7 => 'julio',
+                                                8 => 'agosto',
+                                                9 => 'septiembre',
+                                                10 => 'octubre',
+                                                11 => 'noviembre',
+                                                12 => 'diciembre'
+                                            );
+                                            $fecha = $fila['fecha_facturacion'];
+                                            $numero_mes = date('n', strtotime($fecha));
+                                            $nombre_mes = $meses[$numero_mes];
+                                            $anio = date('Y', strtotime($fecha));
+
+                                            /* Datos CFE diviciones */
+                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio'";
+                                            $resultado_division = mysqli_query($conexion, $query);
+                                            $fila_division = mysqli_fetch_assoc($resultado_division);
+
                                         ?>
-                                            <td>2018-09-29 05:57</td>
-                                            <td>100398</td>
-                                            <td>iPhone X 64Gb Grey</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">1</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$999.00</td>
-                                            <td class="text-right">$999.00</td>
+                                            <tr>
+                                                <td style="position: sticky; left: 0; z-index: 1; background-color: #fff;"><?php echo $nombre_mes . ' ' . $anio; ?> </td>
+                                                <?php if (empty($fila_division)) { ?>
+                                                    <td colspan="50">No hay acceso a esos datos</td>
+                                                <?php } else { ?>
+                                                    <td><?php echo $fila['kwh']; ?></td>
+                                                    <td><?php echo $fila['kw']; ?> </td>
+                                                    <td><?php echo $fp = ($fila['fp'] / 1000); ?> </td>
+                                                    <td> <?php echo $bonificacion = round(1 / 4 * (1 - (0.9 / $fila['fp'])), 3); ?> </td>
+                                                    <td><?php echo $cargo = round(3/5*((0.9/$fila['fp'])-1),3) ?> </td>
+                                                    <td> $ <?php echo $fila_division['Suministro']; ?> MXN </td>
+                                                    <td><?php echo $fila_division['SeCoMEM']; ?> </td>
+                                                    <th>SeCoMEM</th>
+                                                    <th>SeCoMEM</th>
+                                                <?php } ?>
+                                            </tr>
                                         <?php } ?>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

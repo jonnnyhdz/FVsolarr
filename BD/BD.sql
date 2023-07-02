@@ -348,3 +348,70 @@ VALUES
   (12, 6.2, 5.64, 45),
   (14, 5.69, 8.96, 35);
 
+
+/* nuevo */
+
+
+CREATE TABLE años(
+  id int not null AUTO_INCREMENT,
+  año int
+  PRIMARY KEY (id)
+);
+
+INSERT INTO años (año)
+VALUES (2020),
+(2021),
+(2022),
+(2023);
+
+CREATE TABLE FECHAS_DIVISION (
+id INT NOT NULL AUTO_INCREMENT,
+mes VARCHAR(255) NOT NULL,
+año int NOT NULL,
+PRIMARY KEY (id)
+);
+
+ALTER TABLE FECHAS_DIVISION
+ADD FOREIGN KEY (id) REFERENCES años(año);
+
+INSERT INTO FECHAS_DIVISION (mes,año)
+VALUES 
+(enero,3),
+(febrero,3),
+(marzo,3),
+(abril,3),
+(mayo,3),
+(junio,3),
+(julio,3),
+(agosto,3),
+(semptiembre,3),
+(octubre,3),
+(noviembre,3),
+(diciembre,3),
+(enero,4),
+(febreo,4),
+(marzo,4),
+(abril,4),
+(mayo,4),
+(junio,4);
+
+/*  por cada division se creara una tabla  */
+
+CREATE TABLE Division_Peninsular (
+  id INT NOT NULL AUTO_INCREMENT,
+  tipo_tarifa Varchar (200),
+  id_FECHAS DECIMAL(6, 2),
+  Suministro DECIMAL(6, 2), 
+  Distribución DECIMAL(6, 2),
+  Transmisión DECIMAL(6, 2),
+  CENACE DECIMAL(6, 2),
+  Energía DECIMAL(6, 2),
+  Capacidad DECIMAL(6, 2),
+  SeCoMEM DECIMAL(6, 2),
+  PRIMARY KEY (id)
+);
+
+
+ALTER TABLE Division_Peninsular
+ADD FOREIGN KEY (id_FECHAS) REFERENCES FECHAS_DIVISION(id);
+
