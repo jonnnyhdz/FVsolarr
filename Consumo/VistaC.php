@@ -420,7 +420,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <div class="au-task__item-inner">
                                                 <h5 class="task">
                                                     <div class="top-campaign">
-                                                        <h3 class="title-3 m-b-30">top campaigns</h3>
+                                                        <h3 class="title-3 m-b-30"> top campaigns </h3>
                                                         <div class="table-responsive">
                                                             <table class="table table-top-campaign">
                                                                 <tbody>
@@ -431,13 +431,46 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                         <td>fp</td>
                                                                         <td>hola</td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>2. United Kingdom</td>
-                                                                        <td>$46,399.22</td>
-                                                                        <td>$46,399.22</td>
-                                                                        <td>$46,399.22</td>
-                                                                        <td> <input type="text" class="col-lg-8  is-valid form-control"></td>
-                                                                    </tr>
+                                                                    <?php
+                                                                    include("../BD/conec.php");
+                                                                    $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
+                                                                    $resultado = mysqli_query($conexion, $facturas);
+                                                                    while ($fila = mysqli_fetch_array($resultado)) {
+
+                                                                        /*  fechas */
+
+                                                                        $meses = array(
+                                                                            1 => 'enero',
+                                                                            2 => 'febrero',
+                                                                            3 => 'marzo',
+                                                                            4 => 'abril',
+                                                                            5 => 'mayo',
+                                                                            6 => 'junio',
+                                                                            7 => 'julio',
+                                                                            8 => 'agosto',
+                                                                            9 => 'septiembre',
+                                                                            10 => 'octubre',
+                                                                            11 => 'noviembre',
+                                                                            12 => 'diciembre'
+                                                                        );
+                                                                        $fecha = $fila['fecha_facturacion'];
+                                                                        $numero_mes = date('n', strtotime($fecha));
+                                                                        $nombre_mes = $meses[$numero_mes];
+                                                                        $anio = date('Y', strtotime($fecha));
+
+                                                                        $kwh = $fila['kwh'];
+                                                                        $kw = $fila['kw'];
+                                                                        $fp = $fila['fp'];
+
+                                                                    ?>
+                                                                        <tr>
+                                                                            <td><?php echo $nombre_mes . ' ' . $anio; ?></td>
+                                                                            <td><?php echo $kwh; ?></td>
+                                                                            <td><?php echo $kw ?> </td>
+                                                                            <td><?php echo $fp?> </td>
+                                                                            <td> <input type="text" class="col-lg-8  is-valid form-control"></td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>

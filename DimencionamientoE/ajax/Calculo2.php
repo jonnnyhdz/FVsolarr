@@ -2,6 +2,7 @@
 
 include("../../BD/conec.php");
 
+
 $id_proyecto = $_POST["id_proyecto"];
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;
 $HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 0;
@@ -31,8 +32,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
     }
 
     if ($HSP == 0) {
-
-
     } else {
         /* calculos */
         $energiarequerida = $EnergiaTotal / 365;
@@ -45,7 +44,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 
         $Renergiarequerida = round($energiarequerida, 2);
         $RpotenciapicoFV = round($potenciapicoFV, 2);
-        $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida', Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
+        $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
         $resultado = mysqli_query($conexion, $updateProyecto2);
     }
 }
@@ -62,59 +61,71 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 </head>
 
 <body>
-    <?php if ($HSP == 0 || $HSP == NULL ) { ?>
-    <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
-        <span class="badge badge-pill badge-warning">Alert</span>
-        Inserta datos que sean correctos!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    <?php if ($HSP == 0 || $HSP == NULL) { ?>
+        <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+            <span class="badge badge-pill badge-warning">Alert</span>
+            Inserta datos que sean correctos!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     <?php } else { ?>
+        <div class="datosFormulario">
+            <div class="espacios">
+                <label for="inputEnergiaRequerida"><strong>Energia requerida:</strong></label>
+                <span style="color: red;"><?php echo $Renergiarequerida; ?> Kwh dia</span>
+            </div>
+            <div class="espacios">
+                <label for="inputPotenciaPico"><strong>Potencia pico FV:</strong></label>
+                <span style="color: red;"><?php echo $RpotenciapicoFV; ?> Kwh</span>
+                <input type="hidden" id="inputPotenciaPico" name="inputPotenciaPico" value="<?php echo $potenciapicoFV; ?>">
+            </div>
+            <div class="espacios">
+                <label for="inputNumModulos"><strong>Numeros de Modulos del proyecto:</strong></label>
+                <span style="color: red;"><?php echo $RedondeoNMAXMFV; ?> Modulos</span>
+                <input type="hidden" id="inputNumModulos" name="inputNumModulos" value="<?php echo $NMAXMFV; ?>">
+            </div>
+            <div class="espacios">
+                <label for="inputAreaTotal"><strong>Area Total:</strong></label>
+                <span style="color: red;"><?php echo $areatotal; ?> m&sup2</span>
+                <input type="hidden" id="inputAreaTotal" name="inputAreaTotal" value="<?php echo $areatotal; ?>">
+            </div>
+            <input type="hidden" id="idProyecto" name="idProyecto" value="<?php echo $id_proyecto; ?>">
+        </div>
+    <?php } ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Colocar el script AJAX aquí, después de los datos generados
+        var potenciaPico = document.getElementById("inputPotenciaPico").value;
+        var numModulos = document.getElementById("inputNumModulos").value;
+        var areaTotal = document.getElementById("inputAreaTotal").value;
+        var idProyecto = document.getElementById("idProyecto").value;
 
-    <div class="">
-        <p class="espacios" for="descripcion"> <strong>Area por modulo:</strong> <span style="color: red;">
-                <?php echo $Area_módulo; ?> m&sup2</span></p>
-    </div>
-    <div class="">
-    <form id="formularioEnvio" onsubmit="datosCalculo3(event)">
-    <div class="espacios">
-        <label for="inputEnergiaRequerida"><strong>Energia requerida:</strong></label>
-        <span style="color: red;"><?php echo $Renergiarequerida; ?> Kwh dia</span>
-    </div>
-    <div class="espacios">
-        <label for="inputPotenciaPico"><strong>Potencia pico FV:</strong></label>
-        <span style="color: red;"><?php echo $RpotenciapicoFV; ?> Kwh</span>
-        <input type="hidden" id="inputPotenciaPico" name="inputPotenciaPico" value="<?php echo $RpotenciapicoFV; ?>">
-    </div>
-    <div class="espacios">
-        <label for="inputNumModulos"><strong>Numeros de Modulos del proyecto:</strong></label>
-        <span style="color: red;"><?php echo $RedondeoNMAXMFV; ?> Modulos</span>
-        <input type="hidden" id="inputNumModulos" name="inputNumModulos" value="<?php echo $RedondeoNMAXMFV; ?>">
-    </div>
-    <div class="espacios">
-        <label for="inputAreaTotal"><strong>Area Total:</strong></label>
-        <span style="color: red;"><?php echo $areatotal; ?> m&sup2</span>
-        <input type="hidden" id="inputAreaTotal" name="inputAreaTotal" value="<?php echo $areatotal; ?>">
-    </div>
-    <button id="submitBtn" type="submit" style="display: none;">Limitar</button>
-    <input type="hidden" id="idProyecto" name="idProyecto" value="<?php echo $id_proyecto; ?>">
-</form>
-<!-- ... -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    var hasDisplayedData = <?php echo ($Renergiarequerida || $RpotenciapicoFV || $RedondeoNMAXMFV || $areatotal || $id_proyecto) ? 'true' : 'false'; ?>;
-    if (hasDisplayedData) {
-      $('#formularioEnvio').submit();
-    }
-  });
-</script>
+        var parametros = {
+            "idProyecto2": idProyecto,
+            "potenciaPico": potenciaPico,
+            "numModulos": numModulos,
+            "areaTotal": areaTotal
+        };
 
-
-    </div>
-        <?php } ?>
-        <script src="../main.js"></script>
+        // Realizar la solicitud AJAX a Prueba.php
+        $.ajax({
+            data: parametros,
+            url: 'ajax/Prueba.php',
+            type: 'POST',
+            beforeSend: function() {
+                // Puedes mostrar un mensaje de carga aquí
+                console.log("aqui andamos");
+            },
+            success: function(response) {
+                // Manejar la respuesta de Prueba.php
+                console.log("Respuesta del servidor:", response);
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores de la solicitud AJAX
+                console.log("Error en la solicitud AJAX");
+            }
+        });
+    </script>
 </body>
-
 </html>

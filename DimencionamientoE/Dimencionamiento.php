@@ -43,13 +43,12 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Libraries Stylesheet -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="../css/estiloP.css">
 
     </head>
 
-    <body onload="guardar()">
+    <body>
+
         <?php
         include("../BD/conec.php");
         echo "<script> var idProyecto = $idproyecto;</script>";
@@ -67,7 +66,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="header__logo">
                                 <a href="#">
                                     <!-- LOGO -->
-                                    <img src="#" alt="logo"/>
+                                    <img src="#" alt="logo" />
                                 </a>
                             </div>
                             <div class="header__navbar">
@@ -395,8 +394,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <!-- END BREADCRUMB-->
                     <div class="row col-md-12">
                         <!-- parte 1 -->
-                        <div class="col-lg-4">
-                            <div class="au-card recent-report">
+                        <div class="col-lg-4 mb-4">
+                            <div class="au-card recent">
                                 <div class="au-card-inner">
                                     <div class="">
                                         <div class="">
@@ -411,7 +410,21 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1"> location </label>
-                                                <input type="text" class="form-control" name="ubicacion" value="<?php echo $fila["Ubicacion"] ?>" id="ubi" oninput="guardar()">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn">
+                                                        <div class="btn-group">
+                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-primary">Dropdown</button>
+                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
+                                                                <button type="button" tabindex="0" class="dropdown-item">Action</button>
+                                                                <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
+                                                                <button type="button" tabindex="0" class="dropdown-item">Something else here</button>
+                                                                <div tabindex="-1" class="dropdown-divider"></div>
+                                                                <button type="button" tabindex="0" class="dropdown-item">Separated link</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" name="ubicacion" value="<?php echo $fila["Ubicacion"] ?>" id="ubi" oninput="guardar()">
+                                                </div>
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
                                         </div>
@@ -420,7 +433,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 mb-4">
                             <div class="au-card mb-4">
                                 <div class="au-card-inner">
                                     <div class="row">
@@ -449,7 +462,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="au-card recent-report">
+                            <div class="au-card recent">
                                 <div class="au-card-inner ">
                                     <div class="">
                                         <div class="">
@@ -481,8 +494,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
-                            <div class="au-card recent-report">
+                        <div class="col-lg-4 mb-4">
+                            <div class="au-card recent">
                                 <div class="au-card-inner">
                                     <div class="mb-2">
                                         <div class="mt-3" id="mostrar_mensaje"></div>
@@ -496,44 +509,34 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                     <div class="row col-md-12">
                         <!-- parte 1 -->
-
                         <div class="col-lg-4">
-                            <div class="au-card recent-report mr-0">
-                                <div class="au-card-inner">
-                                    <div class="section">
-                                        <div class="section-content">
-                                            <!-- <form id="formularioEnvio" onsubmit="enviarDatos(event)">
-                                                <label for="inputNumModulos">Número de Módulos:</label>
-                                                <input type="number"   step="0.01" id="inputNumModulos" required placeholder="Modulos">
-                                                <br><br>
-                                                <label for="inputAreaTotal">Área Total para instalar módulos FV:</label>
-                                                <input type="number"   step="0.01"  id="inputAreaTotal" required placeholder="mts^2">
-                                                <br><br>
-                                                <label for="inputPotenciaPico">Potencia Pico FV:</label>
-                                                <input type="number"   step="0.01"  id="inputPotenciaPico" required placeholder="Kw">
-                                                <br><br>
-                                                <button type="submit">Enviar</button>
-                                            </form> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="au-card recent-report">
                                 <div class="au-card-inner">
                                     <div class="section">
                                         <div class="section-content">
-                                            <!-- Inicio del cuadro  -->
                                             <div class="section">
                                                 <h2>Limitar</h2>
-                                                <div class="section-content">
-                                                <div id="mostrar_mensaje3"></div>
-                                                </div>
+                                                <select id="seleccion" onchange="guardarSeleccion()">
+                                                    <option value="no">No</option>
+                                                    <option value="si">Sí</option>
+                                                </select>
                                             </div>
+                                            <div id="datosPropios" style="display: none;">
+                                                <span>Insertar datos propios</span>
+                                                <input type="text" id="dato1" placeholder="Numero de modulos">
+                                                <input type="text" id="dato2" placeholder="Area total">
+                                                <input type="text" id="dato3" placeholder="Potencia FV">
+                                                <button class="btn btn-info rounded-pill mt-4 m-2" id="enviarDatos" onclick="enviarDatos('<?php echo $idproyecto; ?>')">Enviar</button>
+                                            </div>
+                                            <span id="mensajeDatos">Utilizarás los datos de la aplicación.</span>
+                                            <p id="seleccionGuardada"></p> <!-- Agregado para mostrar la selección guardada -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
 
                         <div class="col-lg-8">
                             <div class="au-card mb-6">
@@ -636,6 +639,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- JavaScript Libraries -->
         <!-- <script src="../vendor/jquery-3.2.1.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Bootstrap JS-->
         <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
         <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -657,6 +661,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
         <script src="main.js"></script>
+        <script src="Limitar.js"></script>
+        <script>
+            window.onload = function() {
+                mostrarSeleccion();
+                guardar();
+            };
+        </script>
     </body>
 
     </html>

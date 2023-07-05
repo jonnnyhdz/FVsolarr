@@ -35,7 +35,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $resultado = mysqli_query($conexion, $consulta);
     $fila = mysqli_fetch_array($resultado);
 
-
+    $tarifa = $fila['tipo_servicio'];
     // Mostrar los datos del usuario dentro del contenido HTML
 ?>
 
@@ -418,7 +418,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
                                         <tr>
-                                            <th colspan="8" class="text-center"> GMDTO </th>
+                                            <th colspan="8" class="text-center border border-white"> GMDTO </th>
                                         </tr>
                                         <tr>
                                             <th>Mes</th>
@@ -460,7 +460,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             $anio = date('Y', strtotime($fecha));
 
                                             /* Datos CFE diviciones */
-                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio'";
+                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio' AND tipo_tarifa = '$tarifa'";
                                             $resultado_division = mysqli_query($conexion, $query);
                                             $fila_division = mysqli_fetch_assoc($resultado_division);
 
@@ -493,6 +493,177 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class="table-responsive table--no-card m-b-30">
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
+                                        <tr>
+                                            <th colspan="6" class="text-center border border-white"> DATOS DE CONSUMO </th>
+                                            <th colspan="7" class="text-center border border-white"> CARGOS DE FACTURACION </th>
+                                            <th colspan="4" class="text-center border border-white"> RESUMEN DE CARGOS </th>
+                                            <th colspan="5" class="text-center border border-white"> INFORMACION PARA ROI </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="position: sticky; left: 0; top: 0; z-index: 1;">Mes</th>
+                                            <th>KWh</th>
+                                            <th>KW</th>
+                                            <th>FP</th>
+                                            <th>Bonificacion</th>
+                                            <th>Cargo</th>
+                                            <th>Suministro $</th>
+                                            <th>Distribucion $/KW</th>
+                                            <th>Transmision S/KWh</th>
+                                            <th>CENACE S/KWh</th>
+                                            <th>Energía S/KWh</th>
+                                            <th>Capacidad $/KW</th>
+                                            <th>sCnMEM S/KWh</th>
+                                            <th>Cargo Fijo</th>
+                                            <th>Energía</th>
+                                            <th>2% Baja Tensión</th>
+                                            <th>Bonificacion por fP</th>
+                                            <th>Subtotal</th>
+                                            <th>Derecho AP</th>
+                                            <th>Su pago</th>
+                                            <th>Total con IVA</th>
+                                            <th>Precio promedio (MXN)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include("../BD/conec.php");
+                                        $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
+                                        $resultado = mysqli_query($conexion, $facturas);
+
+                                        $primerdatokw = 0;
+                                        $primerdatoDistrubucion = 0;
+
+                                        while ($fila = mysqli_fetch_array($resultado)) {
+
+                                            /*  fechas */
+                                            if ($primerdatokw == 0) {
+                                                $primerdatokw = $fila['kw']; // Almacenar el primer valor de kw
+                                            }
+
+                                            $meses = array(
+                                                1 => 'enero',
+                                                2 => 'febrero',
+                                                3 => 'marzo',
+                                                4 => 'abril',
+                                                5 => 'mayo',
+                                                6 => 'junio',
+                                                7 => 'julio',
+                                                8 => 'agosto',
+                                                9 => 'septiembre',
+                                                10 => 'octubre',
+                                                11 => 'noviembre',
+                                                12 => 'diciembre'
+                                            );
+                                            $fecha = $fila['fecha_facturacion'];
+                                            $numero_mes = date('n', strtotime($fecha));
+                                            $nombre_mes = $meses[$numero_mes];
+                                            $anio = date('Y', strtotime($fecha));
+
+                                            /* Datos CFE diviciones */
+                                            /* $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio', tipo_tarifa ='$tarifa'"; */
+                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio' AND tipo_tarifa = '$tarifa'";
+                                            $resultado_division = mysqli_query($conexion, $query);
+                                            $fila_division = mysqli_fetch_assoc($resultado_division);
+
+
+                                            if ($primerdatoDistrubucion == 0) {
+                                                $primerdatoDistrubucion = $fila_division['Distribución'];
+                                            }
+
+                                            /* peticiones */
+                                            $kwh = $fila['kwh'];
+                                            $kw = $fila['kw'];
+                                            $fp = $fila['fp'] / 100;
+                                            $bonificacion = round(1 / 4 * (1 - (0.9 / $fp)), 3);
+                                            $cargo = round(3 / 5 * ((0.9 / $fp) - 1), 3);
+                                            $Distribucion1 = $primerdatoDistrubucion * $primerdatokw;
+                                            $Transmisión1 = $fila_division['Transmisión'] * $kwh;
+                                            $CENACE1 = $fila_division['CENACE'] * $kwh;
+                                            $Energia1 = $fila_division['Energía'] * $kwh;
+                                            $Capacidad1 = $fila_division['Capacidad'] * $kw;
+                                            $SeCoMEM1 = $fila_division['SeCoMEM'] * $kwh;
+                                            $cargofijo1 = $fila_division['Suministro'];
+                                            $SumaEnergia1 = $Distribucion1 + $Transmisión1 + $CENACE1 + $Energia1 + $Capacidad1 + $SeCoMEM1;
+                                            $bajatension1 = ($cargofijo1 + $SumaEnergia1)*0.02;
+
+                                            if ( $fp >= 0.9) {
+                                                $suma = $cargofijo1 + $SumaEnergia1 + $bajatension1;
+                                                $bonificacionfp1  = $suma *- ($bonificacion);
+                                            } else {
+                                                $suma = $cargofijo1 + $SumaEnergia1;
+                                                $bonificacionfp1  = $suma * $cargo;
+                                            }
+
+                                            $subtotal = ($cargofijo1 + $SumaEnergia1 + $bajatension1 + $bonificacionfp1);
+                                            $DerechoAP = $subtotal * 0.05;
+                                            $pago = $subtotal +($DerechoAP/1.16);
+                                            $iva = $pago * 1.16;
+                                            $promedio = $subtotal/$kwh;
+                                            
+                                            /* formateos de decimales */
+                                            $Distribucion2 = number_format($Distribucion1, 2);
+                                            $Transmisión2 = number_format($Transmisión1, 2);
+                                            $CENACE2 = number_format($CENACE1, 2);
+                                            $Energia2 = number_format($Energia1, 2);
+                                            $Capacidad2 = number_format($Capacidad1, 2);
+                                            $SeCoMEM2 = number_format($SeCoMEM1, 2);
+                                            $cargofijo2 = number_format($cargofijo1,2);
+                                            $SumaEnergia2 = number_format($SumaEnergia1,2);
+                                            $bajatension2 = number_format($bajatension1,2);
+                                            $bonificacionfp2 = number_format($bonificacionfp1,2);
+                                            $subtotal2 = number_format($subtotal,2);
+                                            $DerechoAP2 = number_format($DerechoAP,2);
+                                            $pago2 = number_format($pago,2);
+                                            $iva2 = number_format($iva,2);
+                                            $promedio2 = number_format($promedio,2);
+                                        ?>
+                                            <tr>
+                                                <td style="position: sticky; left: 0; z-index: 1; background-color: #fff;"><?php echo $nombre_mes . ' ' . $anio; ?> </td>
+                                                <?php if (empty($fila_division)) { ?>
+                                                    <td colspan="50">No hay acceso a esos datos</td>
+                                                <?php } else { ?>
+                                                    <td><?php echo $kwh; ?></td>
+                                                    <td><?php echo $kw; ?> </td>
+                                                    <td><?php echo $fp; ?> </td>
+                                                    <td><?php echo $bonificacion; ?> </td>
+                                                    <td><?php echo $cargo; ?> </td>
+                                                    <td>$ <?php echo $suministroFormateado = number_format($fila_division['Suministro'], 2); ?> MXN </td>
+                                                    <td>$ <?php echo $Distribucion2?> MXN </td>
+                                                    <td>$ <?php echo $Transmisión2 ?> MXN </td>
+                                                    <td>$ <?php echo $CENACE2 ?> MXN </td>
+                                                    <td>$ <?php echo $Energia2 ?> MXN </td>
+                                                    <td>$ <?php echo $Capacidad2 ?> MXN </td>
+                                                    <td>$ <?php echo $SeCoMEM2 ?> MXN </td>
+                                                    <td>$ <?php echo $cargofijo2 ?> MXN </td>
+                                                    <td>$ <?php echo $SumaEnergia2 ?> MXN </td>
+                                                    <td>$ <?php echo $bajatension2  ?> MXN </td>
+                                                    <td>$ <?php echo $bonificacionfp2  ?> MXN </td>
+                                                    <td>$ <?php echo $subtotal2  ?> MXN </td>
+                                                    <td>$ <?php echo $DerechoAP2  ?> MXN </td>
+                                                    <td>$ <?php echo $pago2  ?> MXN </td>
+                                                    <td>$ <?php echo $iva2?> MXN </td>
+                                                    <td>$ <?php echo $promedio2?> MXN </td>
+
+                                                <?php } ?>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive table--no-card m-b-30">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                        <th colspan="10" class="text-center border border-white"> Proyección de Generación </th>
+                                        </tr>
                                         <tr>
                                             <th style="position: sticky; left: 0; top: 0; z-index: 1;">Mes</th>
                                             <th>KWh</th>
@@ -535,7 +706,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             $anio = date('Y', strtotime($fecha));
 
                                             /* Datos CFE diviciones */
-                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio'";
+                                            $query = "SELECT * FROM division_peninsular WHERE mes = '$nombre_mes' AND año = '$anio' AND tipo_tarifa = '$tarifa'";
                                             $resultado_division = mysqli_query($conexion, $query);
                                             $fila_division = mysqli_fetch_assoc($resultado_division);
 
@@ -545,13 +716,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <?php if (empty($fila_division)) { ?>
                                                     <td colspan="50">No hay acceso a esos datos</td>
                                                 <?php } else { ?>
-                                                    <td><?php echo $fila['kwh']; ?></td>
+                                                    <td><?php echo $kwh; ?></td>
                                                     <td><?php echo $fila['kw']; ?> </td>
                                                     <td><?php echo $fp = ($fila['fp'] / 1000); ?> </td>
                                                     <td> <?php echo $bonificacion = round(1 / 4 * (1 - (0.9 / $fila['fp'])), 3); ?> </td>
-                                                    <td><?php echo $cargo = round(3/5*((0.9/$fila['fp'])-1),3) ?> </td>
+                                                    <td><?php echo $cargo = round(3 / 5 * ((0.9 / $fila['fp']) - 1), 3) ?> </td>
                                                     <td> $ <?php echo $fila_division['Suministro']; ?> MXN </td>
-                                                    <td><?php echo $fila_division['SeCoMEM']; ?> </td>
+                                                    <td><?php echo $fila_division['Distribución']; ?> </td>
                                                     <th>SeCoMEM</th>
                                                     <th>SeCoMEM</th>
                                                 <?php } ?>

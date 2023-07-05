@@ -1,39 +1,4 @@
-
-  function datosCalculo3(event) {
-    event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
-
-    // Obtener los valores de los campos ocultos
-    var potenciaPico = document.getElementById('inputPotenciaPico').value;
-    var numModulos = document.getElementById('inputNumModulos').value;
-    var areaTotal = document.getElementById('inputAreaTotal').value;
-    var idProyecto = document.getElementById('idProyecto').value;
-
-    // Construir el objeto de parámetros
-    var parametros3 = {
-      potenciaPico: potenciaPico,
-      numModulos: numModulos,
-      areaTotal: areaTotal,
-      idProyecto: idProyecto
-    };
-
-    // Realizar la solicitud AJAX a Calculo3.php
-    $.ajax({
-      data: parametros3,
-      url: 'ajax/Calculo3.php',
-      type: 'POST',
-      beforeSend: function() {
-        $('#mostrar_mensaje3').html("Cargando...");
-      },
-      success: function(mensaje3) {
-        $('#mostrar_mensaje3').html(mensaje3);
-      }
-    });
-  }
-
-
-
-
-
+ 
 function guardar() {
 
     var id_seleccionado = $('select[name="cat"]').val();
@@ -139,5 +104,3 @@ function OInversor(){
         }
     });
 }
-
-window.onload = guardar;
