@@ -525,9 +525,9 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             </div>
                                             <div id="datosPropios" style="display: none;">
                                                 <span>Insertar datos propios</span>
-                                                <input type="text" id="dato1" placeholder="Numero de modulos" onclick="enviarDatos()">
-                                                <input type="text" id="dato2" placeholder="Area total" onclick="enviarDatos()">
-                                                <input type="text" id="dato3" placeholder="Potencia FV" onclick="enviarDatos()">
+                                                <input class="form-control" type="text" id="dato1" placeholder="Numero de modulos" onclick="enviarDatos()">
+                                                <input class="form-control" type="text" id="dato2" placeholder="Area total" onclick="enviarDatos()">
+                                                <input class="form-control" type="text" id="dato3" placeholder="Potencia FV" onclick="enviarDatos()">
                                             </div>
                                             <span id="mensajeDatos"> </span>
                                             <p id="seleccionGuardada"></p> <!-- Agregado para mostrar la selección guardada -->
