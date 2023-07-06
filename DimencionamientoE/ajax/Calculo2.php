@@ -47,6 +47,18 @@ while ($consulta = mysqli_fetch_array($resultados)) {
         $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
         $resultado = mysqli_query($conexion, $updateProyecto2);
     }
+
+    $consultalimitar = "SELECT * FROM proyectos WHERE ID_PROYECTO='$id_proyecto'";
+    $Limitar = mysqli_query($conexion, $consultalimitar);
+    
+    if ($Limitar) {
+        $proyecto = mysqli_fetch_assoc($Limitar);
+        if ($proyecto['Limitacion'] == "no") {
+            $updateProyecto = "UPDATE proyectos SET PotenciopicoFV='$potenciapicoFV', NumerosdeModulos='$NMAXMFV', Areatotal='$areatotal' WHERE ID_PROYECTO='$id_proyecto'";
+            $resultado = mysqli_query($conexion, $updateProyecto);
+        }
+    }
+    
 }
 
 ?>
@@ -94,38 +106,5 @@ while ($consulta = mysqli_fetch_array($resultados)) {
         </div>
     <?php } ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // Colocar el script AJAX aquí, después de los datos generados
-        var potenciaPico = document.getElementById("inputPotenciaPico").value;
-        var numModulos = document.getElementById("inputNumModulos").value;
-        var areaTotal = document.getElementById("inputAreaTotal").value;
-        var idProyecto = document.getElementById("idProyecto").value;
-
-        var parametros = {
-            "idProyecto2": idProyecto,
-            "potenciaPico": potenciaPico,
-            "numModulos": numModulos,
-            "areaTotal": areaTotal
-        };
-
-        // Realizar la solicitud AJAX a Prueba.php
-        $.ajax({
-            data: parametros,
-            url: 'ajax/Prueba.php',
-            type: 'POST',
-            beforeSend: function() {
-                // Puedes mostrar un mensaje de carga aquí
-                console.log("aqui andamos");
-            },
-            success: function(response) {
-                // Manejar la respuesta de Prueba.php
-                console.log("Respuesta del servidor:", response);
-            },
-            error: function(xhr, status, error) {
-                // Manejar errores de la solicitud AJAX
-                console.log("Error en la solicitud AJAX");
-            }
-        });
-    </script>
 </body>
 </html>

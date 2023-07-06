@@ -464,7 +464,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
-                                            <li class="list-inline-item"> Datos tecnicos  </li>
+                                            <li class="list-inline-item"> Datos tecnicos </li>
                                         </ul>
                                     </div>
                                     <form class="au-form-icon--sm" action="" method="post">
@@ -479,64 +479,32 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </section>
 
+                <!-- contenedor 1 -->
 
-                <!-- contenedor 2  -->
-                <div class="container-fluid mt-4 pt-4 px-4">
-                    <div id="hola" value="<?php echo $Nmodulosi; ?>"></div>
-                    <div id="area" value="<?php echo $areatotalSI; ?>"></div>
-                    <div id="PpicoFv" value="<?php echo $PpicoFv; ?>"></div>
-                    <div id="dato" value="<?php echo $id_seleccionado ?>"></div>
-                    <span id="idproyecto" data-idproyecto="<?php echo $idproyecto; ?>"></span>
-                    <div class="bg-secondary text-center rounded">
-                        <div class="row g-4">
-                            <div class="col-sm-12 col-xl-6">
-                                <div class="bg-secondary text-center rounded p-4">
-                                    <table class=" table mx-auto">
-                                        <thead>
-                                            <tr>
-                                                <th>LIMITAR</th>
-                                                <th>
-                                                    <select id="opciones" onchange="cambiarColor(); guardarSeleccion()" name="opcionSeleccionada">
-                                                        <option value="no">No</option>
-                                                        <option value="si">Si</option>
-                                                    </select>
-
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Numero de módulos</td>
-                                                <td id="num-modulos"><?php echo $fila["NumerosdeModulos"]; ?> </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Area total final para instalar módulos FV</td>
-                                                <td id="area-total"><?php echo $fila["Areatotal"] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Potencia Pico FV final</td>
-                                                <td id="potencia-pico"><?php echo $PpicoFVfinal ?></td>
-                                                <div id="potencia" value="<?php echo $PpicoFVfinal; ?>"></div>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-xl-6">
-                                <div class="bg-secondary text-center rounded p-4">
-                                    <table class="container">
-                                        <tr>
-                                            <th>Resultado</th>
-                                        </tr>
-                                        <tr>
-                                            <td id="tabla2"> </td>
-                                        </tr>
-                                    </table>
-                                    <div class="bg-secondary text-center rounded p-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-4">
-                                            <label> Area disponible de instalacion </label>
-                                            <input type="number" class="form-control border-0 rounded-pill  my-2" id="area-insta" oninput="guardar2()" value="<?php echo $fila["areadisponible"] ?>">
-                                        </div>
+                <div class="row col-md-12">
+                    <!-- parte 1 -->
+                    <div class="col-lg-4">
+                        <div class="au-card recent-report">
+                            <div class="au-card-inner">
+                                <div class="section">
+                                    <div class="section-content">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Numero de módulos</td>
+                                                    <td id="num-modulos"><?php echo $fila["NumerosdeModulos"]; ?> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Area total final para instalar módulos FV</td>
+                                                    <td id="area-total"><?php echo $fila["Areatotal"] ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Potencia Pico FV final</td>
+                                                    <td id="potencia-pico"><?php echo $PpicoFVfinal ?></td>
+                                                    <div id="potencia" value="<?php echo $PpicoFVfinal; ?>"></div>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -544,31 +512,32 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </div>
                 </div>
 
-                <!-- contenedor 3  -->
 
-                <div class="container-fluid mt-4 pt-4 px-4">
-                    <div class="bg-secondary text-center rounded">
-                        <div class="row g-4">
-                            <div class="col-sm-12 col-xl-12">
-                                <div class=" table-responsiv bg-secondary rounded h-100 p-4">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <td>Potencia Pico</td>
-                                                <td id="potencia-pico2"> <?php echo $PpicoFVfinal ?> </td>
-                                            </tr>
-                                            <tr>
-                                                <th> Opciones </th>
-                                                <th> Potencia Maxima </th>
-                                                <th> No. Máximo de cadenas en paralelo en corto circuito</th>
-                                                <th>No. Máximo de cadenas en paralelo en operación nominal </th>
-                                                <th>No. Maximo de modulos en serie </th>
-                                                <th>No. Minimo de modulos en serie </th>
-                                                <th> Vocmax en serie </th>
+                <!-- tabla 1 -->
 
-                                                <th> Vmpmin en serie </th>
-                                            </tr>
-                                        </thead>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive table--no-card m-b-30">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                        <tr>
+                                            <td>Potencia Pico</td>
+                                            <td id="potencia-pico2"> <?php echo $PpicoFVfinal ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Opciones </th>
+                                            <th> Potencia Maxima </th>
+                                            <th> No. Máximo de cadenas en paralelo en corto circuito</th>
+                                            <th>No. Máximo de cadenas en paralelo en operación nominal </th>
+                                            <th>No. Maximo de modulos en serie </th>
+                                            <th>No. Minimo de modulos en serie </th>
+                                            <th> Vocmax en serie </th>
+
+                                            <th> Vmpmin en serie </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <?php
                                         include("../BD/conec.php");
 
@@ -579,8 +548,12 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                         $resultado = mysqli_query($conexion, $consulta);
                                         $num_inversores = mysqli_num_rows($resultado);
+
+                                        $modulosmax1 = 0;
+
                                         while ($fila = mysqli_fetch_array($resultado)) {
                                             $total = $fila['Max_potencia_FV_recomendada'];
+
 
                                             $potenciaRemasterisado = $total / 1000;
 
@@ -608,6 +581,11 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                             $datoDivididoMin = $modulosmin * $VMPMIN;
 
+                                            /*  fechas */
+                                            if ($modulosmax1 == 0) {
+                                                $modulosmax1 = $modulosmax; // Almacenar el primer valor de kw
+                                            }
+
                                         ?>
                                             <tr>
                                                 <td><?php echo $fila['Marca'] ?><?php echo $fila['Modelo'] ?></td>
@@ -622,26 +600,25 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <?php
                                         }
                                         ?>
-
-
                                         <tr>
                                             <td> Total DE KW pico</td>
                                             <td id="Kwpico"> <?php echo $total2 ?> </td>
                                             <div id="Kwpico2" value="<?php echo $total2; ?>"></div>
                                         </tr>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- contenedor 4 -->
 
-                <div class="container-fluid mt-4 pt-4 px-4">
-                    <div class="bg-secondary text-center rounded">
-                        <div class="row g-4">
-                            <div class="col-sm-12 col-xl-12">
-                                <div class="bg-secondary rounded h-100 p-1">
+                <!-- tabal 2 -->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive table--no-card m-b-30">
+                                <table class="table table-borderless table-striped table-earning" id="tabla-arreglos">
                                     <?php
                                     include("../BD/conec.php");
 
@@ -649,7 +626,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                                     $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
                                     JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                                     WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
+                                    WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                     $resultado = mysqli_query($conexion, $consulta);
 
                                     while ($fila = mysqli_fetch_array($resultado)) {
@@ -663,114 +640,77 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             );
                                         }
                                     }
-
-                                    echo '<table class="table-bordered" id="tabla-arreglos">';
-
-                                    echo '<tr>';
-                                    echo '<th>Concepto</th>';
-                                    foreach ($inversores as $inversor) {
-                                        echo '<th>' . $inversor['Marca'] . ' ' . $inversor['Modelo'] . '</th>';
-                                    }
-                                    echo '</tr>';
-
-                                    $campos = array('Marca', 'Modelo', 'No_rastreadores_MPPT');
-
-
-
-                                    foreach ($campos as $campo) {
-                                        echo '<tr>';
-                                        echo '<td>' . $campo . ' del inversor</td>';
-                                        foreach ($inversores as $inversor) {
-                                            echo '<td>' . $inversor[$campo] . '</td>';
-                                        }
-                                        echo '</tr>';
-                                    }
-
-
-                                    /* fin  */
-
-                                    echo '<tr>';
-                                    echo '<th> Cadena ideal </th>';
-                                    foreach ($inversores as $inversor) {
-                                        echo '<td></td>';
-                                    }
-                                    echo '</tr>';
-
-                                    $camposSolucion = array('Solucion a instalar MPPT 1', 'Solucion a instalar MPPT 2', 'Solucion a instalar MPPT 3', 'Solucion a instalar MPPT 4');
-                                    foreach ($camposSolucion as $campo) {
-                                        echo '<tr>';
-                                        echo '<td>' . $campo . '</td>';
-                                        foreach ($inversores as $inversor) {
-                                            echo '<td><input type="number" name="solucion-mppt[]" class="solucion-mppt form-control border-0 rounded-pill  my-2" value="" data-inversor="' . $inversor['ID_INVERSORES'] . '" /></td>';
-                                        }
-                                        echo '</tr>';
-                                    }
-
-                                    echo '<tr>';
-                                    echo '<th>Total Modulos por inversor</th>';
-                                    foreach ($inversores as $inversor) {
-                                        echo '<td class="text-primary" id="total-modulos-inversor-' . $inversor['ID_INVERSORES'] . '"></td>';
-                                    }
-                                    echo '</tr>';
-
-                                    echo '</table>';
                                     ?>
-                                </div>
+                                    <thead>
+                                        <tr>
+                                            <th>Concepto</th>
+                                            <?php foreach ($inversores as $inversor) { ?>
+                                                <th><?php echo $inversor['Marca'] . ' ' . $inversor['Modelo']; ?></th>
+                                            <?php } ?>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $campos = array('Marca', 'Modelo', 'No_rastreadores_MPPT');
+
+                                        foreach ($campos as $campo) { ?>
+                                            <tr>
+                                                <td><?php echo $campo . ' del inversor'; ?></td>
+                                                <?php foreach ($inversores as $inversor) { ?>
+                                                    <td><?php echo $inversor[$campo]; ?></td>
+                                                <?php } ?>
+                                            </tr>
+                                        <?php } ?>
+
+                                        <!-- fin -->
+
+                                        <tr>
+                                            <th>Cadena ideal</th>
+                                            <?php foreach ($inversores as $inversor) { ?>
+                                                <td></td>
+                                            <?php } ?>
+                                        </tr>
+
+                                        <?php
+                                        $camposSolucion = array('Solucion a instalar MPPT 1', 'Solucion a instalar MPPT 2', 'Solucion a instalar MPPT 3', 'Solucion a instalar MPPT 4');
+                                        foreach ($camposSolucion as $campo) { ?>
+                                            <tr>
+                                                <td><?php echo $campo; ?></td>
+                                                <?php foreach ($inversores as $inversor) { ?>
+                                                    <td><input type="number" name="solucion-mppt[]" class="solucion-mppt form-control border-0 rounded-pill  my-2" value="<?php echo $modulosmax1 ?>" data-inversor="<?php echo $inversor['ID_INVERSORES']; ?>" /></td>
+                                                <?php } ?>
+                                            </tr>
+                                        <?php } ?>
+
+                                        <tr>
+                                            <th>Total Modulos por inversor</th>
+                                            <?php foreach ($inversores as $inversor) { ?>
+                                                <td class="text-primary" id="total-modulos-inversor-<?php echo $inversor['ID_INVERSORES']; ?>"></td>
+                                            <?php } ?>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Empieza contenido -->
-
-                <div class="container-fluid mt-4 pt-4 px-4">
-                    <div class="bg-secondary text-center rounded">
-                        <div class="row g-4">
-                            <div class="container-fluid pt-4 px-4">
-                                <div class="row g-4">
-                                    <?php
-                                    include("../BD/conec.php");
-                                    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$id_proyecto";
-                                    $resultado = mysqli_query($conexion, $consulta);
-                                    $fila = mysqli_fetch_array($resultado); { ?>
-                                        <div class="col-sm-12 col-xl-6">
-                                            <div class="bg-secondary text-center rounded p-4">
-                                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                                    <label> Cantidad de Sring </label>
-                                                    <input type="number" class="form-control border-0 rounded-pill  my-2" id="nummodulos" oninput="guardar2()" value="<?php echo $fila["CmodulosVolt"] ?>">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-xl-6">
-                                            <div class="bg-secondary text-center rounded p-4">
-                                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                                    <label> Cantidad de cadenas </label>
-                                                    <input type="number" class="form-control border-0 rounded-pill  my-2" id="cancadenas" oninput="guardar2()" value="<?php echo  $fila["CcadenasVolt"] ?>">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- contenedor ultimo -->
+                <!-- tabla 3  -->
                 <div class="container-fluid mt-4 pt-4 px-4">
                     <div class="bg-secondary text-center rounded">
                         <div class="row g-4">
                             <div class="col-sm-12 col-xl-12">
                                 <div class="bg-secondary rounded h-100 p-1">
+
                                     <?php
                                     include("../BD/conec.php");
 
                                     $inversores = array();
 
                                     $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
-                    JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                    WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
+                                    JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
+                                    WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
                                     $resultado = mysqli_query($conexion, $consulta);
 
                                     while ($fila = mysqli_fetch_array($resultado)) {
@@ -788,48 +728,48 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                     }
 
                                     foreach ($inversores as $inversor) {
-                                        echo '<div class="container-fluid mt-4 pt-4 px-4 m-2">';
-                                        echo '<div class="bg-secondary text-center rounded">';
-                                        echo '<div class="row g-4">';
-                                        echo '<div class="col-sm-12 col-xl-12">';
-                                        echo '<div class="bg-secondary rounded h-100 p-1">';
-                                        echo '<table id="myTable">';
+                                    ?>
+                                        <div class="container-fluid mt-4 pt-4 px-4 m-2">
+                                            <div class="bg-secondary text-center rounded">
+                                                <div class="row g-4">
+                                                    <div class="col-sm-12 col-xl-12">
+                                                        <div class="bg-secondary rounded h-100 p-1">
+                                                            <table id="myTable">
+                                                                <tr>
+                                                                    <th colspan="6">Inversor: <?php echo $inversor['Marca'] . ' ' . $inversor['Modelo']; ?></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th> Circuito FV </th>
+                                                                    <th> Num. de modulos FV </th>
+                                                                    <th>V.Maximo</th>
+                                                                    <th>Potencia</th>
+                                                                    <th>Corriente</th>
+                                                                </tr>
+                                                                <?php
+                                                                $contador_modulos = $inversor['No_rastreadores_MPPT'] * 2; // Calcular el número de circuitos
 
-                                        echo '<tr>';
-                                        echo '<th colspan="6">Inversor: ' . $inversor['Marca'] . ' ' . $inversor['Modelo'] . '</th>';
-                                        echo '</tr>';
-
-                                        echo '<tr>';
-                                        echo '<th> Circuito FV </th>';
-                                        echo '<th> Num. de modulos FV </th>';
-                                        echo '<th>V.Maximo</th>';
-                                        echo '<th>Potencia</th>';
-                                        echo '<th>Corriente</th>';
-                                        echo '</tr>';
-
-                                        $contador_modulos = $inversor['contador_modulos']; // Obtener el valor de contador_modulos del array
-
-                                        for ($i = 1; $i <= $contador_modulos; $i++) {
-                                            echo '<tr>';
-                                            echo '<td>Circuito ' . $i . '</td>';
-                                            echo '<td><input type="number"  class="vmaximo-input form-control border-0 rounded-pill my-2 input-sm" onchange="calculateTotal(this)"></td>';
-                                            echo '<td class="total-vmax"> ....</td>';
-                                            echo '<td class="potencia-input "> .... </td>';
-                                            echo '<td class="corriente-input"> ....</td>';
-                                            echo '</tr>';
-                                        }
-
-                                        echo '<tr>';
-                                        echo '</tr>';
-
-                                        echo '</table>';
-                                        echo '</div>';
-                                        echo '</div>';
-                                        echo '</div>';
-                                        echo '</div>';
-                                        echo '</div>';
+                                                                for ($i = 1; $i <= $contador_modulos; $i++) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td>Circuito <?php echo $i; ?></td>
+                                                                        <td>
+                                                                            <input value="<?php echo $modulosmax1; ?>" type="number" class="vmaximo-input form-control border-0 rounded-pill my-2 input-sm" onchange="calculateTotal(this)">
+                                                                        </td>
+                                                                        <td class="total-vmax"> ....</td>
+                                                                        <td class="potencia-input"> .... </td>
+                                                                        <td class="corriente-input"> ....</td>
+                                                                    </tr>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
                                     }
-
                                     ?>
 
                                     <div id="voc" value="<?php echo $voc; ?>"></div>
@@ -858,8 +798,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 </div>
 
 
+
             </div>
-        </div>
         </div>
 
 

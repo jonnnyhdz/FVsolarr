@@ -55,6 +55,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
         $resultado = mysqli_query($conexion, $consulta);
         $fila = mysqli_fetch_array($resultado);
+        $valor = $fila['Limitacion'];
         ?>
         <!-- Inicio del cuadro  -->
         <div class="page-wrapper">
@@ -409,23 +410,24 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1"> location </label>
+                                                <label for="location" class="control-label mb-1">Location</label>
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
-                                                        <div class="btn-group">
-                                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle btn btn-primary">Dropdown</button>
-                                                            <div tabindex="-1" aria-hidden="true" role="menu" class="dropdown-menu">
-                                                                <button type="button" tabindex="0" class="dropdown-item">Action</button>
-                                                                <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
-                                                                <button type="button" tabindex="0" class="dropdown-item">Something else here</button>
-                                                                <div tabindex="-1" class="dropdown-divider"></div>
-                                                                <button type="button" tabindex="0" class="dropdown-item">Separated link</button>
-                                                            </div>
-                                                        </div>
+                                                        <select class="btn border border-primary" id="location" name="ubicacion">
+                                                            <?php
+                                                            include('../BD/conec.php');
+                                                            $consulta2 = "SELECT * FROM estadosmexicanos";
+                                                            $resultado2 = mysqli_query($conexion, $consulta2);
+                                                            while ($fila2 = mysqli_fetch_array($resultado2)) {
+                                                                $selected = ($fila2["ID_MFV"] == $fila["ID_MFV"]) ? "selected" : "";
+                                                            ?>
+                                                                <option value="Action"><?php echo $fila2['estado'] ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
-                                                    <input type="text" class="form-control" name="ubicacion" value="<?php echo $fila["Ubicacion"] ?>" id="ubi" oninput="guardar()">
+                                                    <input class="form-control" value="<?php echo $fila["Ubicacion"] ?>" id="ubi" oninput="guardar()">
                                                 </div>
-                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                                <span class="help-block" data-valmsg-for="location" data-valmsg-replace="true"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -516,19 +518,18 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="section-content">
                                             <div class="section">
                                                 <h2>Limitar</h2>
-                                                <select id="seleccion" onchange="guardarSeleccion()">
-                                                    <option value="no">No</option>
-                                                    <option value="si">Sí</option>
+                                                <select id="seleccion" name="seleccion" onchange="guardarSeleccion()">
+                                                    <option value="no" <?php if ($valor == 'no') echo 'selected'; ?>>No</option>
+                                                    <option value="si" <?php if ($valor == 'si') echo 'selected'; ?>>Sí</option>
                                                 </select>
                                             </div>
                                             <div id="datosPropios" style="display: none;">
                                                 <span>Insertar datos propios</span>
-                                                <input type="text" id="dato1" placeholder="Numero de modulos">
-                                                <input type="text" id="dato2" placeholder="Area total">
-                                                <input type="text" id="dato3" placeholder="Potencia FV">
-                                                <button class="btn btn-info rounded-pill mt-4 m-2" id="enviarDatos" onclick="enviarDatos('<?php echo $idproyecto; ?>')">Enviar</button>
+                                                <input type="text" id="dato1" placeholder="Numero de modulos" onclick="enviarDatos()">
+                                                <input type="text" id="dato2" placeholder="Area total" onclick="enviarDatos()">
+                                                <input type="text" id="dato3" placeholder="Potencia FV" onclick="enviarDatos()">
                                             </div>
-                                            <span id="mensajeDatos">Utilizarás los datos de la aplicación.</span>
+                                            <span id="mensajeDatos"> </span>
                                             <p id="seleccionGuardada"></p> <!-- Agregado para mostrar la selección guardada -->
                                         </div>
                                     </div>
@@ -664,8 +665,8 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         <script src="Limitar.js"></script>
         <script>
             window.onload = function() {
-                mostrarSeleccion();
                 guardar();
+                guardarSeleccion();
             };
         </script>
     </body>
