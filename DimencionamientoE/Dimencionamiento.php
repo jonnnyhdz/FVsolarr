@@ -56,6 +56,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
         $resultado = mysqli_query($conexion, $consulta);
         $fila = mysqli_fetch_array($resultado);
         $valor = $fila['Limitacion'];
+        $potencia_proyecto = $fila['PotenciopicoFV'];
         ?>
         <!-- Inicio del cuadro  -->
         <div class="page-wrapper">
@@ -569,51 +570,84 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             </div>
                                         </div>
 
-                                        <!-- ultimo contenedor -->
-                                        <div class="container-fluid  pt-4 px-4">
-                                            <div class="text-center rounded" style="<?php echo ($i > 1) ? 'max-height: 300px; overflow-y: auto;' : ''; ?>">
-                                                <div class="row g-4">
-                                                    <?php for ($i = 1; $i <= 10; $i++) { ?>
-                                                        <div id="marca_<?php echo $i; ?>" class="marca" style="display: none;">
-                                                            <div class="container-fluid pt-4 px-4">
-                                                                <div class="row">
-                                                                    <table class="table">
-                                                                        <div class="col-sm-12 col-xl-6">
-                                                                            <div class="text-center rounded">
-                                                                                <div class="d-flex align-items-center justify-content-between">
-                                                                                    <label class="control-label mt-2" for="marca_<?php echo $i; ?>"> Inversor <?php echo $i; ?>:</label>
-                                                                                    <select class="form-control" name="marca_<?php echo $i; ?>" id="marca_<?php echo $i; ?>_modelo" class="">
-                                                                                        <?php
-                                                                                        include('../BD/conec.php');
-                                                                                        $consulta2 = "SELECT * FROM inversores";
-                                                                                        $resultado2 = mysqli_query($conexion, $consulta2);
-                                                                                        while ($fila2 = mysqli_fetch_array($resultado2)) {
-                                                                                        ?>
-                                                                                            <option value="<?php echo $fila2["id_inversor"] ?>">
-                                                                                                <?php echo $fila2["Marca"] ?>
-                                                                                                <?php echo $fila2["Modelo"] ?>
-                                                                                            </option>
-                                                                                        <?php } ?>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-12 col-xl-6">
-                                                                            <div class="text-center rounded">
-                                                                                <div class="d-flex align-items-center justify-content-between">
-                                                                                    <label class="control-label mt-2" for="marca_<?php echo $i; ?>">Cantidad de Inversor <?php echo $i; ?>:</label>
-                                                                                    <input class="form-control" type="number" name="cantidad_<?php echo $i; ?>">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </table>
+                                        <?php for ($i = 1; $i <= 10; $i++) { ?>
+                                            <div id="marca_<?php echo $i; ?>" class="marca" style="display: none;">
+                                                <div class="container-fluid pt-4 px-4">
+                                                    <div class="row">
+                                                        <table class="table">
+                                                            <div class="col-sm-12 col-xl-6">
+                                                                <div class="text-center rounded">
+                                                                    <div class="d-flex align-items-center justify-content-between">
+                                                                        <label class="control-label mt-2" for="marca_<?php echo $i; ?>"> Inversor <?php echo $i; ?>:</label>
+                                                                        <select class="form-control" name="marca_<?php echo $i; ?>" id="marca_<?php echo $i; ?>_modelo" onchange="actualizarPotenciaRecomendada(this, <?php echo $i; ?>)">
+                                                                            <option>Elige un inversor</option>
+                                                                            <?php
+                                                                            include('../BD/conec.php');
+                                                                            $consulta2 = "SELECT * FROM inversores";
+                                                                            $resultado2 = mysqli_query($conexion, $consulta2);
+                                                                            while ($fila2 = mysqli_fetch_array($resultado2)) {
+                                                                            ?>
+                                                                                <option value="<?php echo $fila2["id_inversor"] ?>">
+                                                                                    <?php echo $fila2["Marca"] ?>
+                                                                                    <?php echo $fila2["Modelo"] ?>
+                                                                                    <span style="margin: 0 5px;">/</span>
+                                                                                    <?php echo $fila2["Max_potencia_FV_recomendada"] ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    <?php } ?>
+                                                            <div class="col-sm-12 col-xl-6">
+                                                                <div class="text-center rounded">
+                                                                    <div class="d-flex align-items-center justify-content-between">
+                                                                        <label class="control-label mt-2" for="marca_<?php echo $i; ?>">Cantidad de Inversor <?php echo $i; ?>:</label>
+                                                                        <input class="form-control" type="number" id="cantidad_<?php echo $i; ?>" name="cantidad_<?php echo $i; ?>" onclick="actualizarPotenciaRecomendada(document.getElementById('marca_<?php echo $i; ?>_modelo'), <?php echo $i; ?>)">
+                                                                        <input type="hidden" id="potencia_proyecto" value="<?php echo $potencia_proyecto; ?>">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="mensaje_<?php echo $i; ?>" class="col-sm-12">
+                                                                <div class="text-center rounded"></div>
+                                                            </div>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php } ?>
+
+                                        <script>
+                                            var sugerencias = []; // Array para almacenar las sugerencias individuales de cada inversor
+                                            var sumaTotal = 0; // Variable para almacenar la suma total
+
+                                            function actualizarPotenciaRecomendada(select, numeroInversor) {
+                                                var maxPotenciaFVRecomendada = select.options[select.selectedIndex].innerHTML.split('/')[1].trim();
+                                                var cantidad = document.getElementById('cantidad_' + numeroInversor).value;
+
+                                                var potenciaProyecto = document.getElementById('potencia_proyecto').value;
+
+                                                var potenciaFV = potenciaProyecto * 1000; // Aquí debes obtener el valor de $potencia_FV desde tu código PHP
+
+                                                var sugerencia = maxPotenciaFVRecomendada * cantidad;
+
+                                                sugerencias[numeroInversor] = sugerencia; // Guardar la sugerencia multiplicada por la cantidad en el array
+
+                                                sumaTotal = sugerencias.reduce(function(acc, curr) {
+                                                    return acc + curr;
+                                                }, 0); // Calcular la suma total de las sugerencias
+
+                                                document.getElementById('mensaje_' + numeroInversor).innerHTML = "<div class='text-center rounded'><span class='text-danger'>¡Atención! La potencia FV del proyecto es: (" + potenciaFV + ") supera el límite recomendado. = (" + sumaTotal + ").</span></div>";
+
+                                                if (sugerencia >= potenciaFV) {
+                                                    alert("La potencia ya se ha sobrepasado");
+                                                }
+
+                                                console.log(sugerencias); // Mostrar el contenido del array en la consola
+                                                console.log("Número de inversor: " + numeroInversor + ", Sugerencia: " + sugerencia); // Mostrar el valor de la sugerencia cuando se edita el número
+
+                                                console.log("Suma total: " + sumaTotal); // Mostrar la suma total en la consola
+                                            }
+                                        </script>
 
                                         <!-- fin contenedor  -->
                                     </div>

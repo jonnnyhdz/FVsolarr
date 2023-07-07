@@ -49,7 +49,7 @@ function mostrarOcultarDatos() {
     datosPropios.style.display = "none";
     mensajeDatos.style.display = "block";
     mensajeDatos.innerHTML = '<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3">' +
-    '<span class="badge badge-pill badge-danger">Alert</span>' +
+    '<span class="badge badge-pill badge-danger mr-2">Alert</span>' +
     'ESTAS UTILIZANDO LOS DATOS DEL SOFTWARE!' +
     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
     '<span aria-hidden="true">&times;</span>' +
@@ -96,43 +96,6 @@ function guardarSeleccion(){
   });
   mostrarOcultarDatos();
 }
-
-/* // Función para guardar la selección en una cookie
-function guardarSeleccion() {
-    var seleccion = document.getElementById("seleccion").value;
-    document.cookie = "seleccion=" + seleccion + "; path=/";
-
-}
-  
-  // Función para mostrar la selección almacenada en la cookie
-  function mostrarSeleccion() {
-    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)seleccion\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-  
-    if (cookieValue) {
-      var seleccion = cookieValue;
-
-      // Mostrar la selección en otro lugar de la página
-      document.getElementById("seleccionGuardada").textContent = "Selección actual: " + seleccion;
-
-      // Seleccionar la opción correspondiente en el select
-      var selectElement = document.getElementById("seleccion");
-      for (var i = 0; i < selectElement.options.length; i++) {
-        if (selectElement.options[i].value === seleccion) {
-          selectElement.selectedIndex = i;
-          break;
-        }
-      }
-  
-      // Mostrar u ocultar los datos propios según la selección
-      var datosPropios = document.getElementById("datosPropios");
-      if (seleccion === "si") {
-        datosPropios.style.display = "block";
-      } else {
-        datosPropios.style.display = "none";
-      }
-    }
-} */
-
 
     
 

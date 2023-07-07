@@ -439,7 +439,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                         $resultado = mysqli_query($conexion, $consulta);
                                                         while ($fila = mysqli_fetch_array($resultado)) {
 
-                                                            var_dump( $fila['ID_ESCOGIDO']);
                                                         ?>
                                                             <tr class="tr-shadow">
                                                                 <th scope="row"><?php echo $contador ?> </th>

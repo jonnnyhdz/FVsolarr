@@ -5,22 +5,26 @@ include("../../BD/conec.php");
 
 $id_proyecto = $_POST["id_proyecto"];
 $id_seleccionado = isset($_POST["id"]) ? $_POST["id"] : 0;
-$HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 0;
+$HSP = isset($_POST["HSP"]) ? $_POST["HSP"] : 2;
 $nombreP = isset($_POST["pro"]) ? $_POST["pro"] : 0;
 $ubi = isset($_POST["ubi"]) ? $_POST["ubi"] : 0;
 
 $factorPerdida = 0.77;
+$factorPerdida = floatval($factorPerdida);
 
 //CONSULTAR
 $resultados = mysqli_query($conexion, "SELECT * FROM ModulosFV WHERE ID_MFV = '$id_seleccionado'");
 while ($consulta = mysqli_fetch_array($resultados)) {
 
+    
+    /* aqui empieza los errores  */
     $Area_módulo = $consulta['Area_módulo'];
     $Vmpp =  $consulta['Vmpp'];
     $TepMax =  $consulta['Temperature_Coefficient_Pmax'];
     $TepVoc =  $consulta['Temperature_Coefficient_Voc'];
     $OpenC =  $consulta['Circuit_Voltage_Voc'];
     $WATT =  $consulta['Watts'];
+    /* Convertir en float  */
 
     $EnergiaTotal = 0;
 
