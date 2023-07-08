@@ -409,22 +409,30 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 <!-- Inicio del cuadro  -->
 
                 <div class="row col-md-12">
-                    <!-- parte 1 -->
-                    <div class="col-lg-12">
-                        <div class="au-card recent-report">
-                            <div class="au-card-inner">
-                                <div class="">
-                                    <div class="">
-                                        <h2>Inversores en el proyecto</h2>
-                                        <div class="section-content">
-                                            <form action="">
-                                                <table class="table">
+                        <!-- Parte 1 -->
+                        <div class="col-lg-12">
+                            <div class=""> <!-- aqui iba algo -->
+                                <div class="au-card-title" style="background-image:url('../img/cfe.png');">
+                                    <div class="bg-overlay"></div>
+                                    <button class="au-btn-plus" onclick="window.location.href='consumo.php'">
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="au-task js-list-load au-task--border">
+                                    <div class="au-task-list js-scrollbar3">
+                                        <div class="au-task__item au-task__item--danger bg-white">
+                                            <div class="au-task__item-inner">
+                                                <h5 class="task">
+                                                    <div class="top-campaign">
+                                                        <h3 class="title-3 m-b-30"> Tus Inversores </h3>
+                                                        <div class="table-responsive">
+                                                        <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">#</th>
                                                             <th scope="col">Marca</th>
                                                             <th scope="col">Cantidad</th>
-                                                            <th scope="col">Eliminar</th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -446,7 +454,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                 <td><?php echo $fila["cantidad"] ?></td>
                                                                 <td>
                                                                     <div class="table-data-feature">
-                                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminarinversor('<?php echo $fila['ID_ESCOGIDO'] ?>')">
+                                                                        <button class="item mr-5" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminarinversor('<?php echo $fila['ID_ESCOGIDO'] ?>')">
                                                                             <i class="zmdi zmdi-delete"></i>
                                                                         </button>
                                                                     </div>
@@ -456,14 +464,18 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                         } ?>
                                                     </tbody>
                                                 </table>
-                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Parte 2 -->
                     </div>
-                </div>
 
                 <!-- COPYRIGHT-->
                 <section class="p-t-60 p-b-20">
@@ -506,7 +518,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
         <!-- Main JS-->
         <script src="../js/main2.js"></script>
-        <script src="actions/actions.js"></script>
+        <script src="main.js"></script>
 
     </body>
 
