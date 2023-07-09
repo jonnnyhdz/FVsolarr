@@ -410,9 +410,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             <div class=""> <!-- aqui iba algo -->
                                 <div class="au-card-title" style="background-image:url('../img/cfe.png');">
                                     <div class="bg-overlay"></div>
-                                    <button class="au-btn-plus" onclick="window.location.href='consumo.php'">
-                                        <i class="zmdi zmdi-plus"></i>
-                                    </button>
+                                    
                                 </div>
                                 <div class="au-task js-list-load au-task--border">
                                     <div class="au-task-list js-scrollbar3">
@@ -422,57 +420,81 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     <div class="top-campaign">
                                                         <h3 class="title-3 m-b-30"> top campaigns </h3>
                                                         <div class="table-responsive">
-                                                            <table class="table table-top-campaign">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>Fecha</td>
-                                                                        <td>kwh</td>
-                                                                        <td>kw</td>
-                                                                        <td>fp</td>
-                                                                        <td>hola</td>
-                                                                    </tr>
-                                                                    <?php
-                                                                    include("../BD/conec.php");
-                                                                    $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
-                                                                    $resultado = mysqli_query($conexion, $facturas);
-                                                                    while ($fila = mysqli_fetch_array($resultado)) {
+                                                        <form method="POST" action="actualizar_datos.php">
+    <table class="table table-top-campaign">
+        <tbody>
+            <tr>
+                <td>Fecha</td>
+                <td></td>
+                <td>kwh</td>
+                <td>kw</td>
+                <td>fp</td>
+                <td></td>
+            </tr>
+            <?php
+            include("../BD/conec.php");
+            $facturas = "SELECT * FROM facturas WHERE Id_proyecto = $id_proyecto";
+            $resultado = mysqli_query($conexion, $facturas);
 
-                                                                        /*  fechas */
+            while ($fila = mysqli_fetch_array($resultado)) {
+                $id = $fila['id']; // Obtener el ID de la fila
 
-                                                                        $meses = array(
-                                                                            1 => 'enero',
-                                                                            2 => 'febrero',
-                                                                            3 => 'marzo',
-                                                                            4 => 'abril',
-                                                                            5 => 'mayo',
-                                                                            6 => 'junio',
-                                                                            7 => 'julio',
-                                                                            8 => 'agosto',
-                                                                            9 => 'septiembre',
-                                                                            10 => 'octubre',
-                                                                            11 => 'noviembre',
-                                                                            12 => 'diciembre'
-                                                                        );
-                                                                        $fecha = $fila['fecha_facturacion'];
-                                                                        $numero_mes = date('n', strtotime($fecha));
-                                                                        $nombre_mes = $meses[$numero_mes];
-                                                                        $anio = date('Y', strtotime($fecha));
+                /* fechas */
+                $meses = array(
+                    1 => 'enero',
+                    2 => 'febrero',
+                    3 => 'marzo',
+                    4 => 'abril',
+                    5 => 'mayo',
+                    6 => 'junio',
+                    7 => 'julio',
+                    8 => 'agosto',
+                    9 => 'septiembre',
+                    10 => 'octubre',
+                    11 => 'noviembre',
+                    12 => 'diciembre'
+                );
+                $fecha = $fila['mes'];
+                $numero_mes = date('n', strtotime($fecha));
+                $nombre_mes = $meses[$numero_mes];
+                $anio = date('Y', strtotime($fecha));
 
-                                                                        $kwh = $fila['kwh'];
-                                                                        $kw = $fila['kw'];
-                                                                        $fp = $fila['fp'];
+                $kwh = $fila['kwh'];
+                $kw = $fila['kw'];
+                $fp = $fila['fp'];
 
-                                                                    ?>
-                                                                        <tr>
-                                                                            <td><?php echo $nombre_mes . ' ' . $anio; ?></td>
-                                                                            <td><?php echo $kwh; ?></td>
-                                                                            <td><?php echo $kw ?> </td>
-                                                                            <td><?php echo $fp?> </td>
-                                                                            <td> <input type="text" class="col-lg-8  is-valid form-control"></td>
-                                                                        </tr>
-                                                                    <?php } ?>
-                                                                </tbody>
-                                                            </table>
+                $mes2 = $fila['mes2'];
+
+                $nombre_mes2 = ''; // Variable para almacenar el nombre del mes2
+
+                if ($mes2 != '0000-00-00') {
+                    $numero_mes2 = date('n', strtotime($mes2));
+                    $nombre_mes2 = $meses[$numero_mes2];
+                }
+            ?>
+                <tr>
+                    <input type="hidden" name="id[]" value="<?php echo $id; ?>"> <!-- Campo oculto para el ID -->
+                    <td><?php echo $nombre_mes . ' ' . $anio; ?></td>
+                <?php if ($mes2 != '0000-00-00'): ?>
+                    <td><?php echo $nombre_mes2 . ' ' . date('Y', strtotime($mes2)); ?></td>
+                <?php else: ?>
+                    <td></td> <!-- Espacio vacío si no hay fecha2 -->
+                <?php endif; ?>
+                    <td><input type="number" name="kwh[]" value="<?php echo $kwh; ?>" required></td>
+                    <td><input type="number" name="kw[]" value="<?php echo $kw; ?>" required></td>
+                    <td><input type="number" name="fp[]" value="<?php echo $fp; ?>" required></td>
+                    <td></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+
+<button class="au-btn-plus" type="submit"><i class="zmdi zmdi-plus"></i> </button>
+</form>
+
+
+
+
                                                         </div>
                                                     </div>
                                                 </h5>
