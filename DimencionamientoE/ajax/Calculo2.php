@@ -16,7 +16,7 @@ $factorPerdida = floatval($factorPerdida);
 $resultados = mysqli_query($conexion, "SELECT * FROM ModulosFV WHERE ID_MFV = '$id_seleccionado'");
 while ($consulta = mysqli_fetch_array($resultados)) {
 
-    
+
     /* aqui empieza los errores  */
     $Area_módulo = $consulta['Area_módulo'];
     $Vmpp =  $consulta['Vmpp'];
@@ -30,8 +30,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
 
     $resultados = mysqli_query($conexion, "SELECT * FROM facturas WHERE Id_proyecto = '$id_proyecto'");
     while ($consulta = mysqli_fetch_array($resultados)) {
-
-
         $EnergiaTotal = $consulta['kwh'] + $EnergiaTotal;
     }
 
@@ -51,18 +49,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
         $updateProyecto2 = "UPDATE proyectos SET ID_MFV='$id_seleccionado',HSP='$HSP', NOMBRE_PROYECTO='$nombreP',Energiarequerida='$Renergiarequerida',Ubicacion='$ubi' WHERE ID_PROYECTO='$id_proyecto'";
         $resultado = mysqli_query($conexion, $updateProyecto2);
     }
-
-    $consultalimitar = "SELECT * FROM proyectos WHERE ID_PROYECTO='$id_proyecto'";
-    $Limitar = mysqli_query($conexion, $consultalimitar);
-    
-    if ($Limitar) {
-        $proyecto = mysqli_fetch_assoc($Limitar);
-        if ($proyecto['Limitacion'] == "no") {
-            $updateProyecto = "UPDATE proyectos SET PotenciopicoFV='$potenciapicoFV', NumerosdeModulos='$NMAXMFV', Areatotal='$areatotal' WHERE ID_PROYECTO='$id_proyecto'";
-            $resultado = mysqli_query($conexion, $updateProyecto);
-        }
-    }
-    
 }
 
 ?>
@@ -108,7 +94,18 @@ while ($consulta = mysqli_fetch_array($resultados)) {
             </div>
             <input type="hidden" id="idProyecto" name="idProyecto" value="<?php echo $id_proyecto; ?>">
         </div>
+        <?php $consultalimitar = "SELECT * FROM proyectos WHERE ID_PROYECTO='$id_proyecto'";
+        $Limitar = mysqli_query($conexion, $consultalimitar);
+
+        if ($Limitar) {
+            $proyecto = mysqli_fetch_assoc($Limitar);
+            if ($proyecto['Limitacion'] == "no") {
+                $updateProyecto = "UPDATE proyectos SET PotenciopicoFV='$RpotenciapicoFV', NumerosdeModulos='$RedondeoNMAXMFV', Areatotal='$areatotal' WHERE ID_PROYECTO='$id_proyecto'";
+                $resultado = mysqli_query($conexion, $updateProyecto);
+            }
+        } ?>
     <?php } ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
+
 </html>

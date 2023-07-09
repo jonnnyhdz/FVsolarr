@@ -21,23 +21,21 @@ $PotenciopicoFV = 0;
 $NumerosdeModulos = 0;
 $Areatotal = 0;
 $VOCMAX = 0;
-$area = 0;
 $activo_consumo = 0;
-$tipo_tarifa = 0;
-$tipo_servicio = 0;
+$tipo_tarifa = "niguna";
+$tipo_servicio = "ninguna";
+$Limitacion = "no";
 
-
-$Proyecto = "INSERT INTO proyectos(NOMBRE_PROYECTO,ID_USUARIO,TEMP_MIN,TEMP_MAX,HSP,Ubicacion,ID_MFV,VMPMIN,Energiarequerida,PotenciopicoFV,NumerosdeModulos,Areatotal,VOCMAX,areadisponible,activo_consumo,tipo_tarifa,tipo_servicio)
-VALUE('$nomproyecto','$id_usuario','$Temp_min','$Temp_max','$HSP','$Ubicacion','$ID_MFV','$VMPMIN','$Energiarequerida','$PotenciopicoFV','$NumerosdeModulos','$Areatotal','$VOCMAX','$area','$activo_consumo','$tipo_tarifa','$tipo_servicio')";
+$Proyecto = "INSERT INTO proyectos(NOMBRE_PROYECTO,ID_USUARIO,TEMP_MIN,TEMP_MAX,HSP,Ubicacion,ID_MFV,VMPMIN,Energiarequerida,PotenciopicoFV,NumerosdeModulos,Areatotal,VOCMAX,activo_consumo,tipo_tarifa,tipo_servicio,Limitacion)
+VALUE('$nomproyecto','$id_usuario','$Temp_min','$Temp_max','$HSP','$Ubicacion','$ID_MFV','$VMPMIN','$Energiarequerida','$PotenciopicoFV','$NumerosdeModulos','$Areatotal','$VOCMAX','$activo_consumo','$tipo_tarifa','$tipo_servicio','$Limitacion')";
 $resultado = mysqli_query($conexion, $Proyecto);
 
 if (!$resultado) {
     echo '<script>alert("Los datos no se insertaron")</script>';
-
     $error = 1;
     $_SESSION['_error'] = $error;
-
     header("Location: ../Proyecto.php");
+
 } else {
     echo '<script>alert("El proyecto se creó correctamente")</script>';
     header('Location: ../Proyecto.php');

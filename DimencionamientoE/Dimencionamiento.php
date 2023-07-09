@@ -13,6 +13,13 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
     $idproyecto = $_SESSION['ID_PROYECTO'];
     $_SESSION['ID_PROYECTO'] = $idproyecto;
+
+    $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
+    $resultado = mysqli_query($conexion, $consulta);
+    $fila = mysqli_fetch_array($resultado);
+    $valor = $fila['Limitacion'];
+    $potencia_proyecto = $fila['PotenciopicoFV'];
+    
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -48,16 +55,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     </head>
 
     <body>
-
-        <?php
-        include("../BD/conec.php");
-        echo "<script> var idProyecto = $idproyecto;</script>";
-        $consulta = "SELECT * FROM proyectos WHERE ID_PROYECTO=$idproyecto";
-        $resultado = mysqli_query($conexion, $consulta);
-        $fila = mysqli_fetch_array($resultado);
-        $valor = $fila['Limitacion'];
-        $potencia_proyecto = $fila['PotenciopicoFV'];
-        ?>
+        <?php echo "<script> var idProyecto = $idproyecto;</script>"; ?>
         <!-- Inicio del cuadro  -->
         <div class="page-wrapper">
             <div class="page-content--bgf4">
@@ -538,8 +536,6 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             </div>
                         </div>
 
-
-
                         <div class="col-lg-8">
                             <div class="au-card mb-6">
                                 <form method="POST" action="actions/guardar.php">
@@ -569,7 +565,9 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div id="mensaje_">
+                                            <div class="text-center rounded"></div>
+                                        </div>
                                         <?php for ($i = 1; $i <= 10; $i++) { ?>
                                             <div id="marca_<?php echo $i; ?>" class="marca" style="display: none;">
                                                 <div class="container-fluid pt-4 px-4">
@@ -602,13 +600,10 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                                 <div class="text-center rounded">
                                                                     <div class="d-flex align-items-center justify-content-between">
                                                                         <label class="control-label mt-2" for="marca_<?php echo $i; ?>">Cantidad de Inversor <?php echo $i; ?>:</label>
-                                                                        <input class="form-control" type="number" id="cantidad_<?php echo $i; ?>" name="cantidad_<?php echo $i; ?>" onclick="actualizarPotenciaRecomendada(document.getElementById('marca_<?php echo $i; ?>_modelo'), <?php echo $i; ?>)">
+                                                                        <input class="form-control" type="number" id="cantidad_<?php echo $i; ?>" name="cantidad_<?php echo $i; ?>" onchange="actualizarPotenciaRecomendada(document.getElementById('marca_<?php echo $i; ?>_modelo'), <?php echo $i; ?>)">
                                                                         <input type="hidden" id="potencia_proyecto" value="<?php echo $potencia_proyecto; ?>">
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div id="mensaje_<?php echo $i; ?>" class="col-sm-12">
-                                                                <div class="text-center rounded"></div>
                                                             </div>
                                                         </table>
                                                     </div>
@@ -636,16 +631,12 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     return acc + curr;
                                                 }, 0); // Calcular la suma total de las sugerencias
 
-                                                document.getElementById('mensaje_' + numeroInversor).innerHTML = "<div class='text-center rounded'><span class='text-danger'>¡Atención! La potencia FV del proyecto es: (" + potenciaFV + ") supera el límite recomendado. = (" + sumaTotal + ").</span></div>";
+                                                document.getElementById('mensaje_').innerHTML = "<div class='text-center rounded'><span class='text-danger'>¡Atención! La potencia de los inversores son de: (" + sumaTotal + ") supera el límite recomendado del proyecto = (" + potenciaFV + ").</span></div>";
 
-                                                if (sugerencia >= potenciaFV) {
+                                                if (sumaTotal >= potenciaFV) {
                                                     alert("La potencia ya se ha sobrepasado");
                                                 }
 
-                                                console.log(sugerencias); // Mostrar el contenido del array en la consola
-                                                console.log("Número de inversor: " + numeroInversor + ", Sugerencia: " + sugerencia); // Mostrar el valor de la sugerencia cuando se edita el número
-
-                                                console.log("Suma total: " + sumaTotal); // Mostrar la suma total en la consola
                                             }
                                         </script>
 

@@ -34,6 +34,7 @@ function enviarDatos() {
       console.log("Error en la solicitud AJAX");
     }
   });
+
 }
 
 
@@ -74,8 +75,6 @@ function guardarSeleccion(){
     "Limitacion": Limitacion
   };
   
-
-  console.log(Limitacion);
 
   // Realizar la solicitud AJAX a Prueba.php
   $.ajax({
