@@ -84,6 +84,7 @@ while ($consulta = mysqli_fetch_array($resultados)) {
             </div>
             <div class="espacios">
                 <label for="inputNumModulos"><strong>Numeros de Modulos del proyecto:</strong></label>
+                <br>
                 <span style="color: red;"><?php echo $RedondeoNMAXMFV; ?> Modulos</span>
                 <input type="hidden" id="inputNumModulos" name="inputNumModulos" value="<?php echo $NMAXMFV; ?>">
             </div>

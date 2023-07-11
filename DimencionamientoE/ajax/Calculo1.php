@@ -18,8 +18,6 @@ while ($consulta = mysqli_fetch_array($resultados)) {
     $OpenC =  $consulta['Circuit_Voltage_Voc'];
     $CalculoVmpp = $Vmpp + (($valor2 + 30 - 25) * (($TepMax / 100) * $Vmpp));
     $CalculoVoc = $OpenC + (($valor1 - 25) * (($TepVoc / 100) * $OpenC));
-
-
 }
 $updateProyecto = "UPDATE proyectos SET TEMP_MIN='$valor1',TEMP_MAX='$valor2',VMPMIN='$CalculoVmpp',VOCMAX='$CalculoVoc'WHERE ID_PROYECTO='$id_proyecto'";
 $resultado = mysqli_query($conexion, $updateProyecto);
@@ -36,8 +34,14 @@ $resultado = mysqli_query($conexion, $updateProyecto);
 </head>
 
 <body>
-    <p class="espacios" for="descripcion"> <strong> Vmp <sub>min</sub> : </strong><span style="color: red;"> <?php echo $CalculoVmpp; ?> v </span></p>
-    <p class="espacios" for="descripcion"> <strong> VOC <sub>max</sub> : </strong><span style="color: red;"> <?php echo $CalculoVoc; ?> v </span></p>
+    <div class="espacios">
+        <label for="inputEnergiaRequerida"><strong> Vmp <sub>min</sub> :</strong></label>
+        <span style="color: red;"><?php echo $CalculoVmpp; ?> V </span>
+    </div>
+    <div class="espacios">
+        <label for="inputEnergiaRequerida"><strong>  Voc <sub>max</sub>  :</strong></label>
+        <span style="color: red;"><?php echo $CalculoVoc; ?> V </span>
+    </div>
 </body>
 
 </html>

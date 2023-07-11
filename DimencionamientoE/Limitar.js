@@ -49,8 +49,8 @@ function mostrarOcultarDatos() {
   } else {
     datosPropios.style.display = "none";
     mensajeDatos.style.display = "block";
-    mensajeDatos.innerHTML = '<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show m-3">' +
-    '<span class="badge badge-pill badge-danger mr-2">Alert</span>' +
+    mensajeDatos.innerHTML = '<div class="sufee-alert alert with-close alert-warning alert-dismissible fade show mt-3">' +
+    '<span class="badge badge-pill badge-warning mr-2">Alert</span>' +
     'ESTAS UTILIZANDO LOS DATOS DEL SOFTWARE!' +
     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
     '<span aria-hidden="true">&times;</span>' +

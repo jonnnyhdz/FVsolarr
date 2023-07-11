@@ -456,24 +456,30 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                 <div class="row col-md-12">
                     <!-- parte 1 -->
-                    <div class="col-lg-4">
-                        <div class="au-card recent-report">
+                    <div class="col-lg-4 mb-3">
+                        <div class="au-card recent">
                             <div class="au-card-inner">
                                 <div class="section">
                                     <div class="section-content">
                                         <table>
                                             <tbody>
                                                 <tr>
-                                                    <td>Numero de módulos</td>
-                                                    <td id="num-modulos"><?php echo $fila["NumerosdeModulos"]; ?> </td>
+                                                    <div class="espacios">
+                                                        <label for="inputEnergiaRequerida"><strong> Numero de módulos:</strong></label>
+                                                        <span style="color: red;"><?php echo $fila["NumerosdeModulos"];; ?> </span>
+                                                    </div>
                                                 </tr>
                                                 <tr>
-                                                    <td>Area total final para instalar módulos FV</td>
-                                                    <td id="area-total"><?php echo $fila["Areatotal"] ?></td>
+                                                    <div class="espacios">
+                                                        <label for="inputEnergiaRequerida"><strong> Area total final para instalar módulos FV:</strong></label>
+                                                        <span style="color: red;"><?php echo $fila["Areatotal"]; ?></span>
+                                                    </div>
                                                 </tr>
                                                 <tr>
-                                                    <td>Potencia Pico FV final</td>
-                                                    <td id="potencia-pico"><?php echo $PpicoFVfinal ?></td>
+                                                    <div class="espacios">
+                                                        <label for="inputEnergiaRequerida"><strong> Potencia Pico FV final:</strong></label>
+                                                        <span style="color: red;"><?php echo $PpicoFVfinal ?></span>
+                                                    </div>
                                                     <div id="potencia" value="<?php echo $PpicoFVfinal; ?>"></div>
                                                 </tr>
                                             </tbody>
@@ -484,19 +490,17 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         </div>
                     </div>
                 </div>
-
-
                 <!-- tabla 1 -->
 
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive table--no-card m-b-30">
-                                <table class="table table-borderless table-striped table-earning">
+                                <table class="table table-bordered table-striped table-earning">
                                     <thead>
                                         <tr>
-                                            <td>Potencia Pico</td>
-                                            <td id="potencia-pico2"> <?php echo $PpicoFVfinal ?> </td>
+                                            <td class="border border-dark bg-white text-center">Potencia Pico</td>
+                                            <td class="border border-dark bg-white text-center" id="potencia-pico2"> <?php echo $PpicoFVfinal ?> </td>
                                         </tr>
                                         <tr>
                                             <th> Opciones </th>
@@ -510,7 +514,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             <th> Vmpmin en serie </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="bg-white text-center">
                                         <?php
                                         include("../BD/conec.php");
 
@@ -591,7 +595,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive table--no-card m-b-30">
-                                <table class="table table-borderless table-striped table-earning" id="tabla-arreglos">
+                                <table class="table table-bordered table-striped table-earning" id="tabla-arreglos">
                                     <?php
                                     include("../BD/conec.php");
 
@@ -623,7 +627,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         </tr>
 
                                     </thead>
-                                    <tbody>
+                                    <tbody class="bg-white text-center">
                                         <?php
                                         $campos = array('Marca', 'Modelo', 'MPPT');
 
@@ -670,129 +674,112 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                 </div>
 
                 <!-- tabla 3  -->
-                <div class="container-fluid mt-4 pt-4 px-4">
-                    <div class="bg-secondary text-center rounded">
-                        <div class="row g-4">
-                            <div class="col-sm-12 col-xl-12">
-                                <div class="bg-secondary rounded h-100 p-1">
 
-                                    <?php
-                                    include("../BD/conec.php");
+                <div class="row mx-1">
+                    <div class="col-lg-12">
+                        <!-- USER DATA-->
+                        <div class="user-data m-b-30">
+                            <h3 class="title-3 m-b-30 text-center">
+                                <i class="zmdi zmdi-account-calendar"></i> CIRCUITOS INVERSORES
+                            </h3>
+                            <div class="table-responsive table-data">
+                                <?php
+                                include("../BD/conec.php");
 
-                                    $inversores = array();
+                                $inversores = array();
 
-                                    $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
-JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
-                                    $resultado = mysqli_query($conexion, $consulta);
+                                $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES, inversores.Marca, inversores.Modelo, inversores.No_rastreadores_MPPT, inversores.Max_corriente_cortocircuito_rastreador_MPPT, inversores.Max_corriente_entrada_rastreador_MPPT FROM escogido_mfv
+                            JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
+                            WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
+                                $resultado = mysqli_query($conexion, $consulta);
 
-                                    while ($fila = mysqli_fetch_array($resultado)) {
-                                        $idInversor = $fila['ID_INVERSORES'];
-                                        if (!isset($inversores[$idInversor])) {
-                                            $inversores[$idInversor] = array(
-                                                'ID_INVERSORES' => $fila['ID_INVERSORES'],
-                                                'Marca' => $fila['Marca'],
-                                                'Modelo' => $fila['Modelo'],
-                                                'No_rastreadores_MPPT' => $fila['No_rastreadores_MPPT'],
-                                                'voc' => $voc, // Agregar voc al array
-                                            );
-                                        }
+                                while ($fila = mysqli_fetch_array($resultado)) {
+                                    $idInversor = $fila['ID_INVERSORES'];
+                                    if (!isset($inversores[$idInversor])) {
+                                        $inversores[$idInversor] = array(
+                                            'ID_INVERSORES' => $fila['ID_INVERSORES'],
+                                            'Marca' => $fila['Marca'],
+                                            'Modelo' => $fila['Modelo'],
+                                            'No_rastreadores_MPPT' => $fila['No_rastreadores_MPPT'],
+                                            'voc' => $voc, // Agregar voc al array
+                                        );
                                     }
-                                    ?>
+                                }
+                                ?>
 
-                                    <div class="container-fluid mt-4 pt-4 px-4">
-                                        <div class="bg-secondary text-center rounded">
-                                            <div class="row g-4">
-                                                <div class="col-sm-12 col-xl-12">
-                                                    <div class="bg-secondary rounded h-100 p-1">
-                                                        <?php
-                                                        foreach ($inversores as $inversor) {
-                                                        ?>
-                                                            <div class="container-fluid mt-4 pt-4 px-4 m-2">
-                                                                <div class="bg-secondary text-center rounded">
-                                                                    <div class="row g-4">
-                                                                        <div class="col-sm-12 col-xl-12">
-                                                                            <div class="bg-secondary rounded h-100 p-1">
-                                                                                <table id="myTable">
-                                                                                    <tr>
-                                                                                        <th colspan="6">Inversor: <?php echo $inversor['Marca'] . ' ' . $inversor['Modelo']; ?></th>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th> Circuito FV </th>
-                                                                                        <th> Num. de modulos FV </th>
-                                                                                        <th>V.Maximo</th>
-                                                                                        <th>Potencia</th>
-                                                                                        <th>Corriente</th>
-                                                                                    </tr>
-                                                                                    <?php
-                                                                                    $contador_modulos = $inversor['No_rastreadores_MPPT'] * 2; // Calcular el número de circuitos
+                                <?php foreach ($inversores as $inversor) { ?>
+                                    <div class="table-responsive table--no-card m-b-30">
+                                        <table class="table table-bordered table-striped table-earning" id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="6">Inversor: <?php echo $inversor['Marca'] . ' ' . $inversor['Modelo']; ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th> Circuito FV </th>
+                                                    <th> Num. de modulos FV </th>
+                                                    <th>V.Maximo</th>
+                                                    <th>Potencia</th>
+                                                    <th>Corriente</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $contador_modulos = $inversor['No_rastreadores_MPPT'] * 2; // Calcular el número de circuitos
 
-                                                                                    for ($i = 1; $i <= $contador_modulos; $i++) {
-                                                                                        $modulosmax1 = $modulosmax1; // Asigna el valor inicial deseado
-                                                                                    ?>
-                                                                                        <tr>
-                                                                                            <td>Circuito <?php echo $i; ?></td>
-                                                                                            <td>
-                                                                                                <input value="<?php echo $modulosmax1; ?>" type="number" class="vmaximo-input form-control border-0 rounded-pill my-2 input-sm" onchange="calculateTotal(this)">
-                                                                                            </td>
-                                                                                            <td class="total-vmax"> ....</td>
-                                                                                            <td class="potencia-input"> .... </td>
-                                                                                            <td class="corriente-input"> ....</td>
-                                                                                        </tr>
-                                                                                    <?php
-                                                                                    }
-                                                                                    ?>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                        ?>
-
-                                                        <div id="voc" data-value="<?php echo $voc; ?>"></div>
-                                                        <div id="Potenciapanel" data-value="<?php echo $Potenciapanel; ?>"></div>
-                                                        <div id="Circuit" data-value="<?php echo $Short_Circuit; ?>"></div>
-                                                        <script>
-                                                            var voc = parseFloat(document.getElementById("voc").getAttribute("data-value"));
-                                                            var Potenciapanel = parseFloat(document.getElementById("Potenciapanel").getAttribute("data-value"));
-                                                            var Circuit = parseFloat(document.getElementById("Circuit").getAttribute("data-value"));
-
-                                                            function calculateTotal(input) {
-                                                                var tableRow = input.closest('tr');
-                                                                var numModulos = parseFloat(input.value);
-                                                                var vmax = numModulos * voc;
-                                                                var potencia = Potenciapanel * numModulos;
-                                                                tableRow.querySelector('.total-vmax').textContent = vmax.toFixed(2);
-                                                                tableRow.querySelector('.potencia-input').textContent = potencia.toFixed(2);
-                                                                tableRow.querySelector('.corriente-input').textContent = Circuit.toFixed(2);
-                                                                calculateRowTotal(tableRow.closest('table'));
-                                                            }
-
-                                                            // Llama a calculateTotal para calcular los valores iniciales al cargar la página
-                                                            var inputs = document.querySelectorAll('.vmaximo-input');
-                                                            inputs.forEach(function(input) {
-                                                                calculateTotal(input);
-                                                            });
-                                                        </script>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                for ($i = 1; $i <= $contador_modulos; $i++) {
+                                                    $modulosmax1 = $modulosmax1; // Asigna el valor inicial deseado
+                                                ?>
+                                                    <tr>
+                                                        <td>Circuito <?php echo $i; ?></td>
+                                                        <td>
+                                                            <input value="<?php echo $modulosmax1; ?>" type="number" class="vmaximo-input form-control border-0 rounded-pill my-2 input-sm" onchange="calculateTotal(this)">
+                                                        </td>
+                                                        <td class="total-vmax"> ....</td>
+                                                        <td class="potencia-input"> .... </td>
+                                                        <td class="corriente-input"> ....</td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
-
-                                </div>
+                                <?php } ?>
+                            </div>
+                            <div class="user-data__footer">
+                                <button class="au-btn au-btn-load">load more</button>
                             </div>
                         </div>
+                        <!-- END USER DATA-->
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+        <div id="voc" data-value="<?php echo $voc; ?>"></div>
+        <div id="Potenciapanel" data-value="<?php echo $Potenciapanel; ?>"></div>
+        <div id="Circuit" data-value="<?php echo $Short_Circuit; ?>"></div>
+        <script>
+            var voc = parseFloat(document.getElementById("voc").getAttribute("data-value"));
+            var Potenciapanel = parseFloat(document.getElementById("Potenciapanel").getAttribute("data-value"));
+            var Circuit = parseFloat(document.getElementById("Circuit").getAttribute("data-value"));
+
+            function calculateTotal(input) {
+                var tableRow = input.closest('tr');
+                var numModulos = parseFloat(input.value);
+                var vmax = numModulos * voc;
+                var potencia = Potenciapanel * numModulos;
+                tableRow.querySelector('.total-vmax').textContent = vmax.toFixed(2);
+                tableRow.querySelector('.potencia-input').textContent = potencia.toFixed(2);
+                tableRow.querySelector('.corriente-input').textContent = Circuit.toFixed(2);
+                calculateRowTotal(tableRow.closest('table'));
+            }
+
+            // Llama a calculateTotal para calcular los valores iniciales al cargar la página
+            var inputs = document.querySelectorAll('.vmaximo-input');
+            inputs.forEach(function(input) {
+                calculateTotal(input);
+            });
+        </script>
 
 
         <!-- JavaScript Libraries -->
@@ -824,7 +811,7 @@ WHERE escogido_mfv.ID_PROYECTO = '$id_proyecto'";
         <script src="ajaxcalculo.js"> </script>
         <script src="guardar.js"></script>
         <script src="../Volmaxymin/calculos/Tabla2.js"></script>
-        <script src="../cokkies/cokkies.js"></script>
+
     </body>
 
     </html>

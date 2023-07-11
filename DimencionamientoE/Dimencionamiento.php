@@ -19,7 +19,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
     $fila = mysqli_fetch_array($resultado);
     $valor = $fila['Limitacion'];
     $potencia_proyecto = $fila['PotenciopicoFV'];
-    
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -392,12 +392,12 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                     </section>
 
                     <!-- END BREADCRUMB-->
-                    <div class="row col-md-12">
+                    <div class="row mx-2">
                         <!-- parte 1 -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="au-card recent">
-                                <div class="au-card-inner">
-                                    <div class="">
+                        <div class="col-lg-4 mb-4 d-flex flex-column">
+                            <div class="flex-fill">
+                                <div class="au-card recent h-100">
+                                    <div class="au-card-inner">
                                         <div class="">
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1"> Name proyect </label>
@@ -405,7 +405,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                             </div>
                                             <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1"> Peak Solar Hour (HSP) </label>
-                                                <input type="number" step="0.01" class="form-control cc-name valid" id="ior" name="hsp" placeholder="Min" oninput="guardar()" value="<?php echo $fila["HSP"] ?>">
+                                                <input type="number" step="0.01" class="form-control cc-name valid" id="ior" name="hsp" placeholder="Min" oninput="guardar(); setTimeout(function() { location.reload(); }, 3000);" value="<?php echo $fila["HSP"] ?>">
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
@@ -435,59 +435,61 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                         </div>
 
                         <div class="col-lg-4 mb-4">
-                            <div class="au-card mb-4">
-                                <div class="au-card-inner">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="cc-exp" class="control-label"> temperature </label>
-                                                <div class="chart-statis mr-0">
-                                                    <span class="index incre">
-                                                        <i class="zmdi zmdi-long-arrow-up"></i>
-                                                        <input type="number" id="max" name="max" class="col col-sm-9" oninput="guardar()" value="<?php echo $fila["TEMP_MAX"] ?>"></span>
-                                                    <span class="label">maximum</span>
+                            <div class="h-100">
+                                <div class="au-card mb-4">
+                                    <div class="au-card-inner">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="cc-exp" class="control-label"> temperature </label>
+                                                    <div class="chart-statis mr-0">
+                                                        <span class="index incre">
+                                                            <i class="zmdi zmdi-long-arrow-up"></i>
+                                                            <input type="number" id="max" name="max" class="col col-sm-9" oninput="guardar()" value="<?php echo $fila["TEMP_MAX"] ?>"></span>
+                                                        <span class="label">maximum</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="x_card_code" class="control-label "> temperature </label>
-                                            <div class="input-group">
-                                                <div class="chart-statis mr-0">
-                                                    <span class="index decre">
-                                                        <i class="zmdi zmdi-long-arrow-down"></i>
-                                                        <input type="number" id="min" name="min" class="col col-sm-9" oninput="guardar()" value="<?php echo $fila["TEMP_MIN"] ?>"> </span>
-                                                    <span class="label">Minimum</span>
+                                            <div class="col-6">
+                                                <label for="x_card_code" class="control-label "> temperature </label>
+                                                <div class="input-group">
+                                                    <div class="chart-statis mr-0">
+                                                        <span class="index decre">
+                                                            <i class="zmdi zmdi-long-arrow-down"></i>
+                                                            <input type="number" id="min" name="min" class="col col-sm-9" oninput="guardar()" value="<?php echo $fila["TEMP_MIN"] ?>"> </span>
+                                                        <span class="label">Minimum</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="au-card recent">
-                                <div class="au-card-inner ">
-                                    <div class="">
+                                <div class="au-card recent">
+                                    <div class="au-card-inner ">
                                         <div class="">
-                                            <div class="form-group">
-                                                <h5> Modulos Fotovoltaicos: </h5>
-                                                <select class="form-control mb-1" name="cat" aria-label="Floating label select example" onclick="guardar();">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <h5 class="text-center"> Modulos Fotovoltaicos </h5>
+                                                    <select class="form-control mb-1" name="cat" aria-label="Floating label select example" onclick="guardar();">
 
-                                                    <?php
-                                                    include('../BD/conec.php');
-                                                    $consulta2 = "SELECT * FROM ModulosFV";
-                                                    $resultado2 = mysqli_query($conexion, $consulta2);
-                                                    while ($fila2 = mysqli_fetch_array($resultado2)) {
-                                                        $selected = ($fila2["ID_MFV"] == $fila["ID_MFV"]) ? "selected" : "";
-                                                    ?>
+                                                        <?php
+                                                        include('../BD/conec.php');
+                                                        $consulta2 = "SELECT * FROM ModulosFV";
+                                                        $resultado2 = mysqli_query($conexion, $consulta2);
+                                                        while ($fila2 = mysqli_fetch_array($resultado2)) {
+                                                            $selected = ($fila2["ID_MFV"] == $fila["ID_MFV"]) ? "selected" : "";
+                                                        ?>
 
-                                                        <option value="<?php echo $fila2["ID_MFV"]; ?>" <?php echo $selected; ?>>
-                                                            <?php echo $fila2["Marca"]; ?>
-                                                            <span style="margin: 0 5px;">--</span>
-                                                            <?php echo $fila2["Modelo"]; ?>
-                                                            <span style="margin: 0 5px;">--</span>
-                                                            <?php echo $fila2["Watts"]; ?> Watts
-                                                        </option>
-                                                    <?php } ?>
-                                                </select>
+                                                            <option value="<?php echo $fila2["ID_MFV"]; ?>" <?php echo $selected; ?>>
+                                                                <?php echo $fila2["Marca"]; ?>
+                                                                <span style="margin: 0 5px;">--</span>
+                                                                <?php echo $fila2["Modelo"]; ?>
+                                                                <span style="margin: 0 5px;">--</span>
+                                                                <?php echo $fila2["Watts"]; ?> Watts
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -495,20 +497,23 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                             </div>
                         </div>
 
-                        <div class="col-lg-4 mb-4">
-                            <div class="au-card recent">
-                                <div class="au-card-inner">
-                                    <div class="mb-2">
-                                        <div class="mt-3" id="mostrar_mensaje"></div>
-                                    </div>
-                                    <div class="">
-                                        <div id="mostrar_mensaje2"></div>
+                        <div class="col-lg-4 mb-4 d-flex flex-column">
+                            <div class="flex-fill">
+                                <div class="au-card recent h-100">
+                                    <div class="au-card-inner">
+                                        <div class="mb-2">
+                                            <div class="mt-3 h-100" id="mostrar_mensaje"></div>
+                                        </div>
+                                        <div class="h-100">
+                                            <div id="mostrar_mensaje2"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="row col-md-12">
+                    <div class="row mx-2">
                         <!-- parte 1 -->
                         <div class="col-lg-4">
                             <div class="au-card recent-report">
@@ -517,7 +522,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                         <div class="section-content">
                                             <div class="section">
                                                 <h2>Limitar</h2>
-                                                <select id="seleccion" name="seleccion" onchange="guardarSeleccion()">
+                                                <select class="form-control col-4" id="seleccion" name="seleccion" onchange="guardarSeleccion()">
                                                     <option value="no" <?php if ($valor == 'no') echo 'selected'; ?>>No</option>
                                                     <option value="si" <?php if ($valor == 'si') echo 'selected'; ?>>Sí</option>
                                                 </select>

@@ -408,74 +408,72 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
 
                 <!-- Inicio del cuadro  -->
 
-                <div class="row col-md-12">
-                        <!-- Parte 1 -->
-                        <div class="col-lg-12">
-                            <div class=""> <!-- aqui iba algo -->
-                                <div class="au-card-title" style="background-image:url('../img/cfe.png');">
+                <div class="row mx-2">
+                    <!-- Parte 1 -->
+                    <div class="col-lg-12">
+                        <!-- aqui iba algo -->
+                        <!--  <div class="au-card-title" style="background-image:url('../img/inversor.jpg');">
                                     <div class="bg-overlay"></div>
                                     <button class="au-btn-plus" onclick="window.location.href='consumo.php'">
                                         <i class="zmdi zmdi-plus"></i>
                                     </button>
-                                </div>
-                                <div class="au-task js-list-load au-task--border">
-                                    <div class="au-task-list js-scrollbar3">
-                                        <div class="au-task__item au-task__item--danger bg-white">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <div class="top-campaign">
-                                                        <h3 class="title-3 m-b-30"> Tus Inversores </h3>
-                                                        <div class="table-responsive">
-                                                        <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">Marca</th>
-                                                            <th scope="col">Cantidad</th>
-                                                            <th></th>
+                                </div> -->
+                        <div class="au-task js-list-load au-task--border">
+                            <div class="au-task-list js-scrollbar3">
+
+                                <div class="au-task__item-inner">
+                                    <div class="top-campaign text-center">
+                                        <h3 class="title-3"> Tus Inversores </h3>
+                                        <div class="table-responsive">
+                                            <table class="table border border-black">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Marca</th>
+                                                        <th scope="col">Cantidad</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $contador = 1;
+                                                    include('../BD/conec.php');
+                                                    $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES,escogido_mfv.cantidad, inversores.Marca,inversores.Modelo
+                                                                FROM escogido_mfv
+                                                                JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
+                                                                WHERE ID_PROYECTO = '$id_proyecto'";
+
+                                                    $resultado = mysqli_query($conexion, $consulta);
+                                                    while ($fila = mysqli_fetch_array($resultado)) {
+
+                                                    ?>
+                                                        <tr class="tr-shadow">
+                                                            <th scope="row"><?php echo $contador ?> </th>
+                                                            <td><?php echo $fila['Marca'] ?><?php echo $fila['Modelo'] ?></td>
+                                                            <td><?php echo $fila["cantidad"] ?></td>
+                                                            <td>
+                                                                <div class="table-data-feature">
+                                                                    <button class="item mr-5" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminarinversor('<?php echo $fila['ID_ESCOGIDO'] ?>')">
+                                                                        <i class="zmdi zmdi-delete"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $contador = 1;
-                                                        include('../BD/conec.php');
-                                                        $consulta = "SELECT escogido_mfv.ID_ESCOGIDO, escogido_mfv.ID_INVERSORES,escogido_mfv.cantidad, inversores.Marca,inversores.Modelo
-                                                        FROM escogido_mfv
-                                                        JOIN inversores ON escogido_mfv.ID_INVERSORES = inversores.id_inversor
-                                                        WHERE ID_PROYECTO = '$id_proyecto'";
-
-                                                        $resultado = mysqli_query($conexion, $consulta);
-                                                        while ($fila = mysqli_fetch_array($resultado)) {
-
-                                                        ?>
-                                                            <tr class="tr-shadow">
-                                                                <th scope="row"><?php echo $contador ?> </th>
-                                                                <td><?php echo $fila['Marca'] ?><?php echo $fila['Modelo'] ?></td>
-                                                                <td><?php echo $fila["cantidad"] ?></td>
-                                                                <td>
-                                                                    <div class="table-data-feature">
-                                                                        <button class="item mr-5" data-toggle="tooltip" data-placement="top" title="Delete" onclick="eliminarinversor('<?php echo $fila['ID_ESCOGIDO'] ?>')">
-                                                                            <i class="zmdi zmdi-delete"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        <?php $contador++;
-                                                        } ?>
-                                                    </tbody>
-                                                </table>
-                                                        </div>
-                                                    </div>
-                                                </h5>
-                                            </div>
+                                                    <?php $contador++;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
-                        <!-- Parte 2 -->
                     </div>
+
+                    <!-- Parte 2 -->
+                </div>
 
                 <!-- COPYRIGHT-->
                 <section class="p-t-60 p-b-20">
