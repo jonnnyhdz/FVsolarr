@@ -46,31 +46,70 @@
                             <div class="login-form">
                                 <form action="procesar_registro.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input class="au-input au-input--full" type="text" name="nombre" id="username" placeholder="Exameple" required>
+                                        <label>Correo Electronico</label>
+                                        <input class="au-input au-input--full" type="email" name="correo" id="correo"
+                                            placeholder="name@example.com" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>surnames</label>
-                                        <input class="au-input au-input--full" type="text" name="apellidos" id="apellidos" placeholder="Example" required>
+                                        <label>Confirma Correo Electronico</label>
+                                        <input class="au-input au-input--full" type="email" name="confirmar_correo"
+                                            id="confirmar_correo" placeholder="name@example.com" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <div class="input-group">
+                                            <input class="au-input au-input--full" type="password" name="contrasena"
+                                                id="contrasena" placeholder="Password" required minlength="8"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="ver_contrasena" onclick="togglePasswordVisibility()"><i
+                                                        class="fa fa-eye"></i></button>
+                                            </div>
+                                        </div>
+                                        <small id="contrasena-formato" class="form-text text-muted">La contraseña debe
+                                            tener al menos 8 caracteres, incluyendo al menos 1 mayúscula, 1 número y 1
+                                            carácter especial.</small>
                                     </div>
                                     <div class="form-group">
-                                        <label>company name</label>
-                                        <input class="au-input au-input--full" type="text" name="nombre_empresa" id="nombre_empresa" placeholder="Example" required>
+                                        <label>Confirma Contraseña</label>
+                                        <div class="input-group">
+                                            <input class="au-input au-input--full" type="password"
+                                                name="confirmar_contrasena" id="confirmar_contrasena"
+                                                placeholder="Confirm Password" required minlength="8"
+                                                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="ver_confirmar_contrasena"
+                                                    onclick="toggleConfirmPasswordVisibility()"><i
+                                                        class="fa fa-eye"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Email Address</label>
-                                        <input class="au-input au-input--full" type="email" name="correo" id="correo" placeholder="name@example.com">
+                                        <label>Nombre</label>
+                                        <input class="au-input au-input--full" type="text" name="nombre" id="username"
+                                            placeholder="Example" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Password</label>
-                                        <input class="au-input au-input--full" type="password" name="contrasena" placeholder="Password">
+                                        <label>Apellidos</label>
+                                        <input class="au-input au-input--full" type="text" name="apellidos"
+                                            id="apellidos" placeholder="Example" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>phone number</label>
-                                        <input class="au-input au-input--full" type="tel" name="telefono" id="telefono" placeholder="1234567891" required pattern="\d{10}" maxlength="10">
+                                        <label>Nombre Empresa</label>
+                                        <input class="au-input au-input--full" type="text" name="nombre_empresa"
+                                            id="nombre_empresa" placeholder="Example" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Numero de telefono</label>
+                                        <input class="au-input au-input--full" type="tel" name="telefono" id="telefono"
+                                            placeholder="1234567891" required pattern="\d{10}" maxlength="10">
                                     </div>
                                     <div class="form-group">
-                                        <label for="estado">State</label>
+                                        <label for="estado">Estado</label>
                                         <select class="form-control" name="estado" id="estado" required>
                                             <option value="">Seleccione un estado</option>
                                             <option value="Aguascalientes">Aguascalientes</option>
@@ -111,28 +150,80 @@
                                         <select class="form-control" name="persona" id="persona" required>
                                             <option value="">Tipo Persona</option>
                                             <option value="persona_moral">Persona Moral</option>
-                                            <option value="persona_fisica">persona Fisica</option>
+                                            <option value="persona_fisica">Persona Fisica</option>
                                         </select>
                                     </div>
                                     <div class="login-checkbox">
                                         <label>
-                                            <input type="checkbox" name="aggree">Agree the terms and policy
+                                            <input type="checkbox" name="aggree">Agree to the terms and policy
                                         </label>
                                     </div>
-                                    <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
-                                    <div class="social-login-content">
+                                    <button class="au-btn au-btn--block au-btn--green m-b-20"
+                                        type="submit">Register</button>
+                                 <!--   <div class="social-login-content">
                                         <div class="social-button">
-                                            <button class="au-btn au-btn--block au-btn--blue m-b-20">register with facebook</button>
-                                            <button class="au-btn au-btn--block au-btn--blue2">register with twitter</button>
+                                            <button class="au-btn au-btn--block au-btn--blue m-b-20">Register with
+                                                Facebook</button>
+                                            <button class="au-btn au-btn--block au-btn--blue2">Register with
+                                                Twitter</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </form>
                                 <div class="register-link">
                                     <p>
-                                        Already have account?
-                                        <a href="signin.php">Sign In</a>
+                                    ¿Ya tienes cuenta?
+                                        <a href="signin.php">Iniciar sesión</a>
                                     </p>
                                 </div>
+                                <script>
+                                function togglePasswordVisibility() {
+                                    var passwordInput = document.getElementById("contrasena");
+                                    if (passwordInput.type === "password") {
+                                        passwordInput.type = "text";
+                                    } else {
+                                        passwordInput.type = "password";
+                                    }
+                                }
+
+                                function toggleConfirmPasswordVisibility() {
+                                    var confirmPasswordInput = document.getElementById("confirmar_contrasena");
+                                    if (confirmPasswordInput.type === "password") {
+                                        confirmPasswordInput.type = "text";
+                                    } else {
+                                        confirmPasswordInput.type = "password";
+                                    }
+                                }
+
+                                var correoInput = document.getElementById("correo");
+                                var confirmarCorreoInput = document.getElementById("confirmar_correo");
+                                var contrasenaInput = document.getElementById("contrasena");
+                                var confirmarContrasenaInput = document.getElementById("confirmar_contrasena");
+
+                                correoInput.addEventListener("input", validateEmailMatch);
+                                confirmarCorreoInput.addEventListener("input", validateEmailMatch);
+                                contrasenaInput.addEventListener("input", validatePasswordMatch);
+                                confirmarContrasenaInput.addEventListener("input", validatePasswordMatch);
+
+                                function validateEmailMatch() {
+                                    var correoValue = correoInput.value;
+                                    var confirmarCorreoValue = confirmarCorreoInput.value;
+                                    if (correoValue !== confirmarCorreoValue) {
+                                        confirmarCorreoInput.setCustomValidity("El correo no coincide.");
+                                    } else {
+                                        confirmarCorreoInput.setCustomValidity("");
+                                    }
+                                }
+
+                                function validatePasswordMatch() {
+                                    var contrasenaValue = contrasenaInput.value;
+                                    var confirmarContrasenaValue = confirmarContrasenaInput.value;
+                                    if (contrasenaValue !== confirmarContrasenaValue) {
+                                        confirmarContrasenaInput.setCustomValidity("La contraseña no coincide.");
+                                    } else {
+                                        confirmarContrasenaInput.setCustomValidity("");
+                                    }
+                                }
+                                </script>
                             </div>
                         </div>
                     </div>

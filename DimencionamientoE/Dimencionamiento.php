@@ -636,7 +636,7 @@ if ($resultado && mysqli_num_rows($resultado) > 0) {
                                                     return acc + curr;
                                                 }, 0); // Calcular la suma total de las sugerencias
 
-                                                document.getElementById('mensaje_').innerHTML = "<div class='text-center rounded'><span class='text-danger'>¡Atención! La potencia de los inversores son de: (" + sumaTotal + ") supera el límite recomendado del proyecto = (" + potenciaFV + ").</span></div>";
+                                                document.getElementById('mensaje_').innerHTML = "<div class='text-center rounded'><span class='text-danger'>¡Atención! La potencia de los inversores es de: (" + sumaTotal + " ) supera el límite recomendado del proyecto = (" + potenciaFV + ").</span></div>";
 
                                                 if (sumaTotal >= potenciaFV) {
                                                     alert("La potencia ya se ha sobrepasado");
